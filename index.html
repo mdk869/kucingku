@@ -1,0 +1,280 @@
+<!DOCTYPE html><html lang="ms" data-theme="light"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Kucingku"><title>Kucingku</title><meta name="description" content="Rekod kesihatan, berat dan jadual rawatan kucing. Data disimpan di telefon anda sahaja."><meta name="theme-color" content="#FBF5F6"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png"><link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+html{color-scheme:light}
+:root{--bg:#FBF5F6;--card:#FFFDFD;--ink:#5A4558;--mute:#86708A;--line:#F2E0E6;--btn:#D2667F;--btnt:#fff;--soft:#F9E8ED;--bad:#C2455F;--good:#12805F;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.45 Figtree,system-ui,-apple-system,sans-serif;padding-bottom:90px;-webkit-tap-highlight-color:transparent}
+main{max-width:520px;margin:0 auto;padding:16px}
+h1,h2,.d{font-family:'Bricolage Grotesque',Georgia,serif}
+h2{font-size:21px;font-weight:800;margin:26px 0 10px}
+.mute{color:var(--mute);font-size:14px}
+.hero{background:linear-gradient(140deg,#E85D80,#F58AA3);color:#fff;border-radius:30px;padding:22px}
+.hero h1{font-size:32px;line-height:1.08;font-weight:800;margin:16px 0 8px}.hero p{opacity:.82;font-size:15px}
+.stack{display:flex;padding-left:12px}.stack .av{margin-left:-12px;border:3px solid #EC6F8E}
+.av{width:48px;height:48px;border-radius:50%;overflow:hidden;flex:none;display:block}
+.av img,.av svg{width:100%;height:100%;object-fit:cover;display:block}
+.card{background:var(--card);border-radius:20px;padding:16px;border:1px solid var(--line);margin-bottom:12px}
+.row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:12px;margin-bottom:8px;font:inherit;color:inherit}
+.row b{display:block;font-weight:700}
+.pill{margin-left:auto;font-size:12px;font-weight:700;padding:5px 11px;border-radius:99px;background:var(--soft);white-space:nowrap}
+.pill.bad{background:var(--bad);color:var(--bg)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.cc{display:flex;flex-direction:column;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:14px;font:inherit;color:inherit;text-align:left}
+.cc .av{width:60px;height:60px}.cc b{font:800 18px 'Bricolage Grotesque',serif;display:block}
+.btn{background:var(--btn);color:var(--btnt);border:0;border-radius:99px;padding:13px 22px;font:700 16px Figtree,sans-serif;margin-top:6px}
+.btn.g{background:var(--soft);color:var(--ink)}.btn.w{background:#fff;color:#C92A52;margin-top:4px}.btn.r{background:none;color:var(--bad);padding:8px}
+.acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:16px 0 12px;padding-bottom:4px}
+.tabs button{flex:none;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:9px 16px;font:600 15px Figtree,sans-serif}
+.tabs button.on{background:var(--btn);color:var(--btnt);border-color:var(--btn)}
+.top{display:flex;align-items:center;gap:14px;margin-top:6px}.top .av{width:76px;height:76px}.top h1{font-size:30px;font-weight:800;line-height:1.05}
+.bk{border:0;background:var(--soft);color:var(--ink);border-radius:99px;padding:8px 14px;font:600 14px Figtree,sans-serif}
+.ch{width:100%;height:auto;display:block}.big{font:800 34px 'Bricolage Grotesque',serif}
+.x{margin-left:auto;border:0;background:none;color:var(--mute);font:600 13px Figtree,sans-serif;padding:8px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:6px;background:var(--card);border-top:1px solid var(--line);padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;max-width:150px;display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:none;color:var(--mute);font:600 12px Figtree,sans-serif;padding:6px;border-radius:14px}
+nav button.on{color:var(--ink);background:var(--soft)}nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#sh{position:fixed;inset:0;background:rgba(10,10,30,.5);display:flex;align-items:flex-end;justify-content:center;z-index:9}#sh[hidden]{display:none}
+.sb{background:var(--card);width:100%;max-width:520px;max-height:90%;overflow:auto;border-radius:28px 28px 0 0;padding:20px 18px calc(24px + env(safe-area-inset-bottom,0px));animation:up .22s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:0}}@media (prefers-reduced-motion:reduce){.sb{animation:none}}
+.sb h2{margin:0 0 14px}label{display:block;font-weight:600;font-size:14px;margin-bottom:12px}
+input,select,textarea{width:100%;margin-top:6px;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:400 16px Figtree,sans-serif}
+.sws{display:flex;gap:10px;margin:6px 0 14px}.sw{width:36px;height:36px;border-radius:50%;margin:0;position:relative}.sw input{opacity:0;position:absolute;inset:0;margin:0;width:100%;height:100%}
+.sw:has(input:checked){outline:3px solid var(--ink);outline-offset:2px}
+#t{position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:600;font-size:14px;z-index:10;max-width:90%;text-align:center}
+:focus-visible{outline:3px solid #E8527A;outline-offset:2px}
+h1,h2,.d,.cc b,.big{font-family:Fredoka,system-ui,sans-serif}
+.hero{position:relative;overflow:hidden}.hero::after{content:'♥';position:absolute;right:14px;top:-6px;font-size:96px;opacity:.18}
+.pc{background:linear-gradient(160deg,#FFE3EA,#FFF7F9 60%);border:2px dashed #F5A9BC;border-radius:28px;padding:18px;margin-top:10px;color:#4A2349}
+.pt{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}.pt .av{width:92px;height:92px;border:4px solid #fff}
+.pc h1{font-size:40px;font-weight:700;color:#EE5E86;line-height:1;margin-bottom:8px}
+.rib,.gp{display:inline-block;background:#F58AA3;color:#fff;font-weight:700;font-size:13px;padding:5px 12px;border-radius:99px}
+.gp{background:#fff;color:#C23A62;margin:12px 0 6px}
+.pf{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed #F5A9BC;font-size:15px}.pf span{flex:0 0 112px;color:#8A5A70}.pf b{font-weight:600}
+.pc .bk{margin-top:12px;background:#fff;color:#C23A62}
+.ms{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+.mt{display:flex;flex-direction:column;gap:3px;text-align:left;background:var(--card);border:2px solid var(--line);border-radius:20px;padding:12px;font:inherit;color:var(--ink)}
+.mt i{width:26px;height:26px;border:2.5px solid var(--btn);border-radius:8px;display:grid;place-items:center;font-style:normal;font-weight:800;color:var(--btnt)}
+.mt.ok{background:var(--soft)}.mt.ok i{background:var(--btn)}.mt b{font-weight:700}.mt span{font-size:14px}.mt small{color:var(--mute);font-size:12px}
+.age{margin:-4px 0 12px;font-weight:700;color:var(--btn)}
+.th-j{--btn:#5A8FD0;--soft:#E8F1FC;--line:#D6E6F8}
+.th-j .pc{background:linear-gradient(160deg,#DCEBFF,#F5F9FF 60%);border-color:#9CC2F5}
+.th-j .pc h1{color:#6F9BD6}.th-j .rib{background:#8DB4E6}.th-j .gp,.th-j .pc .bk{color:#2A68B8}.th-j .pf{border-color:#9CC2F5}.th-j .pf span{color:#56708F}
+*{font-family:Nunito,system-ui,sans-serif!important}
+h1,h2,.d,.cc b,.big,.rib,.gp,.tabs button,nav button,.top2 b,.st b{font-family:Fredoka,system-ui,sans-serif!important}
+.pc{border-color:#F3C3D0}.pc h1{color:#E27C97}.rib{background:#EFA3B6}.gp{color:#B5566F}.pf{border-color:#F3C3D0}
+.hero{background:linear-gradient(135deg,#FBDDE5,#E8E1F7);color:var(--ink);padding:22px 128px 20px 22px;min-height:172px}
+.hero h1{font-size:28px;line-height:1.15;margin:0 0 6px}.hero p{opacity:1;color:var(--mute);margin-bottom:6px}
+.hero svg.art{position:absolute;right:4px;bottom:-4px;width:128px;height:auto}
+.hero::after{top:12px;right:136px;font-size:24px;opacity:.7;color:#F3A6BA}
+.top2{display:flex;align-items:baseline;justify-content:space-between;margin:2px 2px 14px}.top2 b{font-size:26px;font-weight:700;color:#D2667F}.top2 span{color:var(--mute);font-size:14px}
+.rail{display:flex;gap:14px;overflow-x:auto;padding:12px 4px 8px;margin:6px -4px 0}
+.rail button{flex:none;display:flex;flex-direction:column;align-items:center;gap:7px;border:0;background:none;color:var(--ink);font-size:14px;font-weight:700}
+.rail .av{width:64px;height:64px;border:3px solid #fff;box-shadow:0 0 0 3px var(--line)}
+.st{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:10px 0 4px}
+.st div{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:12px 6px;text-align:center}
+.st svg{width:30px;height:30px;fill:none;stroke:var(--btn);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.st b{display:block;font-size:24px;font-weight:700;line-height:1.1}.st span{font-size:13px;color:var(--mute)}
+.ok{text-align:center;padding:18px;background:var(--card);border:2px dashed var(--line);border-radius:24px}.ok svg{width:110px;height:auto}
+.hero h1{color:#5A4558}
+.kh{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 14px}.kh h2{margin:0}
+.kc{display:block;width:100%;text-align:left;border:1px solid #F5D6DF;border-radius:26px;padding:16px;margin-bottom:12px;background:linear-gradient(135deg,#FFEAF0,#FFFDFD 72%);color:var(--ink);font:inherit}
+.kc.j{--btn:#5A8FD0;background:linear-gradient(135deg,#E8F1FC,#FFFDFD 72%);border-color:#D6E6F8}
+.kt{display:flex;gap:14px;align-items:center}.kt .av{width:78px;height:78px;border:4px solid #fff;box-shadow:0 3px 12px rgba(120,80,100,.14)}
+.kn{font-family:Fredoka,system-ui,sans-serif!important;font-size:24px;font-weight:700;line-height:1.1}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 5px}.chip{font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;background:#fff;color:var(--btn)}
+.ks{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.ks>div{background:rgba(255,255,255,.8);border-radius:16px;padding:9px 11px}
+.ks small{display:block;color:var(--mute);font-size:12px}.ks b{font-size:15px;font-weight:700}
+.bar{height:6px;border-radius:9px;background:var(--line);margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--btn);border-radius:9px}
+.nx{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--soft);border-radius:16px;padding:10px 14px;margin-top:6px;font-size:14px;line-height:1.35}.nx b{font-weight:700;font-size:16px}.nx span{color:var(--mute);text-align:right;font-size:13px}
+.tips{margin-top:14px;border-top:2px dashed var(--line);padding-top:12px}.tips>b{display:block;font-family:Fredoka,system-ui,sans-serif!important;font-size:17px;margin-bottom:4px}
+.tp{display:flex;gap:10px;align-items:flex-start;padding:5px 0;font-size:15px;line-height:1.35}.tp::before{content:'';flex:none;width:9px;height:9px;border-radius:50%;background:var(--btn);margin-top:7px;opacity:.7}
+.gate{min-height:75vh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:24px}.gate svg{width:150px;height:auto;display:block;margin:0 auto 14px}.gate h1{font-size:26px;color:#D2667F;margin-bottom:8px}.fl{display:inline-block;cursor:pointer;margin:2px 0 12px}details{margin-top:4px}summary{cursor:pointer;padding:6px 0}
+.av.j{background:#DCEBFF}.av.b{background:#FFE3EA}
+.rail .av.j{box-shadow:0 0 0 3px #BBD4F5}.rail .av.b{box-shadow:0 0 0 3px #F6C7D3}
+.pt .av.j,.kt .av.j{border-color:#BBD4F5}.pt .av.b,.kt .av.b{border-color:#F6C7D3}
+.rb{margin-left:auto;display:flex}.rb .x{margin-left:0}
+.qw{display:flex;align-items:center;gap:14px;width:100%;border:0;background:var(--soft);color:var(--ink);border-radius:20px;padding:12px 16px;font-size:16px;font-weight:700;margin:6px 0 8px;text-align:left}.qw svg{width:30px;height:30px;flex:none;fill:none;stroke:var(--btn);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.qw small{display:block;color:var(--mute);font-weight:600;font-size:13px}
+.qr{display:flex;gap:12px;align-items:center;margin-bottom:4px}.qr label{flex:1;margin:0 0 8px}.qr .av{width:48px;height:48px;margin-top:10px}
+#rpb{position:fixed;left:-10000px;top:0;width:794px}
+.rp{--a:#E27C97;--b:#FFE3EA;--c:#F6C7D3;--d:#FFF4F7;width:794px;background:#FFFDFD;color:#5A4558;font-size:15px;line-height:1.4}.rp.j{--a:#5F8FD0;--b:#DCEBFF;--c:#BBD4F5;--d:#F3F8FF}
+.rh{display:flex;align-items:center;gap:28px;padding:40px 44px 34px;background:linear-gradient(135deg,var(--b),var(--d))}
+.rh .av{width:132px;height:132px;border:6px solid #fff;box-shadow:0 4px 14px rgba(90,69,88,.15)}
+.rbr{font-size:14px;color:var(--a);font-weight:700}.rn{font-family:Fredoka,sans-serif!important;font-size:58px;font-weight:700;color:var(--a);line-height:1.05}
+.rc{display:flex;gap:8px;margin-top:10px}.rc span{background:#fff;color:var(--a);font-weight:700;font-size:14px;padding:4px 14px;border-radius:99px}
+.rbd{padding:6px 44px 26px}.rbd h4{font-family:Fredoka,sans-serif!important;font-size:21px;font-weight:700;color:var(--a);margin:22px 0 10px;display:flex;align-items:center;gap:10px}.rbd h4::before{content:'';width:10px;height:10px;border-radius:50%;background:var(--a)}
+.ri{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}.ri div{border-bottom:1px dashed var(--c);padding:6px 0;display:flex;gap:10px}.ri span{flex:0 0 116px;color:#8A6A88}.ri b{font-weight:700}
+.rt{width:100%;border-collapse:separate;border-spacing:0;font-size:14px}.rt th{background:var(--b);color:var(--a);text-align:left;padding:8px 12px;font-weight:700}.rt th:first-child{border-radius:10px 0 0 10px}.rt th:last-child{border-radius:0 10px 10px 0}.rt td{padding:8px 12px;border-bottom:1px solid var(--b)}
+.rg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.rg div{background:var(--d);border:2px solid var(--b);border-radius:16px;padding:12px;font-size:13px;line-height:1.35}.rg b{display:block;font-size:14px;margin-bottom:2px}.rg .rd{background:var(--b);border-color:var(--a)}
+.rm{color:#8A6A88;font-size:14px}.rw{display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:start}
+.rf{margin:0 44px;padding:14px 0 28px;border-top:2px dashed var(--c);font-size:12px;color:#8A6A88;text-align:center}
+.mt.lt{border-color:var(--bad)}.mt.lt span{color:var(--bad);font-weight:700}details p{margin:6px 0 8px;font-size:14px}
+[hidden]{display:none!important}
+.wi{display:flex;gap:8px}.wi input{flex:1;min-width:0}.wi select{width:86px;flex:none}
+.tips small{display:block;color:var(--mute);font-size:12px;margin-top:8px}
+.bs{display:flex;align-items:center;gap:14px}.bs svg{width:38px;height:38px;flex:none;fill:none;stroke:var(--btn);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.bs>div{flex:1}.bs b,.bs .mute{display:block}
+.lc{margin:2px 0 8px}.ls{display:flex;gap:14px;align-items:center;height:56px;color:var(--mute)}
+.ls i{width:22px;height:22px;border-radius:50%;border:3px solid var(--line);background:var(--card);flex:none;position:relative}
+.ls:not(:last-child) i::after{content:'';position:absolute;left:50%;margin-left:-1.5px;top:19px;height:34px;width:3px;background:var(--line)}
+.ls span{display:flex;flex-direction:column;line-height:1.25}.ls b{font-weight:700}.ls small{font-size:13px}
+.ls.d i,.ls.d i::after{background:var(--btn);border-color:var(--btn)}.ls.d{color:var(--ink)}
+.ls.n{color:var(--ink)}.ls.n i{border-color:var(--btn);box-shadow:0 0 0 5px var(--soft)}.ls.n b{font-size:17px}
+.ls .pill{background:var(--btn);color:var(--btnt)}
+
+</style></head><body><main id="app"></main><nav id="nav"></nav><div id="sh" hidden onclick="closeSh()"></div><div id="t" hidden></div>
+<script>
+const K='kucingku-v1',$=s=>document.querySelector(s);
+let S={cats:[],recs:[],bk:0},view='home',cid=null,tab='berat',PH;
+
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){toast('Storan penuh. Buat backup dan guna gambar lebih kecil.')}};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,10),cat=id=>S.cats.find(c=>c.id===id);
+const td=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const dd=d=>Math.round((new Date(d+'T00:00')-new Date(td()+'T00:00'))/864e5);
+const fd=d=>new Date(d+'T00:00').toLocaleDateString('ms-MY',{day:'numeric',month:'short',year:'numeric'});
+const fw=v=>v>=1000?(v/1000).toFixed(2).replace(/\.?0+$/,'')+' kg':v+' g';
+const age=d=>{if(!d)return'';const n=-dd(d);if(n<0)return'';const m=mAge(d),dy=dif(addM(d,m),td());return Math.floor(n/7)+' minggu ('+(m?m+' bulan ':'')+dy+' hari)'};
+const COL=['#F2728F','#B58CF0','#F6A36B','#6CC3B0','#7FA6F5','#E8588D'];
+const T={berat:'Berat',vaksin:'Vaksin',cacing:'Ubat cacing / kutu',sihat:'Kesihatan'};
+const I={home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',cats:'<circle cx="6.5" cy="10" r="1.8"/><circle cx="10" cy="5.5" r="1.8"/><circle cx="14" cy="5.5" r="1.8"/><circle cx="17.5" cy="10" r="1.8"/><path d="M12 11c-3 0-5.5 3-5.5 5.5 0 2 1.7 2.5 3 2.5 1 0 1.5-.5 2.5-.5s1.5.5 2.5.5c1.3 0 3-.5 3-2.5 0-2.5-2.5-5.5-5.5-5.5z"/>',bk:'<path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/>'};
+function toast(m){const t=$('#t');t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(()=>t.hidden=true,2400)}
+const GP=c=>c.sex==='Jantan'?{bg:'#DCEBFF',ear:'#BBD4F5',inn:'#E3EEFC',bl:'#9CC2F5',no:'#7FA6DA',pt:'#C9DDF7',ln:'#6F9BD6'}:{bg:'#FFE3EA',ear:'#F7C6D0',inn:'#FBE1E7',bl:'#F9B8C6',no:'#E98AA0',pt:'#F5C9A5',ln:'#E27C97'};
+const face=c=>{const g=GP(c);return `<svg viewBox="0 0 120 120" role="img" aria-label="${esc(c.name)}"><rect width="120" height="120" fill="${g.bg}"/><path d="M22 62 18 24 46 42ZM98 62 102 24 74 42Z" fill="${g.ear}"/><path d="M26 56 24 34 40 44ZM94 56 96 34 80 44Z" fill="${g.inn}"/><ellipse cx="60" cy="78" rx="46" ry="38" fill="#FFF6EC"/><ellipse cx="38" cy="60" rx="13" ry="9" fill="${g.pt}" opacity=".85"/><circle cx="43" cy="76" r="5" fill="#5A4558"/><circle cx="77" cy="76" r="5" fill="#5A4558"/><circle cx="45" cy="74" r="1.6" fill="#fff"/><circle cx="79" cy="74" r="1.6" fill="#fff"/><ellipse cx="32" cy="88" rx="8" ry="5" fill="${g.bl}" opacity=".7"/><ellipse cx="88" cy="88" rx="8" ry="5" fill="${g.bl}" opacity=".7"/><path d="M55 86q5 5 10 0" stroke="#5A4558" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M60 82l-3-2h6z" fill="${g.no}"/></svg>`};
+function av(c){return `<span class="av ${c.sex==='Jantan'?'j':'b'}">${c.photo?`<img src="${c.photo}" alt="${esc(c.name)}">`:face(c)}</span>`}
+const lastW=id=>S.recs.filter(r=>r.cat===id&&r.type==='berat').sort((a,b)=>b.date.localeCompare(a.date))[0];
+function tasks(){const o=[],T0=td();S.cats.forEach(c=>{const p=plan(c);if(!p)return;[['berat',p.t],['vaksin',p.v],['cacing',p.w]].forEach(([t,x])=>{const d=dif(T0,x.d);if(d<=30)o.push({c,t,l:x.l,date:x.d,d})})});return o.sort((a,b)=>a.d-b.d)}
+function go(v){view=v;scrollTo(0,0);render()}
+const LS=[['Anak kucing','0–6 bulan',0,'Membesar pantas. Fokus pada vaksin, ubat cacing dan makanan anak kucing.'],['Remaja','6 bulan–2 tahun',6,'Tenaga tinggi dan suka meneroka. Masa untuk fikir tentang pemandulan.'],['Dewasa','2–6 tahun',24,'Berat dan tenaga stabil. Pemeriksaan vet setahun sekali.'],['Matang','7–10 tahun',84,'Pantau berat, gigi dan selera makan dengan lebih rapi.'],['Senior','11–14 tahun',132,'Pemeriksaan vet lebih kerap, kira-kira setiap 6 bulan.'],['Warga emas','15 tahun ke atas',180,'Jagaan penuh kasih dan pemeriksaan kerap.']];
+const TIPS=[['Vaksin dan ubat cacing ikut jadual','Makanan khas kitten dan air bersih sentiasa','Timbang berat setiap hari hingga sapih, kemudian sekurang-kurangnya setiap minggu'],['Banyakkan masa bermain bersama','Fikir tentang pemandulan (neuter/spay)','Tukar makanan secara berperingkat bila sesuai'],['Pemeriksaan vet setahun sekali','Jaga berat badan yang ideal','Booster vaksin ikut nasihat vet'],['Pantau berat dan selera makan','Jaga kebersihan gigi','Pemeriksaan vet secara berkala'],['Pemeriksaan vet kira-kira setiap 6 bulan','Pantau pengambilan air dan berat','Sediakan tempat tidur yang selesa'],['Pemeriksaan vet yang lebih kerap','Pilih makanan yang mudah dicerna','Beri persekitaran yang tenang dan selesa']];
+const iso=x=>new Date(x-x.getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const stI=c=>{if(!c.dob||dif(c.dob,td())<0)return -1;const m=mAge(c.dob);let i=0;LS.forEach((x,j)=>{if(m>=x[2])i=j});return i};
+const stN=c=>{const i=stI(c);return i<0?'':LS[i][0]};
+const lsT=c=>{const i=stI(c);if(i<0)return'';const a=new Date(c.dob+'T00:00'),b=new Date(td()+'T00:00'),p=c.dobx==='Anggaran'?'±':'',nx=LS[i+1];let note='';
+if(nx){const x=new Date(addM(c.dob,nx[2])+'T00:00'),w=Math.max(0,Math.ceil((x-b)/6048e5));note=`<div class="nx"><div>Fasa seterusnya<br><b>${nx[0]}</b></div><span>${p}${fd(iso(x))}<br>${p}${w} minggu lagi</span></div>`}
+return `<h2>Kitaran hidup</h2><div class="card"><div class="lc">${LS.map((x,j)=>`<div class="ls${j<i?' d':''}${j===i?' n':''}"><i></i><span><b>${x[0]}</b><small>${x[1]}</small></span>${j===i?'<span class="pill">Sekarang</span>':''}</div>`).join('')}</div>${note}<div class="tips"><b>Petua jagaan</b>${TIPS[i].map(t=>`<div class="tp">${t}</div>`).join('')}<small>Panduan umum. Rujuk doktor haiwan untuk nasihat khusus.</small></div></div>`};
+const ageT=c=>c.dob?(c.dobx==='Anggaran'?'±':'')+age(c.dob):'';
+const pcard=c=>{const R=(k,v)=>v?`<div class="pf"><span>${k}</span><b>${esc(v)}</b></div>`:'';return `<div class="pc"><div class="pt"><div><h1>${esc(c.name)}</h1><span class="rib">Profil &amp; Rekod</span></div>${av(c)}</div>${c.sex?`<div class="gp">${esc(c.sex)}</div>`:''}${R('Tarikh lahir',c.dob?fd(c.dob)+(c.dobx==='Anggaran'?' (anggaran)':''):'')}${R('Umur',ageT(c))}${R('Fasa',stN(c))}${R('Baka',c.breed)}${R('Warna / corak',c.pattern)}${R('No. microchip',c.chip)}${R('Catatan',c.note)}<div class="acts"><button class="bk" onclick="catForm('${c.id}')">Edit profil</button><button class="bk" onclick="pdfCat('${c.id}')">Export PDF</button></div></div>`};
+const okD=x=>typeof x==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(x)&&!isNaN(new Date(x+'T00:00'));
+const str=(x,n=200)=>typeof x==='string'?x.slice(0,n):'';
+function clean(d){const id=x=>typeof x==='string'&&/^\w{1,40}$/.test(x),cats=[],ids=new Set,T=['berat','vaksin','cacing','sihat'],recs=[];
+(Array.isArray(d.cats)?d.cats:[]).forEach(c=>{if(!c||typeof c!=='object'||!id(c.id)||ids.has(c.id))return;ids.add(c.id);const o={id:c.id,name:str(c.name,60)||'Tanpa nama',color:/^#[0-9a-f]{6}$/i.test(c.color)?c.color:COL[cats.length%6]};
+['sex','breed','pattern','chip','note'].forEach(k=>{if(c[k])o[k]=str(c[k])});
+if(okD(c.dob)){o.dob=c.dob;o.dobx=c.dobx==='Anggaran'?'Anggaran':'Tepat'}
+if(typeof c.photo==='string'&&/^data:image\/(jpeg|png|webp|gif);base64,[A-Za-z0-9+\/=]+$/.test(c.photo))o.photo=c.photo;
+if(c.ms&&typeof c.ms==='object'&&okD(c.ms.md))o.ms={md:c.ms.md};
+cats.push(o)});
+(Array.isArray(d.recs)?d.recs:[]).forEach(r=>{if(!r||typeof r!=='object'||!id(r.id)||!ids.has(r.cat)||!T.includes(r.type)||!okD(r.date))return;const o={id:r.id,cat:r.cat,type:r.type,date:r.date};
+if(r.type==='berat'){const v=Math.round(+r.val);if(!(v>0&&v<30000))return;o.val=v}else{o.name=str(r.name,100);if(r.note)o.note=str(r.note,500)}
+recs.push(o)});
+return{cats,recs,bk:Number.isFinite(+d.bk)?+d.bk:0}}
+const mAge=d=>{const a=new Date(d+'T00:00'),b=new Date(td()+'T00:00');let m=(b.getFullYear()-a.getFullYear())*12+b.getMonth()-a.getMonth();while(m>0&&addM(d,m)>td())m--;return m};
+const addD=(d,n)=>iso(new Date(new Date(d+'T00:00').getTime()+n*864e5));
+const addM=(d,n)=>{const a=new Date(d+'T00:00'),y=a.getFullYear(),m=a.getMonth()+n;return iso(new Date(y,m,Math.min(a.getDate(),new Date(y,m+1,0).getDate())))};
+const dif=(a,b)=>Math.round((new Date(b+'T00:00')-new Date(a+'T00:00'))/864e5);
+const isRab=r=>/rabies/i.test(r.name||'');
+function plan(c){if(!c.dob)return null;const T0=td(),now=d=>d<T0?T0:d,rs=t=>S.recs.filter(r=>r.cat===c.id&&r.type===t).sort((a,b)=>a.date.localeCompare(b.date));
+const V=rs('vaksin').filter(r=>!isRab(r)),vl=V[V.length-1],D=rs('cacing'),dl=D[D.length-1],R=rs('vaksin').filter(isRab),b6=addM(c.dob,6);let v,w;
+if(!vl)v={d:now(addD(c.dob,56)),l:'Dos pertama'};
+else if(dif(c.dob,vl.date)<112)v={d:addD(vl.date,28),l:'Dos berikutnya',last:vl.date};
+else if(vl.date>=addD(b6,-14))v={d:addM(vl.date,36),l:'Booster 3 tahun',last:vl.date};
+else v={d:addD(vl.date,28)>b6?addD(vl.date,28):b6,l:'Booster 6 bulan',last:vl.date};
+if(!dl)w={d:now(addD(c.dob,21)),l:'Dos pertama'};
+else{const a=dif(c.dob,dl.date),iv=a<56?14:a<dif(c.dob,b6)?30:90;w={d:addD(dl.date,iv),l:'Setiap '+iv+' hari',last:dl.date}}
+const B=rs('berat'),bl=B[B.length-1];let t;if(!bl)t={d:T0,l:'Timbang pertama'};else{const a=dif(c.dob,bl.date),iv=a<56?1:a<dif(c.dob,b6)?7:30;t={d:addD(bl.date,iv),l:iv===1?'Setiap hari':iv===7?'Setiap minggu':'Setiap bulan',last:bl.date}}
+return{t,v,w,rb:R[R.length-1],md:c.ms&&c.ms.md,mdd:addD(c.dob,154),rbd:addD(c.dob,84)}}
+function sched(c){const p=plan(c);if(!p)return[];const T0=td(),L=d=>'±'+fd(d),tx=(x,t,k)=>{const n=dif(T0,x.d),ok=n>0&&!!x.last;return{k,t,ok,late:n<0,a:ok?(x.last===T0?'Selesai hari ini':'Terakhir '+fd(x.last)):n<0?'Lewat '+-n+' hari · '+L(x.d):n===0?'Hari ini':n===1?'Esok':'Seterusnya '+L(x.d),b:ok?'Seterusnya '+(n===1?'esok':L(x.d))+' · '+x.l:x.l+(x.last?' · terakhir '+fd(x.last):'')}};
+return[tx(p.t,'Timbang berat','berat'),tx(p.w,'Ubat cacing','cacing'),tx(p.v,'Vaksin core (F3)','vaksin'),{k:'rabies',t:'Vaksin rabies',ok:!!p.rb,a:p.rb?'Selesai '+fd(p.rb.date):'Cadangan '+L(p.rbd),b:p.rb?'Booster ikut nasihat vet':'Umur ±12 minggu'},{k:'md',t:'Pemandulan',ok:!!p.md,a:p.md?'Selesai '+fd(p.md):'Cadangan '+L(p.mdd),b:p.md?'':'Umur ±5–6 bulan'}]}
+const msT=c=>{if(!c.dob)return'';return `<h2>Jadual kesihatan</h2><div class="ms">${sched(c).map(x=>`<button class="mt${x.ok?' ok':''}${x.late?' lt':''}" onclick="tileGo('${x.k}')"><i>${x.ok?'✓':''}</i><b>${x.t}</b><span>${x.a}</span><small>${x.b}</small></button>`).join('')}</div><details><summary class="mute">Peraturan jadual</summary><p class="mute">Vaksin core: dos pertama ±8 minggu, ulang setiap 4 minggu hingga umur 16 minggu atau lebih, booster pada 6 bulan, kemudian setiap 3 tahun.<br>Ubat cacing: bawah 8 minggu setiap 14 hari, hingga 6 bulan setiap 30 hari, selepas itu setiap 3 bulan.<br>Timbang berat: bawah 8 minggu setiap hari, hingga 6 bulan setiap minggu, selepas itu setiap bulan.</p></details><p class="mute">Tekan kotak untuk catat rawatan. Tarikh seterusnya dikira daripada tarikh lahir dan rekod terakhir. Panduan umum sahaja, sahkan dengan doktor haiwan.</p>`};
+function tileGo(k){k==='md'?togMs('md'):k==='berat'?recForm('','berat'):k==='cacing'?recForm('','cacing'):recForm('','vaksin',k==='rabies'?'Rabies':'F3 (Tricat)')}
+function togMs(k){const c=cat(cid);c.ms=c.ms||{};if(c.ms[k])delete c.ms[k];else c.ms[k]=td();save();render()}
+function liveAge(){const f=document.querySelector('#sh form'),e=$('#ag');if(!f||!e)return;const d=f.dob.value;e.textContent=d&&age(d)?'Umur: '+(f.dobx.value==='Anggaran'?'±':'')+age(d):''}
+function openCat(id,t){cid=id;tab=t||'berat';go('cat')}
+const MOB=/iPhone|iPod|Android.*Mobile|Windows Phone/i.test(navigator.userAgent)||(matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<600);
+function render(){if(!MOB){$('#app').innerHTML=`<div class="gate">${ART()}<h1>Kucingku untuk telefon sahaja</h1><p class="mute">Buka pautan ini di telefon bimbit anda (iPhone atau Android) untuk menggunakan app ini.</p></div>`;$('#nav').innerHTML='';return}
+$('#app').innerHTML=view==='home'?home():view==='cats'?cats():view==='cat'?catv():bkv();
+$('#nav').innerHTML=[['home','Utama'],['cats','Kucing'],['bk','Backup']].map(([k,l])=>`<button class="${view===k||(view==='cat'&&k==='cats')?'on':''}" onclick="go('${k}')"><svg viewBox="0 0 24 24" aria-hidden="true">${I[k]}</svg>${l}</button>`).join('')}
+const ART=()=>`<svg class="art" viewBox="0 0 120 110" aria-hidden="true"><path d="M22 52 18 14 46 32ZM98 52 102 14 74 32Z" fill="#F7C6D0"/><path d="M26 46 24 24 40 34ZM94 46 96 24 80 34Z" fill="#FBE1E7"/><ellipse cx="60" cy="68" rx="46" ry="38" fill="#FFF6EC"/><ellipse cx="38" cy="50" rx="13" ry="9" fill="#F5C9A5" opacity=".8"/><circle cx="43" cy="66" r="5" fill="#5A4558"/><circle cx="77" cy="66" r="5" fill="#5A4558"/><circle cx="45" cy="64" r="1.6" fill="#fff"/><circle cx="79" cy="64" r="1.6" fill="#fff"/><ellipse cx="32" cy="78" rx="8" ry="5" fill="#F9B8C6" opacity=".7"/><ellipse cx="88" cy="78" rx="8" ry="5" fill="#F9B8C6" opacity=".7"/><path d="M55 76q5 5 10 0" stroke="#5A4558" stroke-width="2.4" fill="none" stroke-linecap="round"/><path d="M60 72l-3-2h6z" fill="#E98AA0"/><path d="M12 72 28 74M12 82 28 80M108 72 92 74M108 82 92 80" stroke="#D9C6D0" stroke-width="2" stroke-linecap="round"/></svg>`;
+const ZZ=`<svg viewBox="0 0 110 80" aria-hidden="true"><ellipse cx="55" cy="58" rx="42" ry="18" fill="#FFF1E3"/><circle cx="34" cy="48" r="17" fill="#FFF1E3"/><path d="M22 36 20 24 32 31ZM46 34 50 22 38 30Z" fill="#F7C6D0"/><path d="M27 49q3 3 6 0M37 49q3 3 6 0" stroke="#5A4558" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="25" cy="55" rx="4" ry="2.5" fill="#F9B8C6"/><path d="M92 54q14-2 12-16" stroke="#F5C9A5" stroke-width="7" fill="none" stroke-linecap="round"/><text x="62" y="28" font-size="14" fill="#B79CCB">z z</text></svg>`;
+function home(){const n=S.cats.length,k=tasks(),late=k.filter(x=>x.d<0).length;
+let h=`<div class="top2"><b>Kucingku</b><span>${new Date().toLocaleDateString('ms-MY',{weekday:'long',day:'numeric',month:'short'})}</span></div>`;
+h+=n?`<div class="hero">${ART()}<h1>${S.cats.map(c=>esc(c.name)).join(', ')}</h1><p>${n} ekor kucing dalam jagaan</p></div>`:`<div class="hero">${ART()}<h1>Selamat datang!</h1><p>Tambah kucing pertama anda untuk mula merekod.</p><button class="btn" onclick="catForm()">Tambah kucing</button></div>`;
+if(!n)return h;
+h+=`<div class="rail">${S.cats.map(c=>`<button onclick="openCat('${c.id}')">${av(c)}${esc(c.name)}</button>`).join('')}<button onclick="catForm()"><span class="av" style="display:grid;place-items:center;background:var(--soft);color:var(--btn);font-size:30px;font-weight:700">+</span>Tambah</button></div><button class="qw" onclick="quickW()"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="14" rx="4"/><path d="M9 11a3 3 0 0 1 6 0M12 11l1.5-2"/></svg><span>Timbang cepat<small>Catat berat semua kucing sekali gus</small></span></button>`;
+h+=`<div class="st"><div><svg viewBox="0 0 24 24">${I.cats}</svg><b>${n}</b><span>Kucing</span></div><div><svg viewBox="0 0 24 24"><path d="M6 17h12l-1.5-2V11a4.5 4.5 0 0 0-9 0v4zM10 20h4"/></svg><b>${k.length}</b><span>Akan datang</span></div><div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg><b>${late}</b><span>Lewat</span></div></div>`;
+if(!S.bk||Date.now()-S.bk>2592e6)h+=`<div class="card" style="margin-top:12px"><b>Buat backup data</b><p class="mute">Data hanya ada di telefon ini. Buat backup supaya tidak hilang.</p><button class="btn g" onclick="go('bk')">Buka Backup</button></div>`;
+h+=`<h2>Akan datang</h2>`+(k.length?k.map(({c,t,l,date,d})=>`<button class="row" onclick="openCat('${c.id}','${t}')${t==='berat'?';recForm()':''}">${av(c)}<span><b>${t==='vaksin'?'Vaksin core':t==='cacing'?'Ubat cacing':'Timbang berat'} ${esc(c.name)}</b><span class="mute">${esc(l)} · ±${fd(date)}</span></span><span class="pill ${d<0?'bad':''}">${d<0?'Lewat '+-d+' hari':d===0?'Hari ini':d===1?'Esok':d+' hari lagi'}</span></button>`).join(''):`<div class="ok">${ZZ}<p class="mute">Semua beres! Tiada tugasan dalam 30 hari akan datang.</p></div>`);
+return h}
+function cats(){const k=tasks();
+let h=`<div class="kh"><h2>Kucing anda</h2><button class="btn" style="margin:0;padding:10px 18px" onclick="catForm()">+ Tambah</button></div>`;
+if(!S.cats.length)return h+`<div class="ok">${ZZ}<p class="mute">Belum ada kucing. Tambah kucing pertama anda untuk mula merekod.</p></div>`;
+return h+S.cats.map(c=>{const w=lastW(c.id),j=c.sex==='Jantan',nt=(m=>m.find(x=>x.d<0)||m.find(x=>x.t!=='berat')||m[0])(k.filter(x=>x.c.id===c.id)),st=stN(c);
+return `<button class="kc${j?' j':''}" onclick="openCat('${c.id}')"><div class="kt">${av(c)}<div><div class="kn">${esc(c.name)}</div><div class="chips">${c.sex?`<span class="chip">${j?'♂ ':c.sex==='Betina'?'♀ ':''}${esc(c.sex)}</span>`:''}${st?`<span class="chip">${st}</span>`:''}</div><span class="mute">${ageT(c)||'Tarikh lahir belum diisi'}</span></div></div><div class="ks"><div><small>Berat</small><b>${w?fw(w.val):'-'}</b></div><div><small>Rekod</small><b>${S.recs.filter(r=>r.cat===c.id).length}</b></div><div><small>${nt?(nt.t==='vaksin'?'Vaksin':nt.t==='cacing'?'Ubat cacing':'Timbang'):'Akan datang'}</small><b>${nt?(nt.d<0?'Lewat':nt.d===0?'Hari ini':nt.d===1?'Esok':nt.d+' hari'):'-'}</b></div></div></button>`}).join('')}
+function chart(a,c){if(a.length<2)return '<p class="mute">Tambah sekurang-kurangnya 2 timbangan untuk lihat graf pertumbuhan.</p>';
+const W=320,H=150,p=22,t=a.map(x=>+new Date(x.date)),v=a.map(x=>+x.val),t0=Math.min(...t),t1=Math.max(...t),lo=Math.min(...v)*.9,hi=Math.max(...v)*1.05;
+const X=i=>(p+(t1==t0?0:(t[i]-t0)/(t1-t0))*(W-2*p)).toFixed(1),Y=i=>(H-p-(v[i]-lo)/((hi-lo)||1)*(H-2*p)).toFixed(1),P=a.map((_,i)=>X(i)+','+Y(i)).join(' ');
+return `<svg class="ch" viewBox="0 0 ${W} ${H}" role="img" aria-label="Graf berat"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".4"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></linearGradient></defs><polygon points="${p},${H-p} ${P} ${X(a.length-1)},${H-p}" fill="url(#g)"/><polyline points="${P}" fill="none" stroke="${c}" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>${a.map((_,i)=>`<circle cx="${X(i)}" cy="${Y(i)}" r="4.5" fill="var(--card)" stroke="${c}" stroke-width="2.5"/>`).join('')}</svg>`}
+function catv(){const c=cat(cid);if(!c){view='home';return home()}
+const l=S.recs.filter(r=>r.cat===c.id&&r.type===tab).sort((a,b)=>b.date.localeCompare(a.date));
+let b='';
+if(tab==='berat'){const a=l.slice().reverse(),d=a.length>1?a[a.length-1].val-a[a.length-2].val:null;
+b=l.length?`<div class="card"><div class="big">${fw(l[0].val)}</div><p class="mute">${d===null?'Timbangan pertama':(d<0?'-':'+')+fw(Math.abs(d))+' sejak timbangan sebelum ini'}</p>${chart(a,GP(c).ln)}</div>`:'';}
+b+=l.length?l.map(r=>`<div class="row"><span><b>${tab==='berat'?fw(r.val):esc(r.name)}</b><span class="mute">${fd(r.date)}${r.note?'<br>'+esc(r.note):''}</span></span><span class="rb"><button class="x" onclick="recForm('${r.id}')">Edit</button><button class="x" onclick="delRec('${r.id}')">Padam</button></span></div>`).join(''):`<p class="mute">Belum ada rekod ${T[tab].toLowerCase()}.</p>`;
+return `<div class="${c.sex==='Jantan'?'th-j':''}"><button class="bk" onclick="go('cats')">‹ Kucing</button>${pcard(c)}${msT(c)}${lsT(c)}<div class="tabs" role="tablist">${Object.keys(T).map(k=>`<button class="${k===tab?'on':''}" onclick="tab='${k}';render()">${T[k]}</button>`).join('')}</div>${b}<button class="btn" onclick="recForm()">Tambah rekod ${T[tab].toLowerCase()}</button></div>`}
+function sheet(h){$('#sh').innerHTML=`<div class="sb" onclick="event.stopPropagation()">${h}</div>`;$('#sh').hidden=false}
+let _ask;
+function ask(m,ok,fn){_ask=fn;sheet(`<h2>${m}</h2><div class="acts"><button class="btn" onclick="closeSh();_ask()">${ok}</button><button class="btn g" onclick="closeSh()">Batal</button></div>`)}
+function closeSh(){$('#sh').hidden=true}
+const L=(t,i)=>`<label>${t}${i}</label>`;
+const wIn=(n,g,ph)=>{const kg=g>=1000;return `<div class="wi"><input name="${n}" type="number" inputmode="decimal" step="any" min="0" placeholder="${ph||''}" value="${g?(kg?+(g/1000).toFixed(3):g):''}"><select name="${n}_u"><option value="g"${kg?'':' selected'}>g</option><option value="kg"${kg?' selected':''}>kg</option></select></div>`};
+const wG=(o,n)=>{const v=parseFloat(o[n]);return isNaN(v)||v<=0?0:Math.round(o[n+'_u']==='kg'?v*1000:v)};
+function recForm(id,t0,nm){const r=id?S.recs.find(x=>x.id===id):{},t=r.type||t0||tab,v=k=>esc(r[k])||esc(nm||'');
+let f=L('Tarikh',`<input name="date" type="date" value="${r.date||td()}" required>`);
+if(t==='berat')f+=L('Berat',wIn('val',+r.val||0));
+if(t==='vaksin')f+=L('Jenis vaksin',`<input name="name" list="vk" required placeholder="cth. F3 (Tricat)" value="${v('name')}"><datalist id="vk"><option value="F3 (Tricat)"><option value="F4"><option value="Rabies"></datalist>`)+L('Klinik / catatan',`<input name="note" value="${v('note')}">`);
+if(t==='cacing')f+=L('Nama produk',`<input name="name" required value="${v('name')}">`)+L('Dos / catatan',`<input name="note" value="${v('note')}">`);
+if(t==='sihat')f+=L('Tajuk',`<input name="name" required placeholder="cth. Lawatan vet, selesema" value="${v('name')}">`)+L('Butiran',`<textarea name="note" rows="3">${v('note')}</textarea>`);
+sheet(`<h2>${id?'Edit ':''}${T[t]}</h2><form onsubmit="saveRec(event,'${id||''}','${t}')">${f}<button class="btn">${id?'Simpan perubahan':'Simpan rekod'}</button></form>`)}
+function saveRec(e,id,t){e.preventDefault();const o=Object.fromEntries(new FormData(e.target));if((t||tab)==='berat'){o.val=wG(o,'val');delete o.val_u;if(!o.val){toast('Masukkan berat yang sah');return}}if(id){const r=S.recs.find(x=>x.id===id);['name','next','note','val'].forEach(k=>delete r[k]);Object.assign(r,o)}else S.recs.push({id:uid(),cat:cid,type:t||tab,...o});save();closeSh();render();toast(id?'Rekod dikemas kini':'Rekod disimpan')}
+function quickW(){sheet(`<h2>Timbang cepat</h2><form onsubmit="saveQW(event)">${L('Tarikh',`<input name="date" type="date" value="${td()}" required>`)}${S.cats.map(c=>{const w=lastW(c.id);return `<div class="qr">${av(c)}<label>${esc(c.name)}${wIn('w_'+c.id,0,w?'lepas: '+fw(w.val):'berat')}</label></div>`}).join('')}<button class="btn">Simpan berat</button></form>`)}
+function saveQW(e){e.preventDefault();const f=new FormData(e.target),d=f.get('date'),o=Object.fromEntries(f);let n=0;S.cats.forEach(c=>{const v=wG(o,'w_'+c.id);if(v){S.recs.push({id:uid(),cat:c.id,type:'berat',date:d,val:v});n++}});if(!n){toast('Masukkan sekurang-kurangnya satu berat');return}save();closeSh();render();toast(n+' rekod berat disimpan')}
+const loadJs=u=>new Promise((ok,no)=>{if(document.querySelector('script[src="'+u+'"]'))return ok();const e=document.createElement('script');e.src=u;e.onload=ok;e.onerror=no;document.head.appendChild(e)});
+function rpt(c){const g=GP(c),j=c.sex==='Jantan',R=t=>S.recs.filter(r=>r.cat===c.id&&r.type===t).sort((a,b)=>b.date.localeCompare(a.date)),st=stN(c);
+const tb=(l,cols)=>l.length?`<table class="rt"><tr>${cols.map(x=>`<th>${x[0]}</th>`).join('')}</tr>${l.map(r=>`<tr>${cols.map(x=>`<td>${x[1](r)}</td>`).join('')}</tr>`).join('')}</table>`:'<p class="rm">Tiada rekod.</p>';
+const vc=[['Tarikh',r=>fd(r.date)],['Nama',r=>esc(r.name)],['Catatan',r=>esc(r.note)||'-']];
+const w=R('berat'),info=[['Tarikh lahir',c.dob?fd(c.dob)+(c.dobx==='Anggaran'?' (anggaran)':''):''],['Umur',ageT(c)],['Fasa',st],['Baka',c.breed],['Warna / corak',c.pattern],['No. microchip',c.chip],['Catatan',c.note]].filter(x=>x[1]);
+const ch=w.length>1?chart(w.slice().reverse(),g.ln).replace('id="g"','id="gr"').replace('url(#g)','url(#gr)'):'<p class="rm">Perlu sekurang-kurangnya 2 rekod berat untuk graf.</p>';
+return `<div class="rp${j?' j':''}"><div class="rh">${av(c)}<div><div class="rbr">Kucingku · Rekod Kesihatan</div><div class="rn">${esc(c.name)}</div><div class="rc">${c.sex?`<span>${j?'♂ ':c.sex==='Betina'?'♀ ':''}${esc(c.sex)}</span>`:''}${st?`<span>${st}</span>`:''}${c.dob?`<span>${ageT(c)}</span>`:''}</div></div></div><div class="rbd">${info.length?`<h4>Profil</h4><div class="ri">${info.map(x=>`<div><span>${x[0]}</span><b>${esc(x[1])}</b></div>`).join('')}</div>`:''}${c.dob?`<h4>Jadual kesihatan</h4><div class="rg">${sched(c).filter(x=>x.k!=='berat').map(x=>`<div class="${x.ok?'rd':''}"><b>${x.ok?'✓ ':''}${x.t}</b>${x.a}<br>${x.b}</div>`).join('')}</div>`:''}<h4>Vaksin</h4>${tb(R('vaksin').slice(0,6),vc)}<h4>Ubat cacing / kutu</h4>${tb(R('cacing').slice(0,6),vc)}<h4>Berat</h4><div class="rw"><div>${ch}</div>${tb(w.slice(0,6),[['Tarikh',r=>fd(r.date)],['Berat',r=>fw(r.val)]])}</div>${R('sihat').length?`<h4>Catatan kesihatan</h4>${tb(R('sihat').slice(0,4),[['Tarikh',r=>fd(r.date)],['Tajuk',r=>esc(r.name)],['Butiran',r=>esc(r.note)||'-']])}`:''}</div><div class="rf">Dijana oleh Kucingku pada ${fd(td())}. Panduan sahaja dan bukan pengganti nasihat doktor haiwan.</div></div>`}
+async function pdfCat(id){const c=cat(id);let box;toast('Menyediakan PDF...');
+try{const dl=await getDl();if(!dl){toast('Export PDF tidak tersedia di sini');return}
+await Promise.all([loadJs('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'),loadJs('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js')]);
+box=document.createElement('div');box.id='rpb';box.innerHTML=rpt(c);document.body.appendChild(box);
+if(document.fonts)await document.fonts.ready;
+const cv=await html2canvas(box.firstChild,{scale:2,backgroundColor:'#FFFDFD',windowWidth:794}),pdf=new window.jspdf.jsPDF({unit:'mm',format:'a4'}),pw=210,ratio=cv.width/pw,sh=Math.floor(297*ratio);
+for(let y=0,p=0;y<cv.height;y+=sh,p++){const h=Math.min(sh,cv.height-y),sl=document.createElement('canvas');sl.width=cv.width;sl.height=h;const x=sl.getContext('2d');x.fillStyle='#FFFDFD';x.fillRect(0,0,sl.width,h);x.drawImage(cv,0,y,cv.width,h,0,0,cv.width,h);if(p)pdf.addPage();pdf.addImage(sl.toDataURL('image/jpeg',.92),'JPEG',0,0,pw,h/ratio)}
+await dl.save({filename:'kucingku-'+(c.name||'kucing').replace(/[^\w-]+/g,'-')+'-'+td()+'.pdf',data:pdf.output('blob')});toast('PDF disimpan')}
+catch(e){if(!(e&&e.code==='declined'))toast('Export PDF gagal. Cuba lagi.')}finally{if(box)box.remove()}}
+function delRec(id){ask('Padam rekod ini?','Padam',()=>{S.recs=S.recs.filter(r=>r.id!==id);save();render();toast('Rekod dipadam')})}
+const BR=[['Tanpa baka',['Domestic Shorthair','Domestic Mediumhair','Domestic Longhair','Campuran (Mix breed)']],['Baka popular',['Persian','Exotic Shorthair','British Shorthair','Scottish Fold','Maine Coon','Ragdoll','Siamese','Bengal','Himalayan','Sphynx','American Shorthair','Abyssinian']]];
+const brOther=c=>!!c.breed&&c.breed!=='Tidak pasti'&&!BR.some(g=>g[1].includes(c.breed));
+function brSel(){const f=document.querySelector('#sh form');$('#bx').hidden=f.brs.value!=='__x'}
+function catForm(id){const c=id?cat(id):{color:COL[S.cats.length%6]};PH=undefined;
+sheet(`<h2>${id?'Edit profil':'Tambah kucing'}</h2><form onsubmit="saveCat(event,'${id||''}')">${L('Nama',`<input name="name" required value="${esc(c.name)}">`)}${L('Jantina',`<select name="sex">${['Jantan','Betina','Belum pasti'].map(s=>`<option${c.sex===s?' selected':''}>${s}</option>`).join('')}</select>`)}${L('Tarikh lahir',`<input name="dob" type="date" max="${td()}" value="${c.dob||''}" oninput="liveAge()">`)}${L('Ketepatan tarikh lahir',`<select name="dobx" onchange="liveAge()">${['Tepat','Anggaran'].map(s=>`<option${c.dobx===s?' selected':''}>${s}</option>`).join('')}</select>`)}<div class="age" id="ag"></div>${L('Baka',`<select name="brs" onchange="brSel()"><option value="">Pilih baka</option>${BR.map(([g,l])=>`<optgroup label="${g}">${l.map(b=>`<option${c.breed===b?' selected':''}>${b}</option>`).join('')}</optgroup>`).join('')}<option value="__x"${brOther(c)?' selected':''}>Lain-lain</option><option${c.breed==='Tidak pasti'?' selected':''}>Tidak pasti</option></select>`)}<label id="bx"${brOther(c)?'':' hidden'}>Nama baka<input name="brx" value="${esc(brOther(c)?c.breed:'')}"></label>${L('Warna / corak',`<input name="pattern" value="${esc(c.pattern)}" placeholder="cth. Putih &amp; calico, gebu">`)}${L('Gambar','<input type="file" accept="image/*" onchange="pic(this)">')}${L('No. microchip (jika ada)',`<input name="chip" value="${esc(c.chip)}">`)}${L('Catatan',`<input name="note" value="${esc(c.note)}">`)}<button class="btn">Simpan</button>${id?`<button type="button" class="btn r" onclick="delCat('${id}')">Padam kucing ini</button>`:''}</form>`);liveAge()}
+function pic(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const m=new Image();m.onload=()=>{const s=Math.min(1,400/Math.max(m.width,m.height)),c=document.createElement('canvas');c.width=m.width*s;c.height=m.height*s;c.getContext('2d').drawImage(m,0,0,c.width,c.height);PH=c.toDataURL('image/jpeg',.72);toast('Gambar sedia disimpan')};m.src=r.result};r.readAsDataURL(f)}
+function saveCat(e,id){e.preventDefault();const o=Object.fromEntries(new FormData(e.target));delete o.undefined;o.breed=o.brs==='__x'?(o.brx||'').trim():(o.brs||'');delete o.brs;delete o.brx;
+if(id){const c=cat(id);Object.assign(c,o);if(PH)c.photo=PH}else{const c={id:uid(),color:COL[S.cats.length%6],...o};if(PH)c.photo=PH;S.cats.push(c)}
+save();closeSh();render();toast('Profil disimpan')}
+function delCat(id){ask('Padam kucing ini beserta semua rekodnya?','Padam',()=>{S.cats=S.cats.filter(c=>c.id!==id);S.recs=S.recs.filter(r=>r.cat!==id);save();go('cats');toast('Kucing dipadam')})}
+function bkv(){const old=!S.bk||Date.now()-S.bk>2592e6;
+return `<h2 style="margin-top:12px">Backup</h2><p class="mute">Data Kucingku disimpan di telefon ini sahaja. Buat backup berkala supaya data tidak hilang jika data pelayar dibersihkan.</p><div class="card bs" style="margin-top:14px"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><div><b>${S.bk?'Backup terakhir':'Belum ada backup'}</b><span class="mute">${S.bk?fd(iso(new Date(S.bk))):'Tekan Export untuk mula.'}</span></div><span class="pill${old?' bad':''}">${old?'Perlu backup':'Selamat'}</span></div><div class="card"><b>Export</b><p class="mute">Simpan fail backup (.json) ke telefon ini.</p><div class="acts"><button class="btn" onclick="exportBk()">Export fail</button><button class="btn g" onclick="copyBk()">Copy</button></div><p class="mute" style="margin-top:8px">Copy akan menyalin teks backup ke clipboard.</p></div><div class="card"><b>Import</b><p class="mute">Pilih fail backup (.json). Data semasa akan diganti.</p><label class="btn fl">Pilih fail<input type="file" accept=".json,application/json" onchange="impFile(this)" hidden></label><details><summary class="mute">Atau tampal teks backup</summary><textarea id="imp" rows="4" placeholder="Tampal teks backup di sini"></textarea><button class="btn g" onclick="impBk()">Import teks</button></details></div>`}
+async function getDl(){try{if(typeof claude!=='undefined'&&claude.use){const d=await claude.use('downloads');if(d)return d}}catch(e){}
+return{save:async({filename,data})=>{const b=data instanceof Blob?data:new Blob([data],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=filename;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500)}}}
+async function exportBk(){try{const dl=await getDl();if(!dl){toast('Export tidak tersedia di sini. Guna Copy.');return}
+await dl.save({filename:'kucingku-backup-'+td()+'.json',data:JSON.stringify({...S,bk:Date.now()})});S.bk=Date.now();save();render();toast('Fail backup disimpan')}catch(e){if(e&&e.code==='declined')return;toast('Export gagal. Cuba Copy.')}}
+function copyBk(){const j=JSON.stringify({...S,bk:Date.now()});(navigator.clipboard?navigator.clipboard.writeText(j):Promise.reject()).then(()=>{S.bk=Date.now();save();toast('Backup disalin ke clipboard');render()}).catch(()=>toast('Gagal copy. Cuba Export.'))}
+function impBk(){impTxt($('#imp').value)}
+function impFile(i){const f=i.files[0];if(!f)return;const r=new FileReader();r.onload=()=>impTxt(r.result);r.readAsText(f);i.value=''}
+function impTxt(t){try{const d=JSON.parse(t);if(!d||!Array.isArray(d.cats)||!Array.isArray(d.recs))throw 0;const n=clean(d);ask('Import backup ini? Semua data semasa akan diganti.','Import',()=>{S=n;save();go('home');toast('Import berjaya')})}catch(e){toast('Teks backup tidak sah')}}
+try{const r=localStorage.getItem(K);if(r)S=clean(JSON.parse(r))}catch(e){}
+render();
+</script></body></html>
