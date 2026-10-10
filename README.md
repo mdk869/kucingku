@@ -11,8 +11,13 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Rekod:** berat (graf pertumbuhan, unit g/kg), vaksin, ubat cacing/kutu, catatan kesihatan. Boleh edit dan padam.
 - **Jadual rawatan automatik:** tarikh seterusnya dikira daripada tarikh lahir dan rekod terakhir (lihat peraturan di bawah). Dipaparkan sebagai kotak berpenanda ✓ pada profil dan senarai "Akan datang" di Utama.
 - **Timbang cepat:** catat berat semua kucing sekali gus.
-- **Export PDF** untuk doktor haiwan, bertema sama dengan app.
+- **Jadual:** halaman yang mengumpulkan semua rawatan, timbang dan temujanji dalam 30 hari akan datang (Lewat, Hari ini, 7 hari, 8 hingga 30 hari).
+- **Lawatan vet dan temujanji:** tarikh, masa, sebab, catatan, klinik dan kos (RM). Tarikh akan datang menjadi temujanji dan muncul dalam Akan datang dan Jadual.
+- **Vet:** senarai klinik yang anda taip sendiri (telefon, alamat atau pautan peta, waktu operasi, doktor), dengan butang Telefon dan Peta. Satu klinik boleh ditanda Klinik utama, dan klinik dipilih dalam borang rekod.
+- **Export PDF** untuk doktor haiwan, bertema sama dengan app, dengan klinik utama dan jadual lawatan.
 - **Backup:** Export/Import fail JSON, atau Copy teks backup.
+
+Versi semasa: **1.1.0** (lihat bahagian Lagi dalam app).
 
 ## Teknologi
 
