@@ -7,7 +7,7 @@ const SK = 'kucingku-settings-v1';
 
 test('settings default to Bahasa Melayu, 30-day backup reminder and automatic weight unit', () => {
   const a = app();
-  assert.deepEqual(a.json('SET'), { lang: 'ms', bk: 30, unit: 'auto' });
+  assert.deepEqual(a.json('SET'), { lang: 'ms', bk: 30, unit: 'auto', scheme: 'sakura', mode: 'system' });
   assert.equal(a.settings(), null);
 });
 
@@ -15,15 +15,15 @@ test('settings use their own storage key and never enter the data or backups', (
   const a = app();
   const before = a.storage();
   a.run("setUnit('kg');setLang('en');setBk(14)");
-  assert.deepEqual(JSON.parse(a.settings()), { v: 1, lang: 'en', bk: 14, unit: 'kg' });
+  assert.deepEqual(JSON.parse(a.settings()), { v: 1, lang: 'en', bk: 14, unit: 'kg', scheme: 'sakura', mode: 'system' });
   assert.equal(a.storage(), before);
   assert.deepEqual(a.json('Object.keys(S)'), ['version', 'cats', 'recs', 'vets', 'bk']);
 });
 
 test('saved settings are restored and invalid stored values are ignored', () => {
-  assert.deepEqual(app({ settings: { v: 1, lang: 'en', bk: 60, unit: 'g' } }).json('SET'), { lang: 'en', bk: 60, unit: 'g' });
-  assert.deepEqual(app({ settings: { v: 1, lang: 'fr', bk: 7, unit: 'pound' } }).json('SET'), { lang: 'ms', bk: 30, unit: 'auto' });
-  assert.deepEqual(app({ settings: { lang: 'en', bk: 14, unit: 'kg' } }).json('SET'), { lang: 'ms', bk: 30, unit: 'auto' }, 'object without the version marker');
+  assert.deepEqual(app({ settings: { v: 1, lang: 'en', bk: 60, unit: 'g' } }).json('SET'), { lang: 'en', bk: 60, unit: 'g', scheme: 'sakura', mode: 'system' });
+  assert.deepEqual(app({ settings: { v: 1, lang: 'fr', bk: 7, unit: 'pound' } }).json('SET'), { lang: 'ms', bk: 30, unit: 'auto', scheme: 'sakura', mode: 'system' });
+  assert.deepEqual(app({ settings: { lang: 'en', bk: 14, unit: 'kg' } }).json('SET'), { lang: 'ms', bk: 30, unit: 'auto', scheme: 'sakura', mode: 'system' }, 'object without the version marker');
 });
 
 test('a failed settings write keeps the previous value and tells the user', () => {
@@ -36,7 +36,7 @@ test('a failed settings write keeps the previous value and tells the user', () =
 test('setters reject values outside the allowed lists', () => {
   const a = app();
   a.run("setUnit('stone');setLang('fr');setBk(7)");
-  assert.deepEqual(a.json('SET'), { lang: 'ms', bk: 30, unit: 'auto' });
+  assert.deepEqual(a.json('SET'), { lang: 'ms', bk: 30, unit: 'auto', scheme: 'sakura', mode: 'system' });
   assert.equal(a.settings(), null);
 });
 
@@ -65,17 +65,17 @@ test('the Data category holds backup, import and delete-all; the old Backup page
 });
 
 test('delete-all and import replace data but leave settings untouched', () => {
-  const a = app({ settings: { v: 1, lang: 'en', bk: 14, unit: 'kg' } });
+  const a = app({ settings: { v: 1, lang: 'en', bk: 14, unit: 'kg', scheme: 'sakura', mode: 'system' } });
   a.run("wipe()");
   assert.match(a.elements.get('#sh').innerHTML, /Padam semua data\?/);
   a.run('_ask()');
   assert.equal(a.json('S.cats.length'), 0);
   assert.equal(JSON.parse(a.storage()).cats.length, 0);
-  assert.deepEqual(a.json('SET'), { lang: 'en', bk: 14, unit: 'kg' });
+  assert.deepEqual(a.json('SET'), { lang: 'en', bk: 14, unit: 'kg', scheme: 'sakura', mode: 'system' });
   a.run(`impTxt(${JSON.stringify(JSON.stringify({ version: 2, cats: [{ id: 'z', name: 'Zed' }], recs: [], vets: [], bk: 0 }))})`);
   a.run('_ask()');
   assert.equal(a.json('S.cats[0].name'), 'Zed');
-  assert.deepEqual(a.json('SET'), { lang: 'en', bk: 14, unit: 'kg' });
+  assert.deepEqual(a.json('SET'), { lang: 'en', bk: 14, unit: 'kg', scheme: 'sakura', mode: 'system' });
 });
 
 test('backup reminder follows the setting (off, 14, 30 and 60 days)', () => {
@@ -117,11 +117,11 @@ test('weight field label, pre-filled value and hint follow the unit setting', ()
   assert.equal(a.json('wLbl()'), 'Berat');
   assert.match(a.json("wIn('val',3400)"), /value="3\.4"/);
   assert.match(a.json("wIn('val',650)"), /value="650"/);
-  assert.match(a.json("wIn('val',0)"), /Taip gram \(cth\. 650\) atau kg \(cth\. 3\.4\)\./);
+  assert.match(a.json("wIn('val',0)"), /Cth\. 650 g atau 3\.4 kg\./);
   a.run("SET.unit='g'");
   assert.equal(a.json('wLbl()'), 'Berat (g)');
   assert.match(a.json("wIn('val',3400)"), /value="3400"/);
-  assert.doesNotMatch(a.json("wIn('val',0)"), /Taip gram/);
+  assert.doesNotMatch(a.json("wIn('val',0)"), /Cth\. 650 g/);
   a.run("SET.unit='kg'");
   assert.equal(a.json('wLbl()'), 'Berat (kg)');
   assert.match(a.json("wIn('val',650)"), /value="0\.65"/);
@@ -133,7 +133,7 @@ test('live weight hint shows how the value will be recorded', () => {
   const hint = value => { a.run(`wHint({name:'val',value:${JSON.stringify(value)}})`); return a.elements.get('#wh_val').textContent; };
   assert.equal(hint('3.4'), 'Direkod: 3.4 kg');
   assert.equal(hint('650'), 'Direkod: 650 g');
-  assert.match(hint(''), /Taip gram/);
+  assert.match(hint(''), /Cth\. 650 g/);
 });
 
 test('saving weights uses the Settings unit and rejects values outside 1 g to 30 kg', () => {
