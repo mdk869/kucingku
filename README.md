@@ -8,16 +8,18 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 
 - **Profil kucing:** nama, gambar, jantina, tarikh lahir (tepat atau anggaran), baka, warna/corak, no. microchip, catatan. Tema pastel biru (jantan) atau pink (betina).
 - **Umur** dalam minggu, dengan bulan + hari dalam kurungan, dan **kitaran hidup** (Anak kucing, Remaja, Dewasa, Matang, Senior, Warga emas).
-- **Rekod:** berat (graf pertumbuhan, unit g/kg), vaksin, ubat cacing/kutu, catatan kesihatan. Boleh edit dan padam.
+- **Rekod:** berat (graf pertumbuhan; unit g/kg mengikut Setting), vaksin, ubat cacing/kutu, catatan kesihatan. Boleh edit dan padam.
 - **Jadual rawatan automatik:** tarikh seterusnya dikira daripada tarikh lahir dan rekod terakhir (lihat peraturan di bawah). Dipaparkan sebagai kotak berpenanda ✓ pada profil dan senarai "Akan datang" di Utama.
 - **Timbang cepat:** catat berat semua kucing sekali gus.
 - **Jadual:** halaman yang mengumpulkan semua rawatan, timbang dan temujanji dalam 30 hari akan datang (Lewat, Hari ini, 7 hari, 8 hingga 30 hari).
 - **Lawatan vet dan temujanji:** tarikh, masa, sebab, catatan, klinik dan kos (RM). Tarikh akan datang menjadi temujanji dan muncul dalam Akan datang dan Jadual.
 - **Vet:** senarai klinik yang anda taip sendiri (telefon, alamat atau pautan peta, waktu operasi, doktor), dengan butang Telefon dan Peta. Satu klinik boleh ditanda Klinik utama, dan klinik dipilih dalam borang rekod.
 - **Export PDF** untuk doktor haiwan, bertema sama dengan app, dengan sejarah penuh, klinik utama, masa dan kos lawatan.
-- **Backup:** Export/Import fail JSON, atau Copy teks backup.
+- **Dashboard Utama:** **Tindakan pantas** (Timbang cepat, Tambah rekod, Telefon vet), **Fokus hari ini** (senarai semak rawatan, timbang dan temujanji hari ini dengan bar kemajuan dan tanda siap), **Temujanji seterusnya** (tarikh, masa, klinik, Telefon dan Peta) dan **kad setiap kucing** (umur, berat terkini dengan perubahan, status Terkini, lewat atau hari ini).
+- **Setting (Lagi → Setting)** dalam kategori: **Umum** (bahasa Bahasa Melayu atau English, unit berat Auto/Gram/Kilogram), **Peringatan** (peringatan backup 14, 30, 60 hari atau mati), **Data** (Backup: Export/Import/Copy, dan padam semua data) dan **Tentang** (versi, penafian, rujukan peraturan jadual).
+- **Bahasa English:** semua skrin, borang, mesej dan PDF diterjemah; data tidak berubah apabila bahasa ditukar.
 
-Versi semasa: **1.1.0** (lihat bahagian Lagi dalam app).
+Versi semasa: **1.5.0** (lihat Setting → Tentang dalam app).
 
 ## Teknologi
 
@@ -48,13 +50,15 @@ Selepas deploy, buka pautan di telefon, kemudian **Tambah ke Skrin Utama** (iOS 
 ## Penyimpanan dan backup
 
 - Data terikat pada **pelayar dan alamat (origin)**. Alamat baharu bermakna storan baharu, jadi **Export fail** dahulu sebelum menukar alamat, kemudian **Import** di alamat baharu.
-- Data boleh hilang jika data pelayar dibersihkan. Buat backup berkala melalui halaman **Backup**.
+- Data boleh hilang jika data pelayar dibersihkan. Buat backup berkala melalui **Setting → Data**.
 - Semua data dibersihkan dan disahkan semasa dibuka dan diimport (fungsi `clean()`).
 - Simpan yang gagal mengekalkan data terdahulu dan borang terbuka. Mesej kejayaan hanya dipaparkan selepas penulisan `localStorage` berjaya.
 - Backup baharu mempunyai `version: 2`. Backup lama tanpa versi masih diterima; versi yang belum disokong, ID berulang, tarikh mustahil dan rujukan rekod/klinik yang hilang ditolak sebelum penggantian data. Import fail dan teks dihadkan kepada 10 MB.
 - Teks profil dan catatan dikekalkan tanpa pemotongan semasa reload. Berat mesti antara 1 g hingga 30 kg; kos antara RM 0 hingga RM 1,000,000.
-- Jika storan tidak dapat dibaca, app tidak menimpanya. Gunakan Export/Copy pada Backup untuk mendapatkan salinan asal sebelum mengimport backup yang sah. Fail salinan asal `.txt` ialah bahan pemulihan, bukan backup JSON yang telah disahkan.
+- Jika storan tidak dapat dibaca, app tidak menimpanya. Gunakan Export/Copy pada Setting → Data untuk mendapatkan salinan asal sebelum mengimport backup yang sah. Fail salinan asal `.txt` ialah bahan pemulihan, bukan backup JSON yang telah disahkan.
 - Rekod rawatan dan timbangan baharu mesti bertarikh hari ini atau sebelumnya. Gunakan Lawatan vet untuk temujanji masa depan. Rekod rawatan masa depan daripada backup lama dikekalkan dalam sejarah tetapi tidak digunakan untuk mengira rawatan selesai atau tarikh seterusnya.
+- Tetapan app (bahasa, unit berat, peringatan backup) disimpan pada kunci berasingan `kucingku-settings-v1` dan merupakan pilihan peranti: ia tidak termasuk dalam backup, tidak ditimpa semasa import dan kekal selepas padam semua data. Nilai tetapan yang tidak sah diabaikan dan lalai digunakan.
+- Unit berat menentukan paparan dan juga cara nombor yang ditaip dibaca: **Auto** membaca nombor di bawah 20 sebagai kg dan selebihnya sebagai gram; **Gram** dan **Kilogram** membaca nombor dalam unit itu sahaja. Berat disimpan sebagai gram bulat dan mesti antara 1 g hingga 30 kg.
 - Mesej muat turun bermakna permintaan muat turun telah dimulakan; pelayar tidak memberi pengesahan bahawa pengguna menyimpan fail tersebut.
 
 ## Ujian
@@ -64,6 +68,8 @@ Node.js 22 atau lebih baharu diperlukan untuk menjalankan ujian; aplikasi sendir
 ```bash
 npm test
 ```
+
+Fail ujian: `app.test.cjs` (storan, import/eksport, jadual, PDF), `settings.test.cjs` (tetapan, unit berat, Data), `i18n.test.cjs` (terjemahan English dan imbasan teks Melayu yang tertinggal pada setiap skrin, borang dan PDF) dan `home.test.cjs` (dashboard dan tindakan pantas). `helpers.cjs` menyediakan persekitaran ujian bersama.
 
 Suite menggunakan skrip app sebenar dengan storan dan masa terasing. Ia merangkumi simpan/reload, kegagalan storan, import/eksport, validasi tarikh/nilai, jadual rawatan dan kandungan laporan PDF serta retry CDN. GitHub Actions menjalankannya pada setiap PR dan push ke `main`.
 
@@ -98,7 +104,7 @@ kucingku/
 ├── app.js                # state, storan, jadual, UI dan PDF
 ├── manifest.webmanifest  # metadata PWA
 ├── icons/                # ikon app (192, 512, apple-touch 180)
-├── tests/app.test.cjs     # ujian regresi dengan Node.js
+├── tests/                # ujian regresi dengan Node.js (helpers + 4 fail ujian)
 ├── package.json          # arahan ujian, tiada dependency npm
 ├── .github/workflows/    # ujian pada PR dan main
 ├── vercel.json           # konfigurasi hosting statik dan header keselamatan

@@ -1,42 +1,6 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const vm = require('node:vm');
-const path = require('node:path');
-const html = fs.readFileSync(path.join(__dirname, '../index.html'), 'utf8');
-const source = fs.readFileSync(path.join(__dirname, '../app.js'), 'utf8');
-const seed = { cats: [{ id: 'a', name: 'Milo', dob: '2024-01-01' }], recs: [], vets: [], bk: 0 };
-
-// Run the real app script with deterministic time and isolated browser adapters.
-function app({ data = seed, failSave = false, raw, failRead = false } = {}) {
-  let stored = raw === undefined ? JSON.stringify(data) : raw;
-  let writes = 0;
-  const elements = new Map(), scripts = [], timers = new Map(), events = {};
-  const element = () => ({ hidden: true, innerHTML: '', textContent: '', insertAdjacentHTML(_, text) { this.innerHTML = text + this.innerHTML; } });
-  const document = {
-    addEventListener(name, handler) { events[name] = handler; },
-    querySelector(selector) { if (!elements.has(selector)) elements.set(selector, element()); return elements.get(selector); },
-    createElement() { return { remove() { this.removed = true; } }; },
-    head: { appendChild(script) { scripts.push(script); } },
-  };
-  class Clock extends Date {
-    constructor(...args) { super(...(args.length ? args : ['2026-10-11T04:00:00Z'])); }
-    static now() { return +new Date('2026-10-11T04:00:00Z'); }
-  }
-  const context = vm.createContext({
-    Date: Clock, Blob, URL, document, navigator: { userAgent: 'Android Mobile' }, screen: { width: 400, height: 800 },
-    matchMedia: () => ({ matches: true }), scrollTo() {},
-    setTimeout(fn) { const id = timers.size + 1; timers.set(id, fn); return id; }, clearTimeout(id) { timers.delete(id); },
-    FormData: class { constructor(values) { return new Map(Object.entries(values).filter(([key]) => key !== 'dataset')); } },
-    localStorage: { getItem() { if (failRead) throw new Error('SecurityError'); return stored; }, setItem(_, value) { if (failSave) throw new Error('QuotaExceededError'); stored = value; writes++; } },
-  });
-  vm.runInContext(source, context);
-  vm.runInContext("globalThis.messages=[];toast=m=>messages.push(m);cid='a';", context);
-  const run = code => vm.runInContext(code, context);
-  const json = code => JSON.parse(JSON.stringify(run(code)));
-  const submit = (fn, values, args = '') => run(`${fn}({preventDefault(){},target:${JSON.stringify(values)}}${args ? ',' + args : ''})`);
-  return { run, json, submit, scripts, timers, elements, events, storage: () => stored, writes: () => writes };
-}
+const { app, seed, html, source, fs, path } = require('./helpers.cjs');
 
 test('script parses and initial state renders', () => {
   const a = app();
@@ -59,7 +23,7 @@ test('delegated form submission saves the record and closes the modal', () => {
   const a = app();
   a.run("sheet('form')");
   let prevented = false;
-  a.events.submit({ preventDefault() { prevented = true; }, target: { dataset: { submit: 'rec', id: '', type: 'berat' }, date: '2026-10-11', val: '4', val_u: 'kg' } });
+  a.events.submit({ preventDefault() { prevented = true; }, target: { dataset: { submit: 'rec', id: '', type: 'berat' }, date: '2026-10-11', val: '4' } });
   assert.equal(prevented, true);
   assert.equal(a.json('S.recs[0].val'), 4000);
   assert.equal(a.elements.get('#sh').hidden, true);
@@ -76,7 +40,7 @@ test('backdrop clicks close the modal while clicks inside it leave it open', () 
 
 test('a successful save survives a fresh app session', () => {
   const a = app();
-  a.submit('saveRec', { date: '2026-10-11', val: '4.25', val_u: 'kg' }, "'','berat'");
+  a.submit('saveRec', { date: '2026-10-11', val: '4.25' }, "'','berat'");
   assert.equal(a.json('messages.at(-1)'), 'Rekod disimpan');
   assert.equal(app({ raw: a.storage() }).json('S.recs[0].val'), 4250);
 });
@@ -84,7 +48,7 @@ test('a successful save survives a fresh app session', () => {
 test('failed saves roll back records, keep the form open and never announce success', () => {
   const a = app({ failSave: true });
   a.run("sheet('form')");
-  a.submit('saveRec', { date: '2026-10-11', val: '4', val_u: 'kg' }, "'','berat'");
+  a.submit('saveRec', { date: '2026-10-11', val: '4' }, "'','berat'");
   assert.equal(a.json('S.recs.length'), 0);
   assert.equal(a.elements.get('#sh').hidden, false);
   assert.match(a.json('messages.at(-1)'), /Gagal menyimpan/);
@@ -109,15 +73,17 @@ test('failed deletion keeps both the cat and its records', () => {
 
 test('30 kg boundary persists and weights above it are rejected', () => {
   const a = app();
-  a.submit('saveRec', { date: '2026-10-11', val: '30', val_u: 'kg' }, "'','berat'");
+  a.run("SET.unit='kg'");
+  a.submit('saveRec', { date: '2026-10-11', val: '30' }, "'','berat'");
   assert.equal(app({ raw: a.storage() }).json('S.recs[0].val'), 30000);
-  a.submit('saveRec', { date: '2026-10-11', val: '30.001', val_u: 'kg' }, "'','berat'");
+  a.submit('saveRec', { date: '2026-10-11', val: '30.001' }, "'','berat'");
   assert.equal(a.json('S.recs.length'), 1);
 });
 
 test('non-finite and sub-gram weights cannot be stored', () => {
   const a = app();
-  for (const val of ['Infinity', '-1', '0', '0.1', 'oops']) a.submit('saveRec', { date: '2026-10-11', val, val_u: 'g' }, "'','berat'");
+  a.run("SET.unit='g'");
+  for (const val of ['Infinity', '-1', '0', '0.1', 'oops']) a.submit('saveRec', { date: '2026-10-11', val }, "'','berat'");
   assert.equal(a.json('S.recs.length'), 0);
 });
 
@@ -141,7 +107,7 @@ test('calendar validation rejects impossible dates and accepts a leap day', () =
 
 test('future treatments and weights are rejected but appointments are accepted', () => {
   const a = app();
-  for (const type of ['vaksin', 'cacing', 'sihat', 'berat']) a.submit('saveRec', { date: '2027-01-01', name: 'F3', val: '4', val_u: 'kg' }, `'', '${type}'`);
+  for (const type of ['vaksin', 'cacing', 'sihat', 'berat']) a.submit('saveRec', { date: '2027-01-01', name: 'F3', val: '4' }, `'', '${type}'`);
   assert.equal(a.json('S.recs.length'), 0);
   a.submit('saveRec', { date: '2027-01-01', name: 'Pemeriksaan', time: '15:45', cost: '123.45' }, "'','lawatan'");
   assert.equal(a.json('S.recs.length'), 1);
@@ -168,9 +134,10 @@ test('appointments without a birth date still appear in the 30-day schedule', ()
 
 test('quick weighing validates the entire batch before adding any records', () => {
   const a = app({ data: { ...seed, cats: [...seed.cats, { id: 'b', name: 'B' }] } });
-  a.submit('saveQW', { date: '2026-10-11', w_a: '4', w_a_u: 'kg', w_b: '31', w_b_u: 'kg' });
+  a.run("SET.unit='kg'");
+  a.submit('saveQW', { date: '2026-10-11', w_a: '4', w_b: '31' });
   assert.equal(a.json('S.recs.length'), 0);
-  a.submit('saveQW', { date: '2026-10-11', w_a: '4', w_a_u: 'kg', w_b: '', w_b_u: 'kg' });
+  a.submit('saveQW', { date: '2026-10-11', w_a: '4', w_b: '' });
   assert.equal(a.json('S.recs.length'), 1);
 });
 
