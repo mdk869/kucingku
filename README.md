@@ -21,7 +21,8 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Setting (Lagi → Setting)** dalam kategori: **Umum** (bahasa Bahasa Melayu atau English, unit berat Auto/Gram/Kilogram), **Tema** (mod Sistem/Cerah/Gelap dan lima skema warna pastel: Sakura, Langit, Pudina, Lavender, Aprikot; warna kucing jantan biru dan betina merah jambu kekal, dan PDF sentiasa cerah), **Peringatan** (peringatan backup 14, 30, 60 hari atau mati), **Data** (Backup: Export/Import/Copy, dan padam semua data) dan **Tentang** (maklum balas, privasi, versi, penafian, rujukan peraturan jadual).
 - **Maklum balas & sokongan (Setting → Tentang):** butang Hantar maklum balas membuka borang Google Forms dalam tab baharu, dengan versi app dan bahasa diisi automatik.
 - **Statistik penggunaan tanpa nama:** Vercel Web Analytics (tanpa cookie) untuk bilangan lawatan, pelawat dan sumber pautan. Data kucing tidak dihantar.
-- **Pembantu pemasangan (skrin utama):** bar terapung *Pasang Kucingku* di atas menu bawah halaman Utama dan baris *Pasang app* dalam Lagi selagi app belum dipasang. Android Chrome/Samsung Internet: satu tekan melalui gesaan pasang pelayar; jika tiada, langkah bergambar (menu ⋮ → Pasang app → Pasang). iPhone: langkah bergambar Kongsi → Tambah ke Skrin Utama → Tambah, dengan amaran Export backup jika sudah ada data (app skrin utama iPhone bermula kosong). Dibuka dalam Facebook, Instagram, TikTok, Threads, LINE atau WebView Android: skrin *Buka dalam Chrome* (pautan `intent://`, satu tekan) atau langkah *Buka dalam Safari*, berserta pautan untuk disalin dan pilihan *Teruskan di sini*. Desktop: kod QR (`icons/qr.svg`) ke alamat production. Semua disembunyikan apabila app dibuka dari skrin utama atau sebagai app Play Store. Butang × menyembunyikan bar selama 7 hari (kunci `kucingku-install-v1-later`).
+- **Wajib pasang ke skrin utama:** di pelayar telefon, app dipaparkan kelabu dan kabur di belakang panel *Pasang Kucingku untuk mula* yang tidak boleh ditutup. App hanya boleh digunakan apabila dibuka dari ikon skrin utama atau sebagai app Play Store (`display-mode: standalone` / `navigator.standalone`). Android Chrome, Edge dan Samsung Internet: butang satu tekan melalui gesaan pasang pelayar, dengan langkah bergambar sebagai sandaran (menu ⋮ → Pasang app → Pasang); selepas dipasang panel menyuruh pengguna buka dari ikon. iPhone: langkah bergambar Kongsi → Tambah ke Skrin Utama → Tambah. Pelayar Android yang tidak boleh memasang app (Xiaomi, UC, Opera Mini, Vivo, HeyTap, Huawei): butang *Buka dalam Chrome*. Facebook, Instagram, TikTok, Threads, LINE atau WebView Android: skrin *Buka dalam Chrome* (pautan `intent://`) atau langkah *Buka dalam Safari*, berserta pautan untuk disalin. Desktop: kod QR (`icons/qr.svg`) ke alamat production.
+- **Mod ujian:** tambah `?dev` pada pautan untuk menggunakan app dalam pelayar tanpa memasang (disimpan pada peranti itu, kunci `kucingku-install-v1-dev`); `?dev=0` mematikannya.
 - **Bahasa English:** semua skrin, borang, mesej dan PDF diterjemah; data tidak berubah apabila bahasa ditukar.
 
 Versi semasa: **1.8.1** (lihat Setting → Tentang dalam app).
@@ -43,7 +44,7 @@ cd kucingku
 npx serve .          # atau: python3 -m http.server 8000
 ```
 
-Buka di **telefon** (rangkaian Wi-Fi yang sama) atau gunakan mod peranti mudah alih dalam DevTools pelayar. **Pada desktop, app sengaja menunjukkan skrin "untuk telefon sahaja".**
+Buka di **telefon** (rangkaian Wi-Fi yang sama) atau gunakan mod peranti mudah alih dalam DevTools pelayar, dengan `?dev` pada alamat supaya app tidak dikunci oleh panel pasang. **Pada desktop, app sengaja menunjukkan skrin "untuk telefon sahaja".**
 
 ## Deploy
 
@@ -68,7 +69,7 @@ App ini satu halaman, jadi setiap pembukaan app (termasuk dari ikon skrin utama)
 
 Borang semasa: **Maklum Balas Aplikasi Kucingku** (`entry.103926294` = Versi app). Selagi `FB.form` kosong, butang memaparkan mesej bahawa borang belum tersedia.
 
-Selepas deploy, buka pautan di telefon: app sendiri memaparkan kad **Pasang Kucingku** dengan langkah mengikut telefon dan pelayar.
+Selepas deploy, buka pautan di telefon: app memaparkan panel **Pasang Kucingku untuk mula** dengan langkah mengikut telefon dan pelayar. Untuk menguji dalam pelayar tanpa memasang, gunakan `?dev`.
 
 `manifest.webmanifest` menetapkan `id: "./"` (identiti sama seperti pemasangan sedia ada) dan `start_url: "./?utm_source=homescreen"`, jadi pembukaan dari ikon skrin utama boleh dilihat dalam Vercel Analytics → UTM. Kod QR desktop menggunakan `utm_source=desktop-qr`; jana semula `icons/qr.svg` jika alamat production bertukar.
 
@@ -94,7 +95,7 @@ Node.js 22 atau lebih baharu diperlukan untuk menjalankan ujian; aplikasi sendir
 npm test
 ```
 
-Fail ujian: `app.test.cjs` (storan, import/eksport, jadual, PDF), `settings.test.cjs` (tetapan, unit berat, Data), `phase1.test.cjs` (perbelanjaan dan kalendar .ics), `theme.test.cjs` (tema, mod gelap, skema warna), `i18n.test.cjs` (terjemahan English dan imbasan teks Melayu yang tertinggal pada setiap skrin, borang dan PDF) `home.test.cjs` (dashboard dan tindakan pantas) dan `install.test.cjs` (pembantu pemasangan untuk Android, iPhone, pelayar dalam app, desktop dan terjemahan). `helpers.cjs` menyediakan persekitaran ujian bersama.
+Fail ujian: `app.test.cjs` (storan, import/eksport, jadual, PDF), `settings.test.cjs` (tetapan, unit berat, Data), `phase1.test.cjs` (perbelanjaan dan kalendar .ics), `theme.test.cjs` (tema, mod gelap, skema warna), `i18n.test.cjs` (terjemahan English dan imbasan teks Melayu yang tertinggal pada setiap skrin, borang dan PDF) `home.test.cjs` (dashboard dan tindakan pantas) dan `install.test.cjs` (kunci wajib pasang, mod ujian, Android, iPhone, pelayar dalam app, desktop dan terjemahan). `helpers.cjs` menyediakan persekitaran ujian bersama.
 
 Suite menggunakan skrip app sebenar dengan storan dan masa terasing. Ia merangkumi simpan/reload, kegagalan storan, import/eksport, validasi tarikh/nilai, jadual rawatan dan kandungan laporan PDF serta retry CDN. GitHub Actions menjalankannya pada setiap PR dan push ke `main`.
 
