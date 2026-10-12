@@ -16,14 +16,17 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Vet:** senarai klinik yang anda taip sendiri (telefon, alamat atau pautan peta, waktu operasi, doktor), dengan butang Telefon dan Peta. Satu klinik boleh ditanda Klinik utama, dan klinik dipilih dalam borang rekod.
 - **Export PDF** untuk doktor haiwan, bertema sama dengan app, dengan sejarah penuh, klinik utama, masa dan kos lawatan.
 - **Dashboard Utama:** **Tindakan pantas** (Timbang cepat, Tambah rekod, Telefon vet), **Fokus hari ini** (senarai semak rawatan, timbang dan temujanji hari ini dengan bar kemajuan dan tanda siap), **Temujanji seterusnya** (tarikh, masa, klinik, Telefon dan Peta) dan **kad setiap kucing** (umur, berat terkini dengan perubahan, status Terkini, lewat atau hari ini).
-- **Setting (Lagi → Setting)** dalam kategori: **Umum** (bahasa Bahasa Melayu atau English, unit berat Auto/Gram/Kilogram), **Peringatan** (peringatan backup 14, 30, 60 hari atau mati), **Data** (Backup: Export/Import/Copy, dan padam semua data) dan **Tentang** (versi, penafian, rujukan peraturan jadual).
+- **Setting (Lagi → Setting)** dalam kategori: **Umum** (bahasa Bahasa Melayu atau English, unit berat Auto/Gram/Kilogram), **Peringatan** (peringatan backup 14, 30, 60 hari atau mati), **Data** (Backup: Export/Import/Copy, dan padam semua data) dan **Tentang** (maklum balas, privasi, versi, penafian, rujukan peraturan jadual).
+- **Maklum balas & sokongan (Setting → Tentang):** butang Hantar maklum balas membuka borang Google Forms dalam tab baharu, dengan versi app dan bahasa diisi automatik.
+- **Statistik penggunaan tanpa nama:** Vercel Web Analytics (tanpa cookie) untuk bilangan lawatan, pelawat dan sumber pautan. Data kucing tidak dihantar.
 - **Bahasa English:** semua skrin, borang, mesej dan PDF diterjemah; data tidak berubah apabila bahasa ditukar.
 
-Versi semasa: **1.5.0** (lihat Setting → Tentang dalam app).
+Versi semasa: **1.7.0** (lihat Setting → Tentang dalam app).
 
 ## Teknologi
 
 - `index.html` untuk HTML/CSS dan `app.js` untuk JavaScript biasa. **Tiada build, tiada dependency npm semasa runtime, tiada backend.**
+- Statistik: skrip Vercel Web Analytics `/_vercel/insights/script.js` dari origin sendiri; `connect-src 'self'` membenarkan beacon ke origin sendiri sahaja. Di luar Vercel skrip ini hanya 404 tanpa kesan pada app.
 - Data disimpan dalam `localStorage` pelayar (kunci `kucingku-v1`), tanpa sync ke backend. Fon dan pustaka PDF menggunakan permintaan aset luaran; butang Peta membuka alamat klinik melalui penyedia peta.
 - Fon: Google Fonts (Fredoka, Nunito).
 - PDF: [html2canvas](https://cdnjs.com/libraries/html2canvas) 1.4.1 dan [jsPDF](https://cdnjs.com/libraries/jspdf) 4.2.1 dimuat daripada CDN hanya apabila butang Export PDF ditekan. Setiap skrip mempunyai hash Subresource Integrity (SRI); muatan yang gagal boleh dicuba semula.
@@ -44,6 +47,23 @@ Buka di **telefon** (rangkaian Wi-Fi yang sama) atau gunakan mod peranti mudah a
 **GitHub Pages:** Settings → Pages → Source: *Deploy from a branch* → `main` / `(root)`.
 
 **Vercel:** Add New → Project → import repo ini. Framework Preset: *Other*. Kosongkan Build Command dan Output Directory.
+
+### Statistik (Vercel Web Analytics)
+
+1. Dashboard Vercel → projek **kucingku** → tab **Analytics** → **Enable**.
+2. Redeploy. Statistik mula dikumpul pada lawatan seterusnya.
+3. Untuk tahu sumber pautan, kongsi pautan dengan parameter UTM, cth. `https://kucingku-bay.vercel.app/?utm_source=whatsapp`. Dashboard turut memaparkan referrer.
+
+App ini satu halaman, jadi setiap pembukaan app (termasuk dari ikon skrin utama) dikira sebagai satu page view; navigasi antara tab tidak dikira.
+
+### Borang maklum balas (Google Forms)
+
+1. Cipta borang di Google Forms. Tambah satu medan jawapan pendek bernama **Versi app** (pilihan).
+2. Dapatkan pautan **viewform** borang (Hantar → ikon pautan), atau pautan `forms.gle`.
+3. Untuk isi automatik versi: menu ⋮ → **Dapatkan pautan pra-isi**, isi medan Versi app, salin pautan dan ambil `entry.XXXXXXXX` bagi medan itu.
+4. Dalam `app.js`, isi `const FB={form:'<pautan viewform>',ver:'entry.XXXXXXXX'};`. Hanya pautan `https://docs.google.com/forms/d/e/.../viewform` atau `https://forms.gle/...` diterima.
+
+Selagi `FB.form` kosong, butang memaparkan mesej bahawa borang belum tersedia.
 
 Selepas deploy, buka pautan di telefon, kemudian **Tambah ke Skrin Utama** (iOS Safari: Kongsi → Add to Home Screen; Android Chrome: menu → Install app).
 
@@ -104,7 +124,7 @@ kucingku/
 ├── app.js                # state, storan, jadual, UI dan PDF
 ├── manifest.webmanifest  # metadata PWA
 ├── icons/                # ikon app (192, 512, apple-touch 180)
-├── tests/                # ujian regresi dengan Node.js (helpers + 4 fail ujian)
+├── tests/                # ujian regresi dengan Node.js (helpers + fail ujian)
 ├── package.json          # arahan ujian, tiada dependency npm
 ├── .github/workflows/    # ujian pada PR dan main
 ├── vercel.json           # konfigurasi hosting statik dan header keselamatan
