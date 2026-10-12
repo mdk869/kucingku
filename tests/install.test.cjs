@@ -32,11 +32,12 @@ test('installed app (home screen or Play Store) shows no install prompts', () =>
 test('phone browser tab shows the install card on Home and a Pasang app row in Lagi', () => {
   const a = open(UA.androidChrome);
   assert.deepEqual(a.json('ENV'), { ios: false, and: true, sa: false, iab: false, app: '', br: 'chrome' });
-  assert.match(html(a), /class="ix".*Pasang Kucingku di skrin utama.*data-action="ixGo".*data-action="ixLater"/s);
+  assert.match(html(a), /class="ixb".*Pasang Kucingku.*data-action="ixGo".*data-action="ixLater" aria-label="Tutup"/s);
+  assert.match(html(a), /class="hero".*Akan datang.*class="ixb"/s, 'floating bar sits after the page content, not under the hero');
   a.run("go('more')");
   assert.match(html(a), /data-action="ixGo".*Pasang app/s);
   // New users with no cats still see the card under the welcome hero.
-  assert.match(html(open(UA.iosSafari, { data: empty })), /Selamat datang!.*class="ix"/s);
+  assert.match(html(open(UA.iosSafari, { data: empty })), /class="ixb"/);
 });
 
 test('Android without the browser install event falls back to illustrated menu steps', () => {
@@ -60,7 +61,7 @@ test('Android with the browser install event installs in one tap', async () => {
   assert.equal(a.run("$('#sh').hidden"), true, 'no manual steps when the native prompt is available');
   await new Promise(r => setImmediate(r));
   assert.equal(a.run('ixDone'), true);
-  assert.doesNotMatch(html(a), /class="ix"/);
+  assert.doesNotMatch(html(a), /class="ixb"/);
 });
 
 test('dismissed install prompt keeps the button available and returns after 7 days', () => {
@@ -69,12 +70,12 @@ test('dismissed install prompt keeps the button available and returns after 7 da
   assert.equal(a.run('ixDone'), false);
   const before = a.storage();
   a.run('ixLaterSet()');
-  assert.doesNotMatch(html(a), /class="ix"/);
+  assert.doesNotMatch(html(a), /class="ixb"/);
   assert.equal(a.storage(), before, 'cat data is untouched');
   a.run("go('more')");
   assert.match(html(a), /data-action="ixGo"/, 'Lagi still offers installing');
   a.run("localStorage.setItem(IK+'-later',String(Date.now()-8*864e5));go('home')");
-  assert.match(html(a), /class="ix"/);
+  assert.match(html(a), /class="ixb"/);
 });
 
 test('iPhone Safari shows Share → Add to Home Screen steps and warns that the installed app starts empty', () => {
@@ -103,7 +104,7 @@ test('Facebook in-app browser on Android gets a one-tap Open in Chrome link inst
   assert.equal(html(a, '#nav'), '');
   a.run('iabStay()');
   assert.match(html(a), /class="hero"/);
-  assert.doesNotMatch(html(a), /class="ix"/, 'cannot install from an in-app browser');
+  assert.doesNotMatch(html(a), /class="ixb"/, 'cannot install from an in-app browser');
   assert.match(html(open(UA.webviewAndroid)), /dibuka dalam <b>aplikasi ini<\/b>/);
 });
 
