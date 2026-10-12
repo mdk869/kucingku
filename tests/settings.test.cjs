@@ -172,6 +172,7 @@ test('quick weigh-in lists each cat with last weight and a live hint that falls 
   assert.match(html, /id="wh_w_a" data-d="Terakhir: 900 g">Terakhir: 900 g/);
   assert.match(html, /id="wh_w_b" data-d="Belum ditimbang">Belum ditimbang/);
   assert.equal((html.match(/Cth\. 650 g/g) || []).length, 1);
+  assert.doesNotMatch(html, /class="qr"/, '.qr is the install-gate QR box; reusing it breaks the rows');
   a.run(`wHint({name:'w_a',value:'1.2',dataset:{}})`);
   assert.equal(a.elements.get('#wh_w_a').textContent, 'Direkod: 1.2 kg');
 });
