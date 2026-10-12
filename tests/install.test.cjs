@@ -53,7 +53,7 @@ test('Android without the browser install event shows the illustrated menu steps
   assert.match(h, /Tekan menu ⋮.*Pilih Pasang app.*Tekan Pasang/s);
   assert.equal((h.match(/class="il"/g) || []).length, 3);
   assert.doesNotMatch(h, /data-action="ixGo"/);
-  assert.match(html(open(UA.samsung)), /Samsung Internet, menu ≡/);
+
 });
 
 test('Android with the browser install event installs in one tap, then says to open from the icon', async () => {
@@ -97,6 +97,17 @@ test('Android browsers that cannot install send the user to Chrome', () => {
   assert.match(h, /Pelayar ini tidak boleh memasang app.*href="intent:\/\/kucingku-bay.vercel.app\/\?utm_source=facebook#Intent;scheme=https;package=com.android.chrome;/s);
   assert.match(h, /data-action="ixCopy"/);
   assert.doesNotMatch(h, /Tekan menu ⋮/);
+});
+
+test('Samsung Internet is sent to Chrome because Play Protect blocks its installed apps', () => {
+  const a = open(UA.samsung);
+  assert.equal(a.run('ENV.br'), 'samsung');
+  const h = html(a);
+  assert.match(h, LOCK);
+  assert.match(h, /Samsung Internet memasang app dengan cara yang disekat oleh Google Play Protect.*href="intent:\/\/kucingku-bay.vercel.app\/[^"]*package=com.android.chrome;/s);
+  assert.doesNotMatch(h, /Tekan menu ⋮|data-action="ixGo"/);
+  a.run("bip={prompt(){},userChoice:Promise.resolve({})};render()");
+  assert.doesNotMatch(html(a), /data-action="ixGo"/, 'never offers Samsung Internet\'s own install prompt');
 });
 
 test('?dev opens the app in a browser for testing and ?dev=0 turns it off', () => {
