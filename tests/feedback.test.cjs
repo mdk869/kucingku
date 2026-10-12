@@ -8,8 +8,14 @@ const root = path.join(__dirname, '..');
 const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSf-Abc_123/viewform';
 const about = a => a.run("ssub='tentang';setv()");
 
+test('the shipped form is the Kucingku feedback form with the app version prefilled', () => {
+  const a = app();
+  assert.equal(a.run('fbUrl()'), 'https://docs.google.com/forms/d/e/1FAIpQLSfK5e5iSrBBUDWH5bMCLIxYPe6dWAKIaNkdOt_UXYqnKObJyw/viewform?usp=pp_url&entry.103926294=' + encodeURIComponent('Kucingku v1.7.0 · BM'));
+});
+
 test('without a configured form the About page shows a button that explains the form is not ready', () => {
   const a = app();
+  a.run("FB.form=''");
   assert.equal(a.run('fbUrl()'), '');
   const html = about(a);
   assert.match(html, /Maklum balas &amp; sokongan/);

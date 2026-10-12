@@ -38,7 +38,7 @@ const lastW=id=>S.recs.filter(r=>r.cat===id&&r.type==='berat'&&r.date<=td()).sor
 function tasks(){const o=[],T0=td();S.cats.forEach(c=>{const p=plan(c);if(!p)return;[['berat',p.t],['vaksin',p.v],['cacing',p.w]].forEach(([t,x])=>{const d=dif(T0,x.d);if(d<=30)o.push({c,t,l:x.l,date:x.d,d})})});S.recs.forEach(r=>{if(r.type!=='lawatan')return;const c=cat(r.cat),d=dif(T0,r.date);if(c&&d>=0&&d<=30)o.push({c,t:'lawatan',l:r.name+(r.time?' · '+r.time:''),date:r.date,d})});return o.sort((a,b)=>a.d-b.d)}
 const VER='1.7.0';
 // Borang maklum balas Google Forms. form: pautan .../viewform (atau forms.gle). ver: ID medan versi app untuk diisi automatik, cth. 'entry.123456789' (pilihan).
-const FB={form:'',ver:''};
+const FB={form:'https://docs.google.com/forms/d/e/1FAIpQLSfK5e5iSrBBUDWH5bMCLIxYPe6dWAKIaNkdOt_UXYqnKObJyw/viewform',ver:'entry.103926294'};
 function fbUrl(){const f=String(FB.form||'').trim();if(!/^https:\/\/(docs\.google\.com\/forms\/d\/e\/[\w-]+\/viewform|forms\.gle\/[\w-]+)(\?[^\s"'<>]*)?$/.test(f))return '';if(!/^entry\.\d+$/.test(FB.ver)||!f.startsWith('https://docs.google.com/'))return f;return f+(f.includes('?')?'&':'?')+'usp=pp_url&'+FB.ver+'='+encodeURIComponent(`Kucingku v${VER} · ${SET.lang==='en'?'EN':'BM'}`)}
 const TL={vaksin:'Vaksin core',cacing:'Ubat cacing',berat:'Timbang berat',lawatan:'Temujanji vet'};
 const rel=d=>d<0?'Lewat '+-d+' hari':d===0?'Hari ini':d===1?'Esok':d+' hari lagi';

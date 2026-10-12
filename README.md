@@ -63,7 +63,7 @@ App ini satu halaman, jadi setiap pembukaan app (termasuk dari ikon skrin utama)
 3. Untuk isi automatik versi: menu ⋮ → **Dapatkan pautan pra-isi**, isi medan Versi app, salin pautan dan ambil `entry.XXXXXXXX` bagi medan itu.
 4. Dalam `app.js`, isi `const FB={form:'<pautan viewform>',ver:'entry.XXXXXXXX'};`. Hanya pautan `https://docs.google.com/forms/d/e/.../viewform` atau `https://forms.gle/...` diterima.
 
-Selagi `FB.form` kosong, butang memaparkan mesej bahawa borang belum tersedia.
+Borang semasa: **Maklum Balas Aplikasi Kucingku** (`entry.103926294` = Versi app). Selagi `FB.form` kosong, butang memaparkan mesej bahawa borang belum tersedia.
 
 Selepas deploy, buka pautan di telefon, kemudian **Tambah ke Skrin Utama** (iOS Safari: Kongsi → Add to Home Screen; Android Chrome: menu → Install app).
 
