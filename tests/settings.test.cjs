@@ -163,3 +163,15 @@ test('every select option carries an explicit value so translated labels never c
   a.run("try{catForm()}catch(e){}"); forms.push(a.elements.get('#sh').innerHTML);
   for (const html of forms) assert.doesNotMatch(html, /<option(?![^>]*\bvalue=)/);
 });
+
+test('quick weigh-in lists each cat with last weight and a live hint that falls back to it', () => {
+  const a = app({ data: { version: 2, bk: 0, cats: [{ id: 'a', name: 'Oreo', sex: 'Jantan', dob: '2026-06-01' }, { id: 'b', name: 'Ibu', sex: 'Betina', dob: '2024-01-01' }], vets: [], recs: [{ id: 'r1', cat: 'a', type: 'berat', date: '2026-10-05', val: 900 }] } });
+  a.run('quickW()');
+  const html = a.elements.get('#sh').innerHTML;
+  assert.match(html, /name="w_a"[^>]*placeholder="0"/);
+  assert.match(html, /id="wh_w_a" data-d="Terakhir: 900 g">Terakhir: 900 g/);
+  assert.match(html, /id="wh_w_b" data-d="Belum ditimbang">Belum ditimbang/);
+  assert.equal((html.match(/Cth\. 650 g/g) || []).length, 1);
+  a.run(`wHint({name:'w_a',value:'1.2',dataset:{}})`);
+  assert.equal(a.elements.get('#wh_w_a').textContent, 'Direkod: 1.2 kg');
+});

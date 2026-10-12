@@ -25,7 +25,7 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Mod ujian:** tambah `?dev` pada pautan untuk menggunakan app dalam pelayar tanpa memasang (disimpan pada peranti itu, kunci `kucingku-install-v1-dev`); `?dev=0` mematikannya.
 - **Bahasa English:** semua skrin, borang, mesej dan PDF diterjemah; data tidak berubah apabila bahasa ditukar.
 
-Versi semasa: **1.8.2** (lihat Setting → Tentang dalam app).
+Versi semasa: **1.8.3** (lihat Setting → Tentang dalam app).
 
 ## Teknologi
 
