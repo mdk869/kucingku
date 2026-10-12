@@ -6,9 +6,10 @@ const source = fs.readFileSync(path.join(__dirname, '../app.js'), 'utf8');
 const seed = { cats: [{ id: 'a', name: 'Milo', dob: '2024-01-01' }], recs: [], vets: [], bk: 0 };
 
 // Run the real app script with deterministic time and isolated browser adapters.
-function app({ data = seed, failSave = false, raw, failRead = false, settings: initialSettings = null } = {}) {
+function app({ data = seed, failSave = false, raw, failRead = false, settings: initialSettings = null, ua = 'Android Mobile', media = () => true, standalone, extra = {} } = {}) {
   let stored = raw === undefined ? JSON.stringify(data) : raw, settings = initialSettings === null ? null : JSON.stringify(initialSettings);
   let writes = 0;
+  const other = new Map();
   const elements = new Map(), scripts = [], timers = new Map(), events = {};
   const element = () => ({ hidden: true, innerHTML: '', textContent: '', insertAdjacentHTML(_, text) { this.innerHTML = text + this.innerHTML; } });
   const document = {
@@ -22,13 +23,13 @@ function app({ data = seed, failSave = false, raw, failRead = false, settings: i
     static now() { return +new Date('2026-10-11T04:00:00Z'); }
   }
   const context = vm.createContext({
-    Date: Clock, Blob, URL, document, navigator: { userAgent: 'Android Mobile' }, screen: { width: 400, height: 800 },
-    matchMedia: () => ({ matches: true }), scrollTo() {},
+    Date: Clock, Blob, URL, document, navigator: { userAgent: ua, standalone }, screen: { width: 400, height: 800 },
+    matchMedia: query => ({ matches: media(query) }), ...extra, scrollTo() {},
     setTimeout(fn) { const id = timers.size + 1; timers.set(id, fn); return id; }, clearTimeout(id) { timers.delete(id); },
     FormData: class { constructor(values) { return new Map(Object.entries(values).filter(([key]) => key !== 'dataset')); } },
     localStorage: {
-      getItem(key) { if (failRead) throw new Error('SecurityError'); return key === 'kucingku-settings-v1' ? settings : stored; },
-      setItem(key, value) { if (failSave) throw new Error('QuotaExceededError'); if (key === 'kucingku-settings-v1') settings = value; else { stored = value; writes++; } },
+      getItem(key) { if (failRead) throw new Error('SecurityError'); if (key.startsWith('kucingku-install')) return other.get(key) ?? null; return key === 'kucingku-settings-v1' ? settings : stored; },
+      setItem(key, value) { if (failSave) throw new Error('QuotaExceededError'); if (key.startsWith('kucingku-install')) { other.set(key, value); return; } if (key === 'kucingku-settings-v1') settings = value; else { stored = value; writes++; } },
     },
   });
   vm.runInContext(source, context);
