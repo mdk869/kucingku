@@ -14,14 +14,16 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Jadual:** halaman yang mengumpulkan semua rawatan, timbang dan temujanji dalam 30 hari akan datang (Lewat, Hari ini, 7 hari, 8 hingga 30 hari).
 - **Lawatan vet dan temujanji:** tarikh, masa, sebab, catatan, klinik dan kos (RM). Tarikh akan datang menjadi temujanji dan muncul dalam Akan datang dan Jadual.
 - **Vet:** senarai klinik yang anda taip sendiri (telefon, alamat atau pautan peta, waktu operasi, doktor), dengan butang Telefon dan Peta. Satu klinik boleh ditanda Klinik utama, dan klinik dipilih dalam borang rekod.
+- **Perbelanjaan (Lagi → Perbelanjaan):** jumlah kos bulan ini, tahun ini atau semua, graf 6 bulan, pecahan mengikut jenis rekod dan kucing, serta kos terkini. Hanya rekod yang sudah berlalu dikira; temujanji akan datang tidak termasuk.
+- **Kalendar (Lagi → Kalendar):** export fail `.ics` untuk temujanji vet dan jadual vaksin/ubat cacing akan datang (dengan peringatan). Satu temujanji juga boleh ditambah terus dari kad Temujanji seterusnya. Fail ialah salinan semasa; UID kekal supaya import semula mengemas kini acara yang sama dan bukan menggandakannya.
 - **Export PDF** untuk doktor haiwan, bertema sama dengan app, dengan sejarah penuh, klinik utama, masa dan kos lawatan.
 - **Dashboard Utama:** **Tindakan pantas** (Timbang cepat, Tambah rekod, Telefon vet), **Fokus hari ini** (senarai semak rawatan, timbang dan temujanji hari ini dengan bar kemajuan dan tanda siap), **Temujanji seterusnya** (tarikh, masa, klinik, Telefon dan Peta) dan **kad setiap kucing** (umur, berat terkini dengan perubahan, status Terkini, lewat atau hari ini).
-- **Setting (Lagi → Setting)** dalam kategori: **Umum** (bahasa Bahasa Melayu atau English, unit berat Auto/Gram/Kilogram), **Peringatan** (peringatan backup 14, 30, 60 hari atau mati), **Data** (Backup: Export/Import/Copy, dan padam semua data) dan **Tentang** (maklum balas, privasi, versi, penafian, rujukan peraturan jadual).
+- **Setting (Lagi → Setting)** dalam kategori: **Umum** (bahasa Bahasa Melayu atau English, unit berat Auto/Gram/Kilogram), **Tema** (mod Sistem/Cerah/Gelap dan lima skema warna pastel: Sakura, Langit, Pudina, Lavender, Aprikot; warna kucing jantan biru dan betina merah jambu kekal, dan PDF sentiasa cerah), **Peringatan** (peringatan backup 14, 30, 60 hari atau mati), **Data** (Backup: Export/Import/Copy, dan padam semua data) dan **Tentang** (maklum balas, privasi, versi, penafian, rujukan peraturan jadual).
 - **Maklum balas & sokongan (Setting → Tentang):** butang Hantar maklum balas membuka borang Google Forms dalam tab baharu, dengan versi app dan bahasa diisi automatik.
 - **Statistik penggunaan tanpa nama:** Vercel Web Analytics (tanpa cookie) untuk bilangan lawatan, pelawat dan sumber pautan. Data kucing tidak dihantar.
 - **Bahasa English:** semua skrin, borang, mesej dan PDF diterjemah; data tidak berubah apabila bahasa ditukar.
 
-Versi semasa: **1.7.0** (lihat Setting → Tentang dalam app).
+Versi semasa: **1.8.0** (lihat Setting → Tentang dalam app).
 
 ## Teknologi
 
@@ -77,7 +79,7 @@ Selepas deploy, buka pautan di telefon, kemudian **Tambah ke Skrin Utama** (iOS 
 - Teks profil dan catatan dikekalkan tanpa pemotongan semasa reload. Berat mesti antara 1 g hingga 30 kg; kos antara RM 0 hingga RM 1,000,000.
 - Jika storan tidak dapat dibaca, app tidak menimpanya. Gunakan Export/Copy pada Setting → Data untuk mendapatkan salinan asal sebelum mengimport backup yang sah. Fail salinan asal `.txt` ialah bahan pemulihan, bukan backup JSON yang telah disahkan.
 - Rekod rawatan dan timbangan baharu mesti bertarikh hari ini atau sebelumnya. Gunakan Lawatan vet untuk temujanji masa depan. Rekod rawatan masa depan daripada backup lama dikekalkan dalam sejarah tetapi tidak digunakan untuk mengira rawatan selesai atau tarikh seterusnya.
-- Tetapan app (bahasa, unit berat, peringatan backup) disimpan pada kunci berasingan `kucingku-settings-v1` dan merupakan pilihan peranti: ia tidak termasuk dalam backup, tidak ditimpa semasa import dan kekal selepas padam semua data. Nilai tetapan yang tidak sah diabaikan dan lalai digunakan.
+- Tetapan app (bahasa, unit berat, tema, peringatan backup) disimpan pada kunci berasingan `kucingku-settings-v1` dan merupakan pilihan peranti: ia tidak termasuk dalam backup, tidak ditimpa semasa import dan kekal selepas padam semua data. Nilai tetapan yang tidak sah diabaikan dan lalai digunakan.
 - Unit berat menentukan paparan dan juga cara nombor yang ditaip dibaca: **Auto** membaca nombor di bawah 20 sebagai kg dan selebihnya sebagai gram; **Gram** dan **Kilogram** membaca nombor dalam unit itu sahaja. Berat disimpan sebagai gram bulat dan mesti antara 1 g hingga 30 kg.
 - Mesej muat turun bermakna permintaan muat turun telah dimulakan; pelayar tidak memberi pengesahan bahawa pengguna menyimpan fail tersebut.
 
@@ -89,7 +91,7 @@ Node.js 22 atau lebih baharu diperlukan untuk menjalankan ujian; aplikasi sendir
 npm test
 ```
 
-Fail ujian: `app.test.cjs` (storan, import/eksport, jadual, PDF), `settings.test.cjs` (tetapan, unit berat, Data), `i18n.test.cjs` (terjemahan English dan imbasan teks Melayu yang tertinggal pada setiap skrin, borang dan PDF) dan `home.test.cjs` (dashboard dan tindakan pantas). `helpers.cjs` menyediakan persekitaran ujian bersama.
+Fail ujian: `app.test.cjs` (storan, import/eksport, jadual, PDF), `settings.test.cjs` (tetapan, unit berat, Data), `phase1.test.cjs` (perbelanjaan dan kalendar .ics), `theme.test.cjs` (tema, mod gelap, skema warna), `i18n.test.cjs` (terjemahan English dan imbasan teks Melayu yang tertinggal pada setiap skrin, borang dan PDF) dan `home.test.cjs` (dashboard dan tindakan pantas). `helpers.cjs` menyediakan persekitaran ujian bersama.
 
 Suite menggunakan skrip app sebenar dengan storan dan masa terasing. Ia merangkumi simpan/reload, kegagalan storan, import/eksport, validasi tarikh/nilai, jadual rawatan dan kandungan laporan PDF serta retry CDN. GitHub Actions menjalankannya pada setiap PR dan push ke `main`.
 

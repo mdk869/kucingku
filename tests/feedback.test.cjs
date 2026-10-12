@@ -10,7 +10,7 @@ const about = a => a.run("ssub='tentang';setv()");
 
 test('the shipped form is the Kucingku feedback form with the app version prefilled', () => {
   const a = app();
-  assert.equal(a.run('fbUrl()'), 'https://docs.google.com/forms/d/e/1FAIpQLSfK5e5iSrBBUDWH5bMCLIxYPe6dWAKIaNkdOt_UXYqnKObJyw/viewform?usp=pp_url&entry.103926294=' + encodeURIComponent('Kucingku v1.7.0 · BM'));
+  assert.equal(a.run('fbUrl()'), 'https://docs.google.com/forms/d/e/1FAIpQLSfK5e5iSrBBUDWH5bMCLIxYPe6dWAKIaNkdOt_UXYqnKObJyw/viewform?usp=pp_url&entry.103926294=' + encodeURIComponent('Kucingku v' + a.run('VER') + ' · BM'));
 });
 
 test('without a configured form the About page shows a button that explains the form is not ready', () => {
@@ -29,7 +29,7 @@ test('a configured Google Form opens in a new tab and prefills the app version a
   const a = app();
   a.run(`FB.form='${FORM}';FB.ver='entry.123456'`);
   const url = a.run('fbUrl()');
-  assert.equal(url, FORM + '?usp=pp_url&entry.123456=' + encodeURIComponent('Kucingku v1.7.0 · BM'));
+  assert.equal(url, FORM + '?usp=pp_url&entry.123456=' + encodeURIComponent('Kucingku v' + a.run('VER') + ' · BM'));
   a.run("setLang('en')");
   assert.match(a.run('fbUrl()'), /%C2%B7%20EN$/);
   const html = about(a);
