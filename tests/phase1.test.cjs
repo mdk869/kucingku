@@ -116,7 +116,7 @@ const lines = text => text.split('\r\n');
 
 test('ics helpers escape text and fold long lines on UTF-8 byte boundaries', () => {
   const a = A();
-  assert.equal(a.json('icsEsc("a,b;c\\\\d\\ne")'), 'a\\,b\;c\\\\d\\ne');
+  assert.equal(a.json('icsEsc("a,b;c\\\\d\\ne")'), 'a\\,b\\;c\\\\d\\ne');
   const long = a.json('icsFold("DESCRIPTION:" + "Kucing sihat 🐱 ".repeat(30))');
   for (const l of long.split('\r\n')) assert.ok(Buffer.byteLength(l) <= 75, l.length + ' chars');
   assert.equal(long.split('\r\n').slice(1).every(l => l.startsWith(' ')), true);
@@ -138,7 +138,7 @@ test('calendar contains upcoming appointments with escaped details, reminders an
   assert.ok(L.includes('DTEND:20261021T003000'), 'one hour later across midnight');
   assert.ok(L.includes('DTSTART;VALUE=DATE:20261025'));
   assert.ok(L.includes('DTEND;VALUE=DATE:20261026'));
-  assert.ok(text.includes('SUMMARY:Vet: Check\\, "up"\; ok (Milo)'));
+  assert.ok(text.includes('SUMMARY:Vet: Check\\, "up"\\; ok (Milo)'));
   assert.ok(text.includes('LOCATION:Klinik Sayang\\, Jalan Satok\\, Kuching'));
   assert.ok(text.includes('Bawa buku\\nBawa kad'));
   assert.ok(text.includes('TRIGGER:-P1D') && text.includes('TRIGGER:-PT1H'));

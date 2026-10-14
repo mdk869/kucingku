@@ -23,9 +23,11 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Statistik penggunaan tanpa nama:** Vercel Web Analytics (tanpa cookie) untuk bilangan lawatan, pelawat dan sumber pautan. Data kucing tidak dihantar.
 - **Wajib pasang ke skrin utama:** di pelayar telefon, app dipaparkan kelabu dan kabur di belakang panel *Pasang Kucingku untuk mula* yang tidak boleh ditutup. App hanya boleh digunakan apabila dibuka dari ikon skrin utama atau sebagai app Play Store (`display-mode: standalone` / `navigator.standalone`). Android Chrome dan Edge: butang satu tekan melalui gesaan pasang pelayar, dengan langkah bergambar sebagai sandaran (menu ⋮ → Pasang app → Pasang); selepas dipasang panel menyuruh pengguna buka dari ikon. iPhone: langkah bergambar Kongsi → Tambah ke Skrin Utama → Tambah. Samsung Internet dan pelayar Android yang tidak boleh memasang app (Xiaomi, UC, Opera Mini, Vivo, HeyTap, Huawei): butang *Buka dalam Chrome*. Samsung Internet dihantar ke Chrome kerana app yang dipasangnya disekat oleh Google Play Protect (*Unsafe app blocked: built for an older version of Android*). Facebook, Instagram, TikTok, Threads, LINE atau WebView Android: skrin *Buka dalam Chrome* (pautan `intent://`) atau langkah *Buka dalam Safari*, berserta pautan untuk disalin. Desktop: kod QR (`icons/qr.svg`) ke alamat production.
 - **Mod ujian:** tambah `?dev` pada pautan untuk menggunakan app dalam pelayar tanpa memasang (disimpan pada peranti itu, kunci `kucingku-install-v1-dev`); `?dev=0` mematikannya.
+- **Luar talian:** service worker (`sw.js`) menyimpan fail app supaya Kucingku boleh dibuka tanpa internet. Versi baharu dimuat turun di latar dan digunakan pada pembukaan seterusnya. App yang dipasang juga meminta storan kekal (`navigator.storage.persist()`) supaya data tidak dipadam bila storan telefon hampir penuh.
+- **Butang Back Android:** setiap skrin dan borang ialah satu entri sejarah. Back menutup borang yang terbuka dahulu, kemudian kembali ke skrin sebelumnya.
 - **Bahasa English:** semua skrin, borang, mesej dan PDF diterjemah; data tidak berubah apabila bahasa ditukar.
 
-Versi semasa: **1.8.3** (lihat Setting → Tentang dalam app).
+Versi semasa: **1.8.4** (lihat Setting → Tentang dalam app).
 
 ## Teknologi
 
@@ -95,7 +97,7 @@ Node.js 22 atau lebih baharu diperlukan untuk menjalankan ujian; aplikasi sendir
 npm test
 ```
 
-Fail ujian: `app.test.cjs` (storan, import/eksport, jadual, PDF), `settings.test.cjs` (tetapan, unit berat, Data), `phase1.test.cjs` (perbelanjaan dan kalendar .ics), `theme.test.cjs` (tema, mod gelap, skema warna), `i18n.test.cjs` (terjemahan English dan imbasan teks Melayu yang tertinggal pada setiap skrin, borang dan PDF) `home.test.cjs` (dashboard dan tindakan pantas) dan `install.test.cjs` (kunci wajib pasang, mod ujian, Android, iPhone, pelayar dalam app, desktop dan terjemahan). `helpers.cjs` menyediakan persekitaran ujian bersama.
+Fail ujian: `app.test.cjs` (storan, import/eksport, jadual, PDF), `settings.test.cjs` (tetapan, unit berat, Data), `phase1.test.cjs` (perbelanjaan dan kalendar .ics), `theme.test.cjs` (tema, mod gelap, skema warna), `i18n.test.cjs` (terjemahan English dan imbasan teks Melayu yang tertinggal pada setiap skrin, borang dan PDF) `home.test.cjs` (dashboard dan tindakan pantas), `v184.test.cjs` (luar talian, butang Back, timbangan sama hari, vaksin gabungan dan vaksin pertama) dan `install.test.cjs` (kunci wajib pasang, mod ujian, Android, iPhone, pelayar dalam app, desktop dan terjemahan). `helpers.cjs` menyediakan persekitaran ujian bersama.
 
 Suite menggunakan skrip app sebenar dengan storan dan masa terasing. Ia merangkumi simpan/reload, kegagalan storan, import/eksport, validasi tarikh/nilai, jadual rawatan dan kandungan laporan PDF serta retry CDN. GitHub Actions menjalankannya pada setiap PR dan push ke `main`.
 
@@ -107,7 +109,7 @@ Untuk menghalang merge tanpa ujian, tetapkan job `test` daripada workflow **Regr
 
 | Rawatan | Peraturan |
 |---|---|
-| Vaksin core (F3) | Dos pertama ±8 minggu. Ulang setiap 4 minggu hingga dos pada umur 16 minggu atau lebih. Booster pada 6 bulan, kemudian setiap 3 tahun. |
+| Vaksin core (F3) | Dos pertama ±8 minggu. Ulang setiap 4 minggu hingga dos pada umur 16 minggu atau lebih. Booster pada 6 bulan, kemudian setiap 3 tahun. Kucing tanpa sejarah vaksin (tanda *Vaksin pertama* pada borang): dua dos selang 4 minggu. Vaksin gabungan seperti "F4 + Rabies" dikira untuk vaksin core dan rabies. |
 | Ubat cacing | Bawah 8 minggu: setiap 14 hari. Hingga 6 bulan: setiap 30 hari. Selepas itu: setiap 3 bulan. |
 | Timbang berat | Bawah 8 minggu: setiap hari. Hingga 6 bulan: setiap minggu. Selepas itu: setiap bulan. |
 | Vaksin rabies | Cadangan ±12 minggu. Rekod melalui tab Vaksin dengan nama "Rabies". |
@@ -129,7 +131,8 @@ kucingku/
 ├── index.html            # HTML dan CSS
 ├── app.js                # state, storan, jadual, UI dan PDF
 ├── manifest.webmanifest  # metadata PWA
-├── icons/                # ikon app (192, 512, apple-touch 180)
+├── sw.js                 # service worker (luar talian); tukar CACHE pada setiap keluaran
+├── icons/                # ikon app (192, 512, maskable 512, apple-touch 180)
 ├── tests/                # ujian regresi dengan Node.js (helpers + fail ujian)
 ├── package.json          # arahan ujian, tiada dependency npm
 ├── .github/workflows/    # ujian pada PR dan main
@@ -141,7 +144,8 @@ kucingku/
 ## Had yang diketahui
 
 - Hanya untuk telefon. Desktop dan tablet disekat dengan sengaja.
-- Tiada notifikasi peringatan dan tiada mod luar talian (tiada service worker).
+- Tiada notifikasi peringatan.
+- Selepas kemas kini, versi baharu digunakan pada pembukaan app seterusnya (bukan serta-merta).
 - Teks dalam PDF ialah gambar (tidak boleh dipilih atau disalin).
 
 ## Lesen
