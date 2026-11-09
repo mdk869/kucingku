@@ -185,8 +185,8 @@ test('the dashboard renders for every view without throwing and the backup nudge
   const a = world();
   for (const v of ['home', 'cats', 'jd', 'more', 'vet', 'set']) { click(a, { action: 'go', view: v }); assert.ok(a.elements.get('#app').innerHTML.length > 50, v); }
   click(a, { action: 'go', view: 'home' });
-  assert.match(a.elements.get('#app').innerHTML, /Buat backup data/);
+  assert.match(a.elements.get('#app').innerHTML, /Buat backup sekarang/);
   a.run('SET.bk=0');
   click(a, { action: 'go', view: 'home' });
-  assert.doesNotMatch(a.elements.get('#app').innerHTML, /Buat backup data/);
+  assert.doesNotMatch(a.elements.get('#app').innerHTML, /Buat backup sekarang/);
 });

@@ -1,0 +1,48 @@
+{
+ "bk": 0,
+ "cats": [
+  {
+   "id": "ibu",
+   "name": "Comel",
+   "role": "ibu",
+   "status": "Sihat",
+   "sex": "Betina",
+   "dob": "2025-01-01",
+   "color": "#F7C6D0"
+  },
+  {
+   "id": "anak1",
+   "name": "Tompok",
+   "role": "anak",
+   "status": "Dalam rawatan",
+   "sex": "Jantan",
+   "dob": "2026-08-01",
+   "dobx": "Anggaran"
+  }
+ ],
+ "recs": [
+  {
+   "id": "a1",
+   "cat": "anak1",
+   "type": "berat",
+   "date": "2026-08-15",
+   "val": 350
+  },
+  {
+   "id": "a2",
+   "cat": "anak1",
+   "type": "cacing",
+   "date": "2026-08-20",
+   "name": "Drontal",
+   "next": "2026-09-03"
+  },
+  {
+   "id": "a3",
+   "cat": "ibu",
+   "type": "vaksin",
+   "date": "2025-06-01",
+   "name": "F3",
+   "next": "2026-06-01"
+  }
+ ]
+}

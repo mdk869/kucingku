@@ -1,0 +1,123 @@
+{
+ "version": 2,
+ "bk": 1791000000000,
+ "cats": [
+  {
+   "id": "oreo1",
+   "name": "Oreo",
+   "sex": "Jantan",
+   "dob": "2026-06-01",
+   "dobx": "Tepat",
+   "breed": "Domestic Shorthair",
+   "pattern": "Hitam & putih \"tuxedo\"",
+   "chip": "900123456789012",
+   "note": "Suka tidur atas sofa 😺",
+   "color": "#F7C6D0",
+   "photo": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wAALCAABAAEBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACf/EABQQAQAAAAAAAAAAAAAAAAAAAAD/2gAIAQEAAD8AKp//2Q=="
+  },
+  {
+   "id": "mochi2",
+   "name": "Mochi",
+   "sex": "Betina",
+   "dob": "2023-03-15",
+   "dobx": "Anggaran",
+   "breed": "Persian",
+   "pattern": "Putih gebu",
+   "note": "Alah ayam",
+   "color": "#BBD4F5",
+   "ms": {
+    "md": "2024-01-10"
+   }
+  },
+  {
+   "id": "luna3",
+   "name": "Luna <Kecil>",
+   "sex": "Belum pasti",
+   "dob": "2026-09-20",
+   "dobx": "Tepat",
+   "breed": "Tidak pasti"
+  }
+ ],
+ "vets": [
+  {
+   "id": "v1",
+   "name": "Klinik Haiwan Bestari",
+   "addr": "Jalan 1, Bestari Jaya",
+   "hours": "9 pg - 6 ptg",
+   "doc": "Dr. Aina",
+   "main": true,
+   "tel": "03-1234 5678",
+   "note": "Parking belakang",
+   "h24": false
+  }
+ ],
+ "recs": [
+  {
+   "id": "r1",
+   "cat": "oreo1",
+   "type": "berat",
+   "date": "2026-08-01",
+   "val": 1200
+  },
+  {
+   "id": "r2",
+   "cat": "oreo1",
+   "type": "berat",
+   "date": "2026-10-01",
+   "val": 2350
+  },
+  {
+   "id": "r3",
+   "cat": "oreo1",
+   "type": "vaksin",
+   "date": "2026-08-01",
+   "name": "F3 (Tricat)",
+   "clinic": "v1",
+   "cost": 85
+  },
+  {
+   "id": "r4",
+   "cat": "mochi2",
+   "type": "vaksin",
+   "date": "2026-09-01",
+   "name": "F4 + Rabies",
+   "first": true,
+   "note": "Dos pertama sejak diambil"
+  },
+  {
+   "id": "r5",
+   "cat": "mochi2",
+   "type": "cacing",
+   "date": "2026-10-05",
+   "name": "Revolution",
+   "cost": 45.5
+  },
+  {
+   "id": "r6",
+   "cat": "mochi2",
+   "type": "sihat",
+   "date": "2026-10-07",
+   "name": "Muntah",
+   "note": "2 kali; makan rumput"
+  },
+  {
+   "id": "r7",
+   "cat": "luna3",
+   "type": "lawatan",
+   "date": "2026-10-08",
+   "time": "10:30",
+   "name": "Checkup",
+   "clinic": "v1",
+   "cost": 60
+  },
+  {
+   "id": "r8",
+   "cat": "oreo1",
+   "type": "lawatan",
+   "date": "2026-12-01",
+   "time": "15:00",
+   "name": "Mandul",
+   "clinic": "v1"
+  }
+ ]
+}
