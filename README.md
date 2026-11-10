@@ -25,11 +25,12 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Mod ujian:** tambah `?dev` pada pautan untuk menggunakan app dalam pelayar tanpa memasang (disimpan pada peranti itu, kunci `kucingku-install-v1-dev`); `?dev=0` mematikannya.
 - **Luar talian:** service worker (`sw.js`) menyimpan fail app supaya Kucingku boleh dibuka tanpa internet. Versi baharu dimuat turun di latar dan digunakan pada pembukaan seterusnya. App yang dipasang juga meminta storan kekal (`navigator.storage.persist()`) supaya data tidak dipadam bila storan telefon hampir penuh.
 - **Butang Back Android:** setiap skrin dan borang ialah satu entri sejarah. Back menutup borang yang terbuka dahulu, kemudian kembali ke skrin sebelumnya.
+- **Contoh paparan pada skrin Pasang (v1.8.6):** 4 screenshot app (`img/pratonton-*.webp`, ±16KB setiap satu) boleh dileret di atas langkah pemasangan, supaya pengguna nampak app sebelum memasang. Untuk menukar gambar, ganti fail dengan nama yang sama (360px lebar, WebP).
 - **Keselamatan data (v1.8.5):** amaran "Data disimpan dalam telefon ini sahaja" pada skrin selamat datang dan Setting → Data; kad *Buat backup sekarang* di Utama selagi belum ada backup. Di iPhone, Export (backup, PDF, kalendar) membuka butang Kongsi (Simpan ke Fail, Google Drive, WhatsApp); jika tidak disokong, muat turun biasa digunakan.
 - **Laporan masalah:** ralat yang tidak dijangka memaparkan panel *Ada masalah dalam app* dengan butang Laporkan, yang membuka borang maklum balas dengan versi app, jenis telefon dan mesej ralat diisi automatik (tiada data kucing). Ralat skrip luar (fon, analytics, sambungan pelayar) diabaikan.
 - **Bahasa English:** semua skrin, borang, mesej dan PDF diterjemah; data tidak berubah apabila bahasa ditukar.
 
-Versi semasa: **1.8.5** (lihat Setting → Tentang dalam app).
+Versi semasa: **1.8.6** (lihat Setting → Tentang dalam app).
 
 ## Teknologi
 
@@ -113,7 +114,7 @@ Node.js 22 atau lebih baharu diperlukan untuk menjalankan ujian; aplikasi sendir
 npm test
 ```
 
-Fail ujian: `app.test.cjs` (storan, import/eksport, jadual, PDF), `settings.test.cjs` (tetapan, unit berat, Data), `phase1.test.cjs` (perbelanjaan dan kalendar .ics), `theme.test.cjs` (tema, mod gelap, skema warna), `i18n.test.cjs` (terjemahan English dan imbasan teks Melayu yang tertinggal pada setiap skrin, borang dan PDF) `home.test.cjs` (dashboard dan tindakan pantas), `v184.test.cjs` (luar talian, butang Back, timbangan sama hari, vaksin gabungan dan vaksin pertama), `v185.test.cjs` (backup versi lama dan semasa tanpa kehilangan data, Kongsi di iPhone, amaran data, laluan analytics, laporan masalah, buang gambar) dan `install.test.cjs` (kunci wajib pasang, mod ujian, Android, iPhone, pelayar dalam app, desktop dan terjemahan). `helpers.cjs` menyediakan persekitaran ujian bersama.
+Fail ujian: `app.test.cjs` (storan, import/eksport, jadual, PDF), `settings.test.cjs` (tetapan, unit berat, Data), `phase1.test.cjs` (perbelanjaan dan kalendar .ics), `theme.test.cjs` (tema, mod gelap, skema warna), `i18n.test.cjs` (terjemahan English dan imbasan teks Melayu yang tertinggal pada setiap skrin, borang dan PDF) `home.test.cjs` (dashboard dan tindakan pantas), `v184.test.cjs` (luar talian, butang Back, timbangan sama hari, vaksin gabungan dan vaksin pertama), `v186.test.cjs` (contoh paparan skrin Pasang), `v185.test.cjs` (backup versi lama dan semasa tanpa kehilangan data, Kongsi di iPhone, amaran data, laluan analytics, laporan masalah, buang gambar) dan `install.test.cjs` (kunci wajib pasang, mod ujian, Android, iPhone, pelayar dalam app, desktop dan terjemahan). `helpers.cjs` menyediakan persekitaran ujian bersama.
 
 Suite menggunakan skrip app sebenar dengan storan dan masa terasing. Ia merangkumi simpan/reload, kegagalan storan, import/eksport, validasi tarikh/nilai, jadual rawatan dan kandungan laporan PDF serta retry CDN. GitHub Actions menjalankannya pada setiap PR dan push ke `main`.
 

@@ -139,7 +139,7 @@ test('an unexpected app error prepares a report with version, phone and message 
   assert.match(info, /^Android app/);
   assert.match(info, /TypeError: x is undefined @120:7/);
   const url = decodeURIComponent(a.run("fbUrl('Ralat: '+errInfo)"));
-  assert.match(url, /Kucingku v1\.8\.5 · BM · Ralat: Android app/);
+  assert.match(url, new RegExp('Kucingku v' + a.run('VER').replace(/\./g, '\\.') + ' · BM · Ralat: Android app'));
   assert.doesNotMatch(url, /Oreo|Mochi|Bestari/);
 });
 
