@@ -1,6 +1,6 @@
 // Service worker Kucingku: app boleh dibuka tanpa internet.
 // Tukar CACHE pada setiap keluaran supaya telefon memuat turun versi baharu.
-const CACHE = 'kucingku-1.8.6';
+const CACHE = 'kucingku-1.8.7';
 const SHELL = [
   './',
   'index.html',
@@ -35,6 +35,9 @@ self.addEventListener('fetch', event => {
   const url = new URL(request.url);
   // Fon, pustaka PDF dan Vercel Analytics tidak diurus di sini.
   if (url.origin !== self.location.origin || url.pathname.startsWith('/_vercel/')) return;
+
+  // Website rasmi (/tentang, /privasi) sentiasa dari rangkaian, bukan app.
+  if (request.mode === 'navigate' && /^\/(tentang|privasi)(\.html)?\/?$/.test(url.pathname)) return;
 
   if (request.mode === 'navigate') {
     // Halaman app sentiasa dari cache (abaikan ?utm_source, ?dev); versi baharu tiba bila service worker dikemas kini.

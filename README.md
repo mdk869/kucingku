@@ -21,16 +21,17 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Setting (Lagi → Setting)** dalam kategori: **Umum** (bahasa Bahasa Melayu atau English, unit berat Auto/Gram/Kilogram), **Tema** (mod Sistem/Cerah/Gelap dan lima skema warna pastel: Sakura, Langit, Pudina, Lavender, Aprikot; warna kucing jantan biru dan betina merah jambu kekal, dan PDF sentiasa cerah), **Peringatan** (peringatan backup 14, 30, 60 hari atau mati), **Data** (Backup: Export/Import/Copy, dan padam semua data) dan **Tentang** (maklum balas, privasi, versi, penafian, rujukan peraturan jadual).
 - **Maklum balas & sokongan (Setting → Tentang):** butang Hantar maklum balas membuka borang Google Forms dalam tab baharu, dengan versi app dan bahasa diisi automatik.
 - **Statistik penggunaan tanpa nama:** Vercel Web Analytics (tanpa cookie) untuk bilangan lawatan, pelawat dan sumber pautan. Data kucing tidak dihantar.
-- **Wajib pasang ke skrin utama:** di pelayar telefon, app dipaparkan kelabu dan kabur di belakang panel *Pasang Kucingku untuk mula* yang tidak boleh ditutup. App hanya boleh digunakan apabila dibuka dari ikon skrin utama atau sebagai app Play Store (`display-mode: standalone` / `navigator.standalone`). Android Chrome dan Edge: butang satu tekan melalui gesaan pasang pelayar, dengan langkah bergambar sebagai sandaran (menu ⋮ → Pasang app → Pasang); selepas dipasang panel menyuruh pengguna buka dari ikon. iPhone: langkah bergambar Kongsi → Tambah ke Skrin Utama → Tambah. Samsung Internet dan pelayar Android yang tidak boleh memasang app (Xiaomi, UC, Opera Mini, Vivo, HeyTap, Huawei): butang *Buka dalam Chrome*. Samsung Internet dihantar ke Chrome kerana app yang dipasangnya disekat oleh Google Play Protect (*Unsafe app blocked: built for an older version of Android*). Facebook, Instagram, TikTok, Threads, LINE atau WebView Android: skrin *Buka dalam Chrome* (pautan `intent://`) atau langkah *Buka dalam Safari*, berserta pautan untuk disalin. Desktop: kod QR (`icons/qr.svg`) ke alamat production.
+- **Wajib pasang ke skrin utama:** di pelayar telefon, app dipaparkan kelabu dan kabur di belakang panel *Pasang Kucingku untuk mula* yang tidak boleh ditutup. App hanya boleh digunakan apabila dibuka dari ikon skrin utama atau sebagai app Play Store (`display-mode: standalone` / `navigator.standalone`). Android Chrome dan Edge: butang satu tekan melalui gesaan pasang pelayar, dengan langkah bergambar sebagai sandaran (menu ⋮ → Pasang app → Pasang); selepas dipasang panel menyuruh pengguna buka dari ikon. iPhone: langkah bergambar Kongsi → Tambah ke Skrin Utama → Tambah. Samsung Internet dan pelayar Android yang tidak boleh memasang app (Xiaomi, UC, Opera Mini, Vivo, HeyTap, Huawei): butang *Buka dalam Chrome*. Samsung Internet dihantar ke Chrome kerana app yang dipasangnya disekat oleh Google Play Protect (*Unsafe app blocked: built for an older version of Android*). Facebook, Instagram, TikTok, Threads, LINE atau WebView Android: skrin *Buka dalam Chrome* (pautan `intent://`) atau langkah *Buka dalam Safari*, berserta pautan untuk disalin. Desktop dan tablet: dihantar ke website rasmi `/tentang` (lihat di bawah).
 - **Mod ujian:** tambah `?dev` pada pautan untuk menggunakan app dalam pelayar tanpa memasang (disimpan pada peranti itu, kunci `kucingku-install-v1-dev`); `?dev=0` mematikannya.
 - **Luar talian:** service worker (`sw.js`) menyimpan fail app supaya Kucingku boleh dibuka tanpa internet. Versi baharu dimuat turun di latar dan digunakan pada pembukaan seterusnya. App yang dipasang juga meminta storan kekal (`navigator.storage.persist()`) supaya data tidak dipadam bila storan telefon hampir penuh.
 - **Butang Back Android:** setiap skrin dan borang ialah satu entri sejarah. Back menutup borang yang terbuka dahulu, kemudian kembali ke skrin sebelumnya.
+- **Website rasmi (v1.8.7):** `/tentang` (`tentang.html`, `web.css`, `web.js`) ialah laman rasmi Kucingku: ciri, contoh paparan, cara mula 3 langkah, privasi, soalan lazim, kod QR, butang *Hantar ke WhatsApp* dan *Salin link* (`?utm_source=web`). Pelawat desktop/tablet yang membuka `/` dihantar ke `/tentang` (`goWeb()` dalam `app.js`); di telefon, laman ini menunjukkan butang *Buka Kucingku*. Pengesanan telefon dalam `web.js` mesti sama dengan `MOB` dalam `app.js`. `/privasi` (`privasi.html`) ialah Dasar Privasi (diperlukan untuk Play Store). Kedua-dua laman dilayan oleh `rewrites` dalam `vercel.json` dan service worker tidak mengambil alih laluan ini. Gambar pratonton link (Open Graph) `img/og.jpg` 1200×630 dipasang pada `/` dan `/tentang`.
 - **Contoh paparan pada skrin Pasang (v1.8.6):** 4 screenshot app (`img/pratonton-*.webp`, ±16KB setiap satu) boleh dileret di atas langkah pemasangan, supaya pengguna nampak app sebelum memasang. Untuk menukar gambar, ganti fail dengan nama yang sama (360px lebar, WebP).
 - **Keselamatan data (v1.8.5):** amaran "Data disimpan dalam telefon ini sahaja" pada skrin selamat datang dan Setting → Data; kad *Buat backup sekarang* di Utama selagi belum ada backup. Di iPhone, Export (backup, PDF, kalendar) membuka butang Kongsi (Simpan ke Fail, Google Drive, WhatsApp); jika tidak disokong, muat turun biasa digunakan.
 - **Laporan masalah:** ralat yang tidak dijangka memaparkan panel *Ada masalah dalam app* dengan butang Laporkan, yang membuka borang maklum balas dengan versi app, jenis telefon dan mesej ralat diisi automatik (tiada data kucing). Ralat skrip luar (fon, analytics, sambungan pelayar) diabaikan.
 - **Bahasa English:** semua skrin, borang, mesej dan PDF diterjemah; data tidak berubah apabila bahasa ditukar.
 
-Versi semasa: **1.8.6** (lihat Setting → Tentang dalam app).
+Versi semasa: **1.8.7** (lihat Setting → Tentang dalam app).
 
 ## Teknologi
 
@@ -49,7 +50,7 @@ cd kucingku
 npx serve .          # atau: python3 -m http.server 8000
 ```
 
-Buka di **telefon** (rangkaian Wi-Fi yang sama) atau gunakan mod peranti mudah alih dalam DevTools pelayar, dengan `?dev` pada alamat supaya app tidak dikunci oleh panel pasang. **Pada desktop, app sengaja menunjukkan skrin "untuk telefon sahaja".**
+Buka di **telefon** (rangkaian Wi-Fi yang sama) atau gunakan mod peranti mudah alih dalam DevTools pelayar, dengan `?dev` pada alamat supaya app tidak dikunci oleh panel pasang. **Pada desktop, `/` dihantar ke website rasmi `/tentang`.** Pelayan lokal biasa tidak mengikut `rewrites` Vercel, jadi buka `/tentang.html` terus.
 
 ## Deploy
 
@@ -75,7 +76,9 @@ Vercel Analytics (pelan percuma) tidak memaparkan UTM, jadi app menukar alamat s
 | `/pasang/<sumber>` | Skrin "Pasang Kucingku" dalam pelayar telefon, cth. `/pasang/threads` |
 | `/buka-pelayar/<sumber>` | Dibuka dalam app Threads, Facebook dan lain-lain (perlu buka dalam Chrome/Safari) |
 | `/pelayar` | Mod ujian `?dev` dalam pelayar |
-| `/desktop` | Dibuka dari komputer (skrin kod QR) |
+| `/desktop` | Dibuka dari komputer di `/` (sejak v1.8.7 terus dihantar ke `/tentang`, jadi angka ini mungkin rendah) |
+| `/tentang` | Website rasmi (desktop, tablet, dan sesiapa yang buka link `/tentang`) |
+| `/privasi` | Dasar Privasi |
 
 Bilangan pelawat `/app` setiap hari ialah anggaran pengguna aktif harian.
 

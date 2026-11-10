@@ -56,7 +56,7 @@ function av(c){return `<span class="av ${c.sex==='Jantan'?'j':'b'}">${c.photo?`<
 const newest=l=>l.slice().reverse().sort((a,b)=>b.date.localeCompare(a.date));
 const lastW=id=>newest(S.recs.filter(r=>r.cat===id&&r.type==='berat'&&r.date<=td()))[0];
 function tasks(){const o=[],T0=td();S.cats.forEach(c=>{const p=plan(c);if(!p)return;[['berat',p.t],['vaksin',p.v],['cacing',p.w]].forEach(([t,x])=>{const d=dif(T0,x.d);if(d<=30)o.push({c,t,l:x.l,date:x.d,d})})});S.recs.forEach(r=>{if(r.type!=='lawatan')return;const c=cat(r.cat),d=dif(T0,r.date);if(c&&d>=0&&d<=30)o.push({c,t:'lawatan',l:r.name+(r.time?' · '+r.time:''),date:r.date,d})});return o.sort((a,b)=>a.d-b.d)}
-const VER='1.8.6';
+const VER='1.8.7';
 // Borang maklum balas Google Forms. form: pautan .../viewform (atau forms.gle). ver: ID medan versi app untuk diisi automatik, cth. 'entry.123456789' (pilihan).
 const FB={form:'https://docs.google.com/forms/d/e/1FAIpQLSfK5e5iSrBBUDWH5bMCLIxYPe6dWAKIaNkdOt_UXYqnKObJyw/viewform',ver:'entry.103926294'};
 function fbUrl(extra){const f=String(FB.form||'').trim();if(!/^https:\/\/(docs\.google\.com\/forms\/d\/e\/[\w-]+\/viewform|forms\.gle\/[\w-]+)(\?[^\s"'<>]*)?$/.test(f))return '';if(!/^entry\.\d+$/.test(FB.ver)||!f.startsWith('https://docs.google.com/'))return f;return f+(f.includes('?')?'&':'?')+'usp=pp_url&'+FB.ver+'='+encodeURIComponent((`Kucingku v${VER} · ${SET.lang==='en'?'EN':'BM'}`+(extra?' · '+extra:'')).slice(0,500))}
@@ -334,7 +334,10 @@ return intro+ixSteps()};
 const lockGate=()=>`<div class="lock" role="dialog" aria-modal="true" aria-labelledby="lkt"><div class="lkp"><div class="ixh"><img src="icons/icon-192.png" alt="" width="56" height="56"><div><h2 id="lkt">Pasang Kucingku untuk mula</h2><p class="mute">${ENV.ios?'iPhone':'Android'} · Percuma, tanpa daftar akaun</p></div></div>${lockBody()}</div></div>`;
 const deskGate=()=>`<div class="gate">${ART()}<h1>Kucingku untuk telefon sahaja</h1><p class="mute">Buka pautan ini di telefon bimbit anda (iPhone atau Android) untuk menggunakan app ini.</p><img class="qr" src="icons/qr.svg" alt="Kod QR Kucingku" width="168" height="168"><p class="mute">Imbas kod QR dengan kamera telefon</p></div>`;
 function render(){render0();tx($('#app'));tx($('#nav'))}
-function render0(){if(!MOB){$('#app').innerHTML=deskGate();$('#nav').innerHTML='';return}
+// Desktop/tablet: hantar ke website rasmi (/tentang). Pengawal laluan elak gelung jika service worker lama memaparkan app di /tentang.
+const WEB=/^\/(tentang|privasi)(\.html)?\/?$/;
+function goWeb(){try{if(typeof location==='undefined'||WEB.test(location.pathname))return false;location.replace('/tentang');return true}catch(e){return false}}
+function render0(){if(!MOB){if(goWeb())return;$('#app').innerHTML=deskGate();$('#nav').innerHTML='';return}
 if(ENV.iab){$('#app').innerHTML=iabGate();$('#nav').innerHTML='';return}
 $('#app').innerHTML=view==='home'?home():view==='cats'?cats():view==='cat'?catv():view==='jd'?jdv():view==='more'?morev():view==='vet'?vetv():view==='exp'?expv():view==='cal'?calv():setv();
 if(storageReadError)$('#app').insertAdjacentHTML('afterbegin',`<div class="card"><b>Data storan tidak dapat dibaca</b><p class="mute">Data asal belum diubah. Buka Backup untuk export salinan asal atau import backup yang sah.</p><button class="btn g" data-action="goData">Buka Backup</button></div>`);

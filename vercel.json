@@ -1,6 +1,16 @@
 {
   "buildCommand": null,
   "outputDirectory": ".",
+  "rewrites": [
+    {
+      "source": "/tentang",
+      "destination": "/tentang.html"
+    },
+    {
+      "source": "/privasi",
+      "destination": "/privasi.html"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
