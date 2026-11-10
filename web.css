@@ -1,7 +1,7 @@
 /* Gaya website rasmi Kucingku (tentang.html, privasi.html). Tema Sakura sama seperti app. */
 :root{--bg:#FBF5F6;--card:#FFFDFD;--ink:#5A4558;--mute:#86708A;--line:#F2E0E6;--btn:#D2667F;--soft:#F9E8ED;--h1:#E85D80;--h2:#F58AA3;--blue:#4A8FD4;--bsoft:#E6F0FA;--sh:rgba(120,80,100,.14)}
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;scroll-padding-top:84px}
+html{scroll-padding-top:84px}
 body{background:var(--bg);color:var(--ink);font:400 17px/1.6 Nunito,system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
 h1,h2,h3,.d{font-family:Fredoka,system-ui,sans-serif;line-height:1.12;text-wrap:balance}
 a{color:var(--btn)}
@@ -175,3 +175,6 @@ footer .disc{flex-basis:100%;font-size:14px;opacity:.85}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.f,.btn,.toast{transition:none}}
 section.tight{padding-top:20px}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(210,102,127,.45),0 18px 40px var(--sh)}100%{box-shadow:0 0 0 18px rgba(210,102,127,0),0 18px 40px var(--sh)}}
+.get.pulse{animation:pulse 1s ease-out 2}
+@media (prefers-reduced-motion:reduce){.get.pulse{animation:none}}

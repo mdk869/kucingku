@@ -109,3 +109,11 @@ test('logo link scrolls fully to the top (anchor is the page, not the sticky hea
   assert.doesNotMatch(h, /<header[^>]*id="top"/);
   assert.match(h, /<a class="brand" href="#top">/);
 });
+
+test('in-page links are scrolled by script (same result in every browser)', () => {
+  const js = read('web.js');
+  assert.match(js, /closest\('a\[href\^="#"\]'\)/);
+  assert.match(js, /e\.preventDefault\(\);\s*goTo\(id\)/);
+  assert.match(js, /id === 'dapatkan'/);
+  assert.doesNotMatch(read('web.css'), /html\{[^}]*scroll-behavior:smooth/);
+});

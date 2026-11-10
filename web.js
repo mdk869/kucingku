@@ -36,7 +36,33 @@
     else fail();
   });
 
-  var top = document.querySelector('.top');
+  // Link dalam halaman (#...) dikawal sendiri supaya sama di semua pelayar: header sticky tidak
+  // menutup tajuk, logo sentiasa kembali ke paling atas, dan "Dapatkan app" tunjuk kad QR tanpa memotong hero.
+  var header = document.querySelector('.top');
+  var smooth = !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+  function goTo(id) {
+    var y = 0, el = id && id !== 'top' ? document.getElementById(id) : null;
+    if (el && id === 'dapatkan') {
+      var r = el.getBoundingClientRect(), bottom = r.bottom + window.scrollY + 24;
+      y = Math.max(0, bottom - window.innerHeight);
+      el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse');
+    } else if (el) {
+      y = el.getBoundingClientRect().top + window.scrollY - (header ? header.offsetHeight : 0) - 12;
+    }
+    window.scrollTo({ top: Math.max(0, Math.round(y)), behavior: smooth ? 'smooth' : 'auto' });
+    try { history.replaceState(null, '', location.pathname + location.search + (el && id !== 'dapatkan' ? '#' + id : '')); } catch (e) {}
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    var id = a.getAttribute('href').slice(1);
+    if (id && id !== 'top' && !document.getElementById(id)) return;
+    e.preventDefault();
+    goTo(id);
+  });
+  if (location.hash === '#top') goTo('top');
+
+  var top = header;
   if (top) {
     var onScroll = function () { top.classList.toggle('sc', window.scrollY > 8); };
     addEventListener('scroll', onScroll, { passive: true }); onScroll();
