@@ -102,3 +102,10 @@ test('privacy policy covers storage, analytics, third parties and deletion', () 
   const h = read('privasi.html');
   for (const s of ['localStorage', 'Vercel Web Analytics', 'Google Fonts', 'cdnjs', 'Google Forms', 'Padam semua data', 'Berkuat kuasa']) assert.ok(h.includes(s), s);
 });
+
+test('logo link scrolls fully to the top (anchor is the page, not the sticky header)', () => {
+  const h = read('tentang.html');
+  assert.match(h, /<body id="top">/);
+  assert.doesNotMatch(h, /<header[^>]*id="top"/);
+  assert.match(h, /<a class="brand" href="#top">/);
+});
