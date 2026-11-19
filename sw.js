@@ -12,6 +12,7 @@ const SHELL = [
   'icons/apple-touch-icon.png',
   'icons/qr.svg',
   'changelog.json',
+  'img/duitnow-qr.png',
 ];
 // Versi pertama yang meminta pengguna tekan Kemas kini (popup dalam app).
 const ASK_FROM = '1.9.1';
