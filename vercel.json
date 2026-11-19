@@ -41,6 +41,15 @@
           "value": "/"
         }
       ]
+    },
+    {
+      "source": "/changelog.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache"
+        }
+      ]
     }
   ]
 }

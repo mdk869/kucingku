@@ -11,6 +11,7 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Rekod:** berat (graf pertumbuhan; unit g/kg mengikut Setting), vaksin, ubat cacing/kutu, catatan kesihatan. Boleh edit dan padam.
 - **Jadual rawatan automatik:** tarikh seterusnya dikira daripada tarikh lahir dan rekod terakhir (lihat peraturan di bawah). Dipaparkan sebagai kotak berpenanda ✓ pada profil dan senarai "Akan datang" di Utama.
 - **Jagaan rutin (v1.9.1):** tab *Jagaan* dalam profil kucing untuk potong kuku, mandi, bersih telinga, gosok gigi, rawatan kutu, sikat bulu atau jagaan sendiri, dengan kekerapan (setiap hari hingga setiap 3 bulan). Butang *Selesai* mengemas kini tarikh terakhir; *Batal selesai* memulihkannya pada hari yang sama. Jagaan yang sampai tarikh atau lewat muncul dalam Fokus hari ini, Akan datang dan Jadual, dan disenaraikan dalam PDF vet. Disimpan dalam `c.care` (ikut backup).
+- **Kemas kini app (v1.9.1):** versi baharu dimuat turun di latar tetapi **tidak dipasang sendiri**. Popup *Versi baharu tersedia* menyenaraikan perubahan (Baharu / Lebih baik / Dibaiki) dengan butang *Kemas kini sekarang* dan *Nanti*; Nanti meninggalkan bar kecil di atas menu bawah, dan popup keluar semula pada pembukaan seterusnya. Selepas kemas kini, *Kucingku dah dikemas kini* dipaparkan sekali. Senarai penuh: Setting → Tentang → *Senarai perubahan*. App menyemak versi baharu bila dibuka dan bila kembali ke app.
 - **Timbang cepat:** catat berat semua kucing sekali gus.
 - **Jadual:** halaman yang mengumpulkan semua rawatan, timbang dan temujanji dalam 30 hari akan datang (Lewat, Hari ini, 7 hari, 8 hingga 30 hari).
 - **Lawatan vet dan temujanji:** tarikh, masa, sebab, catatan, klinik dan kos (RM). Tarikh akan datang menjadi temujanji dan muncul dalam Akan datang dan Jadual.
@@ -173,3 +174,11 @@ kucingku/
 ## Lesen
 
 Belum ditetapkan. Tambah fail `LICENSE` mengikut pilihan anda.
+
+## Setiap keluaran
+
+1. Naikkan versi di `app.js` (`VER`), `sw.js` (`CACHE`) dan `package.json`.
+2. Tambah entri baharu **di atas** `changelog.json`: `{"v":"x.y.z","d":"YYYY-MM-DD","i":[{"t":"new|imp|fix","ms":"…","en":"…"}]}`. Teks ini dipaparkan kepada pengguna dalam popup kemas kini, jadi tulis dalam bahasa mudah. Ujian gagal jika entri teratas bukan versi semasa.
+3. `npm test`, uji di telefon melalui branch pratonton, kemudian ke `main`.
+
+Service worker (`sw.js`) menunggu mesej `skip` daripada butang *Kemas kini sekarang* sebelum versi baharu diaktifkan. Pemasangan pertama, dan peralihan daripada versi sebelum 1.9.1, dipasang terus.

@@ -84,3 +84,62 @@ test('profile tabs are a 3-column grid with Jagaan visible in the second row, an
   assert.deepEqual(order, ['berat', 'vaksin', 'cacing', 'jagaan', 'lawatan', 'sihat']);
   assert.match(v, /class="on" role="tab" aria-selected="true" data-action="tab" data-tab="jagaan"/);
 });
+
+// ---- Kemas kini app & senarai perubahan
+const fs = require('node:fs'), path = require('node:path');
+const CLJ = JSON.parse(fs.readFileSync(path.join(__dirname, '../changelog.json'), 'utf8'));
+const SW = fs.readFileSync(path.join(__dirname, '../sw.js'), 'utf8');
+
+test('changelog.json: newest first, starts at the current version, every item in BM and English', () => {
+  const a = app();
+  assert.equal(CLJ[0].v, a.json('VER'));
+  for (let i = 1; i < CLJ.length; i++) assert.ok(a.json(`vGt('${CLJ[i - 1].v}','${CLJ[i].v}')`), CLJ[i].v);
+  for (const e of CLJ) { assert.match(e.d, /^\d{4}-\d{2}-\d{2}$/); assert.ok(e.i.length);
+    for (const x of e.i) { assert.ok(['new', 'imp', 'fix'].includes(x.t)); assert.ok(x.ms && x.en, e.v); } }
+});
+
+test('service worker waits for the Kemas kini button, except on first install or from an older version', () => {
+  assert.match(SW, /addEventListener\('message'[\s\S]*event\.data === 'skip'[\s\S]*skipWaiting/);
+  assert.doesNotMatch(SW, /\.then\(\(\) => self\.skipWaiting\(\)\)/);
+  assert.match(SW, /const ASK_FROM = '1\.9\.1'/);
+  assert.match(SW, /'changelog\.json'/);
+  assert.match(SW, /pathname\.endsWith\('\/changelog\.json'\)[\s\S]*fetch\(request/);
+  // newer(): same semantic as the app's vGt
+  const newer = new Function(SW.match(/const newer = (.+);\n/)[0] + 'return newer;')();
+  assert.equal(newer('1.9.1', '1.9.0'), true); assert.equal(newer('1.9.1', '1.9.1'), false); assert.equal(newer('1.9.1', '1.10.0'), false);
+});
+
+test('update popup lists the new version and offers Kemas kini sekarang and Nanti; Nanti leaves a bar', () => {
+  const a = app();
+  a.run(`CL=${JSON.stringify([{ v: '9.9.9', d: '2026-12-01', i: [{ t: 'new', ms: 'Fungsi ujian', en: 'Test feature' }] }, ...CLJ])};updW={postMessage(m){globalThis.sent=m}};updV=CL[0];updShow()`);
+  const sh = a.elements.get('#sh').innerHTML;
+  for (const t of ['Versi baharu tersedia', 'v9.9.9', 'Fungsi ujian', 'Kemas kini sekarang', 'Nanti', 'Data kucing anda tidak berubah']) assert.ok(sh.includes(t), t);
+  a.run('updLaterF()');
+  assert.match(a.elements.get('#ub').innerHTML, /Versi baharu tersedia[\s\S]*Kemas kini/);
+  a.run('updNow()');
+  assert.equal(a.run('sent'), 'skip');
+});
+
+test('Apa yang baharu shows once after an update, but not on a fresh install', async () => {
+  const a = app();
+  a.run(`CL=${JSON.stringify(CLJ)};localStorage.setItem('kucingku-seen-v1','1.9.0');a0=document.querySelector('#sh');a0.hidden=true;whatsNew()`);
+  await new Promise(r => setImmediate(r));
+  assert.match(a.elements.get('#sh').innerHTML, /Kucingku dah dikemas kini[\s\S]*Jagaan rutin/);
+  assert.equal(a.run("localStorage.getItem('kucingku-seen-v1')"), a.json('VER'));
+  const b = app({ data: { cats: [], recs: [], vets: [], bk: 0 } });
+  b.run(`CL=${JSON.stringify(CLJ)};document.querySelector('#sh').innerHTML='';whatsNew()`);
+  await new Promise(r => setImmediate(r));
+  assert.doesNotMatch(b.elements.get('#sh').innerHTML, /dikemas kini/);
+});
+
+test('Setting → Tentang links to the changelog, which marks the current version and translates', () => {
+  const a = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
+  a.run("view='set';ssub='tentang'");
+  assert.match(a.json('setv()'), /data-v="log"[\s\S]*Senarai perubahan/);
+  a.run(`CL=${JSON.stringify(CLJ)};ssub='log'`);
+  const v = a.json('setv()');
+  assert.match(v, /Versi anda/); assert.match(v, /Routine care/); assert.match(v, /v1\.0\.0/);
+  for (const t of ['Senarai perubahan', 'Versi anda', 'Baharu', 'Lebih baik', 'Dibaiki', 'Versi baharu tersedia', 'Kemas kini sekarang', 'Nanti', 'Kucingku dah dikemas kini', 'Lihat semua perubahan'])
+    assert.notEqual(a.json(`trs(${JSON.stringify(t)})`), t, t);
+  assert.equal(a.json('trs("Apa yang baharu dalam v1.9.1")'), "What's new in v1.9.1");
+});

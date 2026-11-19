@@ -1,0 +1,255 @@
+[
+ {
+  "v": "1.9.1",
+  "d": "2026-11-19",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Jagaan rutin: potong kuku, mandi, bersih telinga, gosok gigi, rawatan kutu dan lain-lain, dengan peringatan dalam Fokus hari ini. Buka profil kucing → tab Jagaan.",
+    "en": "Routine care: nail trims, baths, ear cleaning, teeth brushing, flea treatment and more, with reminders in Today's focus. Open a cat's profile → Care tab."
+   },
+   {
+    "t": "new",
+    "ms": "Popup bila ada versi baharu, dan senarai semua perubahan dalam Setting → Tentang.",
+    "en": "A pop-up when a new version is ready, and a list of all changes in Settings → About."
+   },
+   {
+    "t": "imp",
+    "ms": "Tab dalam profil kucing kini 2 baris, semua nampak tanpa perlu leret.",
+    "en": "The tabs in a cat's profile now sit in 2 rows, all visible without swiping."
+   },
+   {
+    "t": "fix",
+    "ms": "Tab yang dipilih tidak lagi hilang dari pandangan selepas ditekan.",
+    "en": "The selected tab no longer slides out of view after you tap it."
+   }
+  ]
+ },
+ {
+  "v": "1.9.0",
+  "d": "2026-11-19",
+  "i": [
+   {
+    "t": "new",
+    "ms": "PDF untuk vet dengan reka bentuk baharu: kad ringkasan, timeline vaksin, graf berat dan ruang catatan doktor.",
+    "en": "Redesigned PDF for the vet: summary cards, vaccine timeline, weight chart and space for the vet's notes."
+   },
+   {
+    "t": "fix",
+    "ms": "Kandungan PDF tidak lagi terpotong separuh di antara halaman. Jadual panjang bersambung dengan tajuk diulang.",
+    "en": "PDF content is no longer cut in half between pages. Long tables continue with their headings repeated."
+   }
+  ]
+ },
+ {
+  "v": "1.8.7",
+  "d": "2026-11-11",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Website rasmi Kucingku untuk pelawat komputer, dan halaman Dasar Privasi.",
+    "en": "An official Kucingku website for computer visitors, and a Privacy Policy page."
+   },
+   {
+    "t": "imp",
+    "ms": "Link Kucingku yang dikongsi di WhatsApp, Threads dan Facebook kini keluar dengan gambar.",
+    "en": "Kucingku links shared on WhatsApp, Threads and Facebook now show a picture."
+   }
+  ]
+ },
+ {
+  "v": "1.8.6",
+  "d": "2026-11-10",
+  "i": [
+   {
+    "t": "imp",
+    "ms": "Skrin Pasang kini tunjuk contoh paparan app sebelum anda memasang.",
+    "en": "The Install screen now shows what the app looks like before you install it."
+   }
+  ]
+ },
+ {
+  "v": "1.8.5",
+  "d": "2026-11-10",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Backup di iPhone guna butang Kongsi: Simpan ke Fail, WhatsApp atau email.",
+    "en": "Backups on iPhone use the Share button: Save to Files, WhatsApp or email."
+   },
+   {
+    "t": "new",
+    "ms": "Panel Laporkan bila ada masalah dalam app.",
+    "en": "A Report panel when something goes wrong in the app."
+   },
+   {
+    "t": "imp",
+    "ms": "Amaran jelas bahawa data disimpan dalam telefon ini sahaja, dan peringatan backup lebih awal.",
+    "en": "A clear notice that data is stored on this phone only, and earlier backup reminders."
+   },
+   {
+    "t": "fix",
+    "ms": "Fon kini dimuat dengan betul dan gambar kucing boleh dibuang.",
+    "en": "Fonts now load properly and cat photos can be removed."
+   }
+  ]
+ },
+ {
+  "v": "1.8.4",
+  "d": "2026-10-15",
+  "i": [
+   {
+    "t": "imp",
+    "ms": "App boleh dibuka tanpa internet, butang Back Android berfungsi dengan betul, dan telefon diminta menyimpan data secara kekal.",
+    "en": "The app opens without internet, the Android Back button works properly, and the phone is asked to keep data permanently."
+   },
+   {
+    "t": "fix",
+    "ms": "Beberapa kesilapan dalam jadual rawatan dibaiki.",
+    "en": "Several mistakes in the care schedule were fixed."
+   }
+  ]
+ },
+ {
+  "v": "1.8.3",
+  "d": "2026-10-13",
+  "i": [
+   {
+    "t": "fix",
+    "ms": "Skrin Timbang cepat dirapikan.",
+    "en": "The Quick weigh-in screen was tidied up."
+   }
+  ]
+ },
+ {
+  "v": "1.8.2",
+  "d": "2026-10-12",
+  "i": [
+   {
+    "t": "fix",
+    "ms": "Pengguna Samsung Internet dihantar ke Chrome untuk memasang app dengan selamat.",
+    "en": "Samsung Internet users are sent to Chrome to install the app safely."
+   }
+  ]
+ },
+ {
+  "v": "1.8.1",
+  "d": "2026-10-12",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Pembantu pemasangan ke skrin utama dengan langkah bergambar.",
+    "en": "An install helper for the home screen, with picture steps."
+   }
+  ]
+ },
+ {
+  "v": "1.8.0",
+  "d": "2026-10-12",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Ringkasan perbelanjaan dalam Lagi → Perbelanjaan.",
+    "en": "An expense summary in More → Expenses."
+   },
+   {
+    "t": "new",
+    "ms": "Export kalendar (.ics) untuk temujanji dan jadual rawatan.",
+    "en": "Calendar export (.ics) for appointments and the care schedule."
+   }
+  ]
+ },
+ {
+  "v": "1.7.0",
+  "d": "2026-10-12",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Borang maklum balas dalam Setting → Tentang.",
+    "en": "A feedback form in Settings → About."
+   },
+   {
+    "t": "new",
+    "ms": "Statistik penggunaan tanpa nama, tanpa cookie.",
+    "en": "Anonymous usage statistics, without cookies."
+   }
+  ]
+ },
+ {
+  "v": "1.6.0",
+  "d": "2026-10-11",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Tema: mod Sistem, Cerah, Gelap dan lima skema warna pastel.",
+    "en": "Themes: System, Light and Dark modes, and five pastel colour schemes."
+   }
+  ]
+ },
+ {
+  "v": "1.5.0",
+  "d": "2026-10-11",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Kad setiap kucing dan tindakan pantas di Utama.",
+    "en": "A card for every cat and quick actions on Home."
+   }
+  ]
+ },
+ {
+  "v": "1.4.0",
+  "d": "2026-10-11",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Fokus hari ini dan Temujanji seterusnya di Utama.",
+    "en": "Today's focus and Next appointment on Home."
+   }
+  ]
+ },
+ {
+  "v": "1.3.0",
+  "d": "2026-10-11",
+  "i": [
+   {
+    "t": "imp",
+    "ms": "Setting disusun ikut kategori, dan unit berat boleh dipilih.",
+    "en": "Settings are grouped into categories, and the weight unit can be chosen."
+   }
+  ]
+ },
+ {
+  "v": "1.2.0",
+  "d": "2026-10-11",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Halaman Setting dan bahasa English.",
+    "en": "A Settings page and English language."
+   }
+  ]
+ },
+ {
+  "v": "1.1.0",
+  "d": "2026-10-11",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Maklumat vet, lawatan vet, temujanji dan kos.",
+    "en": "Vet details, vet visits, appointments and costs."
+   }
+  ]
+ },
+ {
+  "v": "1.0.0",
+  "d": "2026-10-10",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Versi pertama: profil kucing, berat dengan graf, vaksin, ubat cacing, catatan kesihatan, jadual rawatan, backup dan PDF untuk vet.",
+    "en": "First version: cat profiles, weight with a chart, vaccines, deworming, health notes, care schedule, backup and a PDF for the vet."
+   }
+  ]
+ }
+]
