@@ -65,7 +65,7 @@ function av(c){return `<span class="av ${c.sex==='Jantan'?'j':'b'}">${c.photo?`<
 const newest=l=>l.slice().reverse().sort((a,b)=>b.date.localeCompare(a.date));
 const lastW=id=>newest(S.recs.filter(r=>r.cat===id&&r.type==='berat'&&r.date<=td()))[0];
 function tasks(){const o=[],T0=td();S.cats.forEach(c=>{const p=plan(c);if(!p)return;[['berat',p.t],['vaksin',p.v],['cacing',p.w]].forEach(([t,x])=>{const d=dif(T0,x.d);if(d<=30)o.push({c,t,l:x.l,date:x.d,d})})});S.recs.forEach(r=>{if(r.type!=='lawatan')return;const c=cat(r.cat),d=dif(T0,r.date);if(c&&d>=0&&d<=30)o.push({c,t:'lawatan',l:r.name+(r.time?' · '+r.time:''),date:r.date,d})});careAll().forEach(({c,x})=>{const n=careNext(x),d=dif(T0,n);if(d<=30)o.push({c,t:'jagaan',ti:careN(x),l:civL(x.iv),date:n,d,cid:x.id})});return o.sort((a,b)=>a.d-b.d)}
-const VER='1.9.4';
+const VER='1.9.2';
 // Borang maklum balas Google Forms. form: pautan .../viewform (atau forms.gle). ver: ID medan versi app untuk diisi automatik, cth. 'entry.123456789' (pilihan).
 const FB={form:'https://docs.google.com/forms/d/e/1FAIpQLSfK5e5iSrBBUDWH5bMCLIxYPe6dWAKIaNkdOt_UXYqnKObJyw/viewform',ver:'entry.103926294'};
 function fbUrl(extra){const f=String(FB.form||'').trim();if(!/^https:\/\/(docs\.google\.com\/forms\/d\/e\/[\w-]+\/viewform|forms\.gle\/[\w-]+)(\?[^\s"'<>]*)?$/.test(f))return '';if(!/^entry\.\d+$/.test(FB.ver)||!f.startsWith('https://docs.google.com/'))return f;return f+(f.includes('?')?'&':'?')+'usp=pp_url&'+FB.ver+'='+encodeURIComponent((`Kucingku v${VER} · ${SET.lang==='en'?'EN':'BM'}`+(extra?' · '+extra:'')).slice(0,500))}

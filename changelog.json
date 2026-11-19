@@ -1,32 +1,5 @@
 [
  {
-  "v": "1.9.4",
-  "d": "2026-11-19",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Stok makanan dan pasir (Lagi → Stok): rekod jenama dan jumlah, tekan Dah beli setiap kali beli, dan app anggar bila stok akan habis. Utama tunjuk amaran bila hampir habis.",
-    "en": "Food and litter stock (More → Stock): record the brand and amount, tap Bought each time you buy, and the app estimates when it will run out. Home warns you when it is running low."
-   },
-   {
-    "t": "imp",
-    "ms": "Kos pembelian stok masuk ke Perbelanjaan.",
-    "en": "Stock purchase costs are added to Expenses."
-   }
-  ]
- },
- {
-  "v": "1.9.3",
-  "d": "2026-11-19",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Kongsi kad kucing sebagai gambar untuk WhatsApp, Threads atau IG Story: kad profil atau kad hari lahir. Buka profil kucing → Kongsi kad.",
-    "en": "Share your cat's card as an image for WhatsApp, Threads or IG Stories: a profile card or a birthday card. Open a cat's profile → Share card."
-   }
-  ]
- },
- {
   "v": "1.9.2",
   "d": "2026-11-19",
   "i": [
@@ -36,9 +9,24 @@
     "en": "A health summary on Home and in each cat's profile: alerts when weight keeps dropping or changes a lot in a month, a weigh-in is overdue, vaccines or deworming are late, or routine care is overdue."
    },
    {
+    "t": "new",
+    "ms": "Kongsi kad kucing sebagai gambar untuk WhatsApp, Threads atau IG Story: kad profil atau kad hari lahir. Buka profil kucing → Kongsi kad.",
+    "en": "Share your cat's card as an image for WhatsApp, Threads or IG Stories: a profile card or a birthday card. Open a cat's profile → Share card."
+   },
+   {
+    "t": "new",
+    "ms": "Stok makanan dan pasir (Lagi → Stok): rekod jenama dan jumlah, tekan Dah beli setiap kali beli, dan app anggar bila stok akan habis. Utama tunjuk amaran bila hampir habis.",
+    "en": "Food and litter stock (More → Stock): record the brand and amount, tap Bought each time you buy, and the app estimates when it will run out. Home warns you when it is running low."
+   },
+   {
     "t": "imp",
     "ms": "Profil kucing kini tunjuk status berat, vaksin, ubat cacing dan jagaan rutin sekali pandang.",
     "en": "A cat's profile now shows weight, vaccine, deworming and routine care status at a glance."
+   },
+   {
+    "t": "imp",
+    "ms": "Kos pembelian stok masuk ke Perbelanjaan.",
+    "en": "Stock purchase costs are added to Expenses."
    },
    {
     "t": "fix",
