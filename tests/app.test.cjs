@@ -205,15 +205,6 @@ test('PDF report includes the full history, appointment time, cost and escaped t
   assert.doesNotMatch(report, /<script>/);
 });
 
-test('PDF pagination covers the entire report without splitting a normal table row', () => {
-  const a = app();
-  const pages=a.json('pdfPageRanges(2500,1000,[{top:950,bottom:1050},{top:1900,bottom:1990}])');
-  assert.deepEqual(pages,[{start:0,height:950},{start:950,height:950},{start:1900,height:600}]);
-  assert.equal(pages.reduce((sum,page)=>sum+page.height,0),2500);
-  const tall=a.json('pdfPageRanges(2500,1000,[{top:0,bottom:2400}])');
-  assert.deepEqual(tall,[{start:0,height:1000},{start:1000,height:1000},{start:2000,height:500}]);
-});
-
 test('concurrent script loads share a Promise and use integrity verification', async () => {
   const a = app();
   const p = a.run("loadJs('https://example.test/lib.js','sha384-test')");

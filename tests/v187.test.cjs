@@ -47,7 +47,7 @@ test('website and app use the same phone detection (else "Buka app" could bounce
 test('service worker serves /tentang and /privasi from the network, not the cached app', () => {
   const sw = read('sw.js');
   const ver = source.match(/const VER='([\d.]+)'/)[1];
-  assert.equal(ver, '1.8.7');
+  assert.match(ver, /^\d+\.\d+\.\d+$/);
   assert.match(sw, new RegExp(`const CACHE = 'kucingku-${ver.replace(/\./g, '\\.')}'`));
   const rx = new RegExp(sw.match(/request\.mode === 'navigate' && \/(.+)\/\.test\(url\.pathname\)\) return;/)[1]);
   for (const p of ['/tentang', '/privasi', '/tentang/']) assert.ok(rx.test(p), p);

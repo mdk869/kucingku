@@ -16,7 +16,7 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Vet:** senarai klinik yang anda taip sendiri (telefon, alamat atau pautan peta, waktu operasi, doktor), dengan butang Telefon dan Peta. Satu klinik boleh ditanda Klinik utama, dan klinik dipilih dalam borang rekod.
 - **Perbelanjaan (Lagi → Perbelanjaan):** jumlah kos bulan ini, tahun ini atau semua, graf 6 bulan, pecahan mengikut jenis rekod dan kucing, serta kos terkini. Hanya rekod yang sudah berlalu dikira; temujanji akan datang tidak termasuk.
 - **Kalendar (Lagi → Kalendar):** export fail `.ics` untuk temujanji vet dan jadual vaksin/ubat cacing akan datang (dengan peringatan). Satu temujanji juga boleh ditambah terus dari kad Temujanji seterusnya. Fail ialah salinan semasa; UID kekal supaya import semula mengemas kini acara yang sama dan bukan menggandakannya.
-- **Export PDF** untuk doktor haiwan, bertema sama dengan app, dengan sejarah penuh, klinik utama, masa dan kos lawatan.
+- **Export PDF** untuk doktor haiwan (reka bentuk baharu v1.9.0): header dengan klinik utama, 4 kad ringkasan (berat terkini, vaksin terakhir, ubat cacing terakhir, rawatan/temujanji seterusnya), profil, timeline vaksin, graf berat, jadual ubat cacing, rekod berat, lawatan vet, catatan kesihatan dan ruang *Catatan doktor haiwan*. Pemisahan halaman kemas: seksyen blok tidak dipotong (pindah penuh ke halaman baru), jadual dan senarai dipecah ikut baris dengan tajuk dan tajuk lajur diulang serta label *(sambungan)*, tiada tajuk tergantung di bawah halaman, dan setiap halaman ada header kecil serta *Halaman x / y* (`rptData`, `secHtml`, `pdfPaginate`, `rptMeasure` dalam `app.js`).
 - **Dashboard Utama:** **Tindakan pantas** (Timbang cepat, Tambah rekod, Telefon vet), **Fokus hari ini** (senarai semak rawatan, timbang dan temujanji hari ini dengan bar kemajuan dan tanda siap), **Temujanji seterusnya** (tarikh, masa, klinik, Telefon dan Peta) dan **kad setiap kucing** (umur, berat terkini dengan perubahan, status Terkini, lewat atau hari ini).
 - **Setting (Lagi → Setting)** dalam kategori: **Umum** (bahasa Bahasa Melayu atau English, unit berat Auto/Gram/Kilogram), **Tema** (mod Sistem/Cerah/Gelap dan lima skema warna pastel: Sakura, Langit, Pudina, Lavender, Aprikot; warna kucing jantan biru dan betina merah jambu kekal, dan PDF sentiasa cerah), **Peringatan** (peringatan backup 14, 30, 60 hari atau mati), **Data** (Backup: Export/Import/Copy, dan padam semua data) dan **Tentang** (maklum balas, privasi, versi, penafian, rujukan peraturan jadual).
 - **Maklum balas & sokongan (Setting → Tentang):** butang Hantar maklum balas membuka borang Google Forms dalam tab baharu, dengan versi app dan bahasa diisi automatik.
@@ -31,7 +31,7 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Laporan masalah:** ralat yang tidak dijangka memaparkan panel *Ada masalah dalam app* dengan butang Laporkan, yang membuka borang maklum balas dengan versi app, jenis telefon dan mesej ralat diisi automatik (tiada data kucing). Ralat skrip luar (fon, analytics, sambungan pelayar) diabaikan.
 - **Bahasa English:** semua skrin, borang, mesej dan PDF diterjemah; data tidak berubah apabila bahasa ditukar.
 
-Versi semasa: **1.8.7** (lihat Setting → Tentang dalam app).
+Versi semasa: **1.9.0** (lihat Setting → Tentang dalam app).
 
 ## Teknologi
 
