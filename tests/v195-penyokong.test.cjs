@@ -85,7 +85,7 @@ test('the wall reads the published sheet, stays hidden below 3 names, and shows 
   assert.doesNotMatch(a.json('morev()'), /Penyokong Kucingku/);
   withFetch(a, rows(6));
   await a.run('pkLoad(true)');
-  assert.equal(a.json('__f')[0].u, CSV);
+  assert.match(a.json('__f')[0].u, new RegExp('^' + CSV.replace(/[?.]/g, '\\$&') + '&_=\\d+$'));
   const h = a.json('morev()');
   assert.match(h, /Penyokong Kucingku<svg/);
   assert.equal((h.match(/class="pkr"/g) || []).length, 4);
@@ -130,6 +130,18 @@ test('hidden inside the Play Store app, like Belanja kopi', () => {
   const h = a.json('morev()');
   assert.doesNotMatch(h, /Penyokong/);
   assert.equal(a.run('pkPost()'), '');
+});
+
+test('the list is fetched again every time Lagi is opened, at most every 30 seconds', async () => {
+  const a = app();
+  setup(a);
+  withFetch(a, rows(5));
+  await a.run('pkLoad()');
+  await a.run('pkLoad()');
+  assert.equal(a.json('__f').length, 1, 'not twice within 30 seconds');
+  a.run('PKS.t-=31000');
+  await a.run('pkLoad()');
+  assert.equal(a.json('__f').length, 2);
 });
 
 test('English translates the supporter texts', () => {

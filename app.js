@@ -326,7 +326,7 @@ try{addEventListener('online',()=>fbFlush());setTimeout(()=>fbFlush(),4000)}catc
 // Penyumbang isi borang → Google Form kedua → Sheet pembangun. Pembangun semak dan taip YA dalam lajur Papar.
 // Tab "Dinding" (QUERY: hanya YA + izin, tanpa e-mel/jumlah) diterbitkan sebagai CSV dan dibaca oleh app.
 const PK={form:'https://docs.google.com/forms/d/e/1FAIpQLScWV2y_ExT-nmu7Kj0kk6Ao-7lQLvNYKxO28OhLPENiwJes4Q/viewform',nama:'entry.812810628',kucing:'entry.1086461158',ucapan:'entry.1426398179',izin:'entry.1840377008',csv:'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-xWckuOQLLZfNYgIhGOetzZyLpZ094at0kl7L3h4Y6m_mIRRIqT_WKMUwUrFfX4blXrtDo05VjIuY/pub?gid=917299080&single=true&output=csv'};
-const PKK='kucingku-pk-v1',PKMIN=3,PKTTL=3e5;
+const PKK='kucingku-pk-v1',PKMIN=3,PKTTL=3e4;
 let PKS={me:null,l:[],t:0};
 try{const o=JSON.parse(localStorage.getItem(PKK)||'null');if(o&&typeof o==='object')PKS={...PKS,...o,l:Array.isArray(o.l)?o.l.slice(0,100):[]}}catch(e){}
 function pkKeep(){try{localStorage.setItem(PKK,JSON.stringify(PKS))}catch(e){}}
@@ -343,7 +343,8 @@ const pkClip=(v,n)=>String(v||'').replace(/\s+/g,' ').trim().slice(0,n);
 function pkParse(t){return csvRows(t).slice(1).map(r=>({d:(String(r[0]||'').match(/^\d{4}-\d{2}/)||[''])[0],n:pkClip(r[1],30)||'Tanpa nama',c:pkClip(r[2],30),m:pkClip(r[3],80)})).filter(x=>x.m).slice(0,100)}
 let pkBusy=false;
 function pkLoad(force){const u=pkCsv();if(pkBusy||!u||typeof fetch!=='function'||!kopiOn())return Promise.resolve(false);if(!force&&Date.now()-(PKS.t||0)<PKTTL)return Promise.resolve(false);pkBusy=true;
-return fetch(u,{cache:'no-store'}).then(r=>r.ok?r.text():Promise.reject(0)).then(t=>{pkBusy=false;PKS.l=pkParse(t);PKS.t=Date.now();pkKeep();if(view==='more')render();return true},()=>{pkBusy=false;return false})}
+// Parameter _ memintas salinan lama Google bagi CSV yang diterbitkan.
+return fetch(u+'&_='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():Promise.reject(0)).then(t=>{pkBusy=false;PKS.l=pkParse(t);PKS.t=Date.now();pkKeep();if(view==='more')render();return true},()=>{pkBusy=false;return false})}
 const pkMon=d=>{const m=/^(\d{4})-(\d{2})/.exec(d||'');if(!m)return '';try{return new Date(+m[1],+m[2]-1,1).toLocaleDateString(LOC(),{month:'short',year:'numeric'})}catch(e){return m[2]+'/'+m[1]}};
 const pkRow=(x,i)=>`<div class="pkr"><i style="background:${PKC[i%PKC.length]}" aria-hidden="true">${esc((x.n[0]||'?').toUpperCase())}</i><span><span class="pkh"><b>${esc(x.n)}</b><small>${esc(pkMon(x.d))}</small></span>${x.c?`<span class="pkc"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="10" r="2"/><circle cx="10" cy="6" r="2"/><circle cx="14" cy="6" r="2"/><circle cx="18" cy="10" r="2"/><path d="M12 11c-3 0-5.5 3-5.5 5.5 0 2 1.7 2.5 3 2.5 1 0 1.5-.5 2.5-.5s1.5.5 2.5.5c1.3 0 3-.5 3-2.5 0-2.5-2.5-5.5-5.5-5.5z"/></svg>${esc(x.c)}</span>`:''}<span class="pkm">“${esc(x.m)}”</span></span></div>`;
 function pkWall(){if(!kopiOn())return '';pkLoad();const l=PKS.l||[];if(l.length<PKMIN)return '';
