@@ -50,7 +50,7 @@ test('sending posts name, cat, message and consent to the supporter form and giv
   assert.match(sh(a), /Anda penyokong Kucingku!/);
   assert.match(sh(a), /Terima kasih<\/span>, Kak Ida/);
   assert.match(sh(a), /selepas disemak/);
-  assert.match(a.json('morev()'), /<span class="pkg">☕ Penyokong<\/span>/);
+  assert.match(a.json('morev()'), /<span class="pkg"><svg[^]*?<span>Penyokong<\/span><\/span>/);
 });
 
 test('anonymous sends no name, and declining consent is sent as Tidak', async () => {
@@ -87,10 +87,10 @@ test('the wall reads the published sheet, stays hidden below 3 names, and shows 
   await a.run('pkLoad(true)');
   assert.equal(a.json('__f')[0].u, CSV);
   const h = a.json('morev()');
-  assert.match(h, /Penyokong Kucingku ☕/);
+  assert.match(h, /Penyokong Kucingku<svg/);
   assert.equal((h.match(/class="pkr"/g) || []).length, 4);
   assert.match(h, /“Terima kasih, app ni bagus 1”/);
-  assert.match(h, /🐾 Mimi/);
+  assert.match(h, /<\/svg>Mimi<\/span>/);
   assert.match(h, /Lihat semua penyokong <span>\(6\)<\/span>/);
   assert.doesNotMatch(h, /RM\s?\d/);
   assert.ok(h.indexOf('Suka Kucingku?') < h.indexOf('Penyokong Kucingku'));
@@ -136,6 +136,6 @@ test('English translates the supporter texts', () => {
   const a = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
   const t = x => a.json(`trs(${JSON.stringify(x)})`);
   assert.equal(t('Anda penyokong Kucingku!'), "You're a Kucingku supporter!");
-  assert.equal(t('Penyokong Kucingku ☕'), 'Kucingku supporters ☕');
+  assert.equal(t('Penyokong Kucingku'), 'Kucingku supporters');
   assert.equal(t('Boleh paparkan dalam app'), 'OK to show in the app');
 });
