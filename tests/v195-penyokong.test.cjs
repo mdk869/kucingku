@@ -11,8 +11,11 @@ const sh = a => a.elements.get('#sh').innerHTML;
 const rows = n => 'Bulan,Nama,Kucing,Ucapan\n' + Array.from({ length: n }, (_, i) => `2026-${String(11 - (i % 3)).padStart(2, '0')},Orang ${i + 1},${i % 2 ? '' : 'Mimi'},"Terima kasih, app ni bagus ${i + 1}"`).join('\n');
 const withFetch = (a, text, ok = true) => a.run(`globalThis.__f=[];fetch=(u,o)=>{__f.push({u,o});return ${ok ? `Promise.resolve({ok:true,text:()=>Promise.resolve(${JSON.stringify(text)})})` : 'Promise.reject(new Error("net"))'}}`);
 
-test('nothing about supporters shows until the supporter form is set up', () => {
+test('the shipped supporter form and list are the developer\'s, and nothing shows if they are removed', () => {
   const a = app();
+  assert.equal(a.run('pkPost()'), 'https://docs.google.com/forms/d/e/1FAIpQLScWV2y_ExT-nmu7Kj0kk6Ao-7lQLvNYKxO28OhLPENiwJes4Q/formResponse');
+  assert.match(a.run('pkCsv()'), /^https:\/\/docs\.google\.com\/spreadsheets\/d\/e\/2PACX-1vS-xWck.*output=csv$/);
+  a.run("PK.form='';PK.csv=''");
   a.run('kopiSheet()');
   assert.doesNotMatch(sh(a), /pkForm/);
   assert.doesNotMatch(a.json('morev()'), /Penyokong Kucingku/);
