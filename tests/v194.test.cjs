@@ -82,3 +82,13 @@ test('English translates the stock texts', () => {
   assert.equal(t('Anggaran habis dalam ±1 hari'), 'Likely to run out in ±1 day');
   assert.equal(t('Dah beli: Pasir'), 'Bought: Litter');
 });
+
+test('new styles never reuse an existing class name (the cat list card broke when .kc was reused)', () => {
+  const fs = require('node:fs');
+  const html = fs.readFileSync(__dirname + '/../index.html', 'utf8');
+  const rules = sel => (html.match(new RegExp('(^|[}\\n])' + sel.replace('.', '\\.') + '\\{[^}]*\\}', 'g')) || []);
+  for (const r of rules('.kc')) assert.doesNotMatch(r, /position:absolute|border-radius:50%/, r);
+  for (const [sel, bad] of [['.ks', /margin:6px 0 12px/], ['.kn', /font-size:120px/], ['.wn', /text-align:center/], ['.lt', /FFF3EF/], ['.hb', /inline-block/]])
+    for (const r of rules(sel)) assert.doesNotMatch(r, bad, r);
+  assert.doesNotMatch(html, /\.seg\.ks\{|\.kp\.kn |\.tabs\.tg\{|\.rsk\.lt\{|\.btn\.hb\{/);
+});

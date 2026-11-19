@@ -79,7 +79,7 @@ test('profile tabs are a 3-column grid with Jagaan visible in the second row, an
   const { a } = mk(() => []);
   a.run("cid='a';tab='jagaan'");
   const v = a.json('catv()');
-  assert.match(v, /class="tabs tg"/);
+  assert.match(v, /class="tabs tgr"/);
   const order = [...v.matchAll(/data-tab="(\w+)"/g)].map(m => m[1]);
   assert.deepEqual(order, ['berat', 'vaksin', 'cacing', 'jagaan', 'lawatan', 'sihat']);
   assert.match(v, /class="on" role="tab" aria-selected="true" data-action="tab" data-tab="jagaan"/);
