@@ -19,6 +19,11 @@
     "en": "Food and litter stock (More → Stock): record the brand and amount, tap Bought each time you buy, and the app estimates when it will run out. Home warns you when it is running low."
    },
    {
+    "t": "new",
+    "ms": "Hari istimewa: kad di Utama pada hari lahir kucing dan ulang tahun mula dibela, dengan kad untuk dikongsi. Isi Hari mula dibela dalam Edit profil.",
+    "en": "Special days: a card on Home on your cat's birthday and adoption anniversary, with a card to share. Add the adoption day in Edit profile."
+   },
+   {
     "t": "imp",
     "ms": "Profil kucing kini tunjuk status berat, vaksin, ubat cacing dan jagaan rutin sekali pandang.",
     "en": "A cat's profile now shows weight, vaccine, deworming and routine care status at a glance."
