@@ -326,7 +326,7 @@ try{addEventListener('online',()=>fbFlush());setTimeout(()=>fbFlush(),4000)}catc
 // Penyumbang isi borang → Google Form kedua → Sheet pembangun. Pembangun semak dan taip YA dalam lajur Papar.
 // Tab "Dinding" (QUERY: hanya YA + izin, tanpa e-mel/jumlah) diterbitkan sebagai CSV dan dibaca oleh app.
 const PK={form:'https://docs.google.com/forms/d/e/1FAIpQLScWV2y_ExT-nmu7Kj0kk6Ao-7lQLvNYKxO28OhLPENiwJes4Q/viewform',nama:'entry.812810628',kucing:'entry.1086461158',ucapan:'entry.1426398179',izin:'entry.1840377008',csv:'https://docs.google.com/spreadsheets/d/e/2PACX-1vS-xWckuOQLLZfNYgIhGOetzZyLpZ094at0kl7L3h4Y6m_mIRRIqT_WKMUwUrFfX4blXrtDo05VjIuY/pub?gid=917299080&single=true&output=csv'};
-const PKK='kucingku-pk-v1',PKMIN=3,PKTTL=6*36e5;
+const PKK='kucingku-pk-v1',PKMIN=3,PKTTL=3e5;
 let PKS={me:null,l:[],t:0};
 try{const o=JSON.parse(localStorage.getItem(PKK)||'null');if(o&&typeof o==='object')PKS={...PKS,...o,l:Array.isArray(o.l)?o.l.slice(0,100):[]}}catch(e){}
 function pkKeep(){try{localStorage.setItem(PKK,JSON.stringify(PKS))}catch(e){}}
