@@ -28,9 +28,9 @@ function app({ data = seed, failSave = false, raw, failRead = false, settings: i
     setTimeout(fn) { const id = timers.size + 1; timers.set(id, fn); return id; }, clearTimeout(id) { timers.delete(id); },
     FormData: class { constructor(values) { return new Map(Object.entries(values).filter(([key]) => key !== 'dataset')); } },
     localStorage: {
-      getItem(key) { if (failRead) throw new Error('SecurityError'); if (key.startsWith('kucingku-install') || key.startsWith('kucingku-seen')) return other.get(key) ?? null; return key === 'kucingku-settings-v1' ? settings : stored; },
+      getItem(key) { if (failRead) throw new Error('SecurityError'); if (key.startsWith('kucingku-install') || key.startsWith('kucingku-seen') || key.startsWith('kucingku-fb')) return other.get(key) ?? null; return key === 'kucingku-settings-v1' ? settings : stored; },
       removeItem(key) { other.delete(key); },
-      setItem(key, value) { if (failSave) throw new Error('QuotaExceededError'); if (key.startsWith('kucingku-install') || key.startsWith('kucingku-seen')) { other.set(key, value); return; } if (key === 'kucingku-settings-v1') settings = value; else { stored = value; writes++; } },
+      setItem(key, value) { if (failSave) throw new Error('QuotaExceededError'); if (key.startsWith('kucingku-install') || key.startsWith('kucingku-seen') || key.startsWith('kucingku-fb')) { other.set(key, value); return; } if (key === 'kucingku-settings-v1') settings = value; else { stored = value; writes++; } },
     },
   });
   vm.runInContext(source, context);

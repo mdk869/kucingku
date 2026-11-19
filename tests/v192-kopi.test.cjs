@@ -5,10 +5,9 @@ const { app } = require('./helpers.cjs');
 
 // v1.9.2: Belanja kopi pembangun melalui DuitNow QR (Touch 'n Go).
 
-test('Setting → Tentang shows the Belanja kopi card, and the sheet shows the QR with the recipient name', () => {
+test('the Lagi page shows the Belanja kopi card, and the sheet shows the QR with the recipient name', () => {
   const a = app();
-  a.run("view='set';ssub='tentang'");
-  assert.match(a.json('setv()'), /Suka Kucingku\?[\s\S]*data-action="kopi"/);
+  assert.match(a.json('morev()'), /Suka Kucingku\?[\s\S]*data-action="kopi"/);
   a.run('kopiSheet()');
   const sh = a.elements.get('#sh').innerHTML;
   assert.match(sh, /src="img\/duitnow-qr\.png"/);
@@ -27,10 +26,9 @@ test('hidden inside a Play Store (TWA) app, where Google Play does not allow tip
   const store = new Map();
   const a = app({ extra: { sessionStorage: { getItem: k => store.get(k) ?? null, setItem: (k, v) => store.set(k, v) } } });
   a.run("document.referrer='android-app://com.example.kucingku'");
-  a.run("view='set';ssub='tentang'");
-  assert.doesNotMatch(a.json('setv()'), /Suka Kucingku\?/);
+  assert.doesNotMatch(a.json('morev()'), /Suka Kucingku\?/);
   a.run("document.referrer=''");
-  assert.doesNotMatch(a.json('setv()'), /Suka Kucingku\?/, 'stays hidden for the whole session');
+  assert.doesNotMatch(a.json('morev()'), /Suka Kucingku\?/, 'stays hidden for the whole session');
 });
 
 test('English translates the Belanja kopi texts', () => {

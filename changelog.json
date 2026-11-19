@@ -1,5 +1,26 @@
 [
  {
+  "v": "1.9.3",
+  "d": "2026-11-19",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Butang ＋ Tambah di tengah menu bawah: timbang, vaksin, ubat cacing, jagaan selesai, lawatan vet, catatan kesihatan dan stok dibeli, terus dari mana-mana skrin.",
+    "en": "A ＋ Add button in the middle of the bottom menu: weigh, vaccines, deworming, care done, vet visits, health notes and stock bought, right from any screen."
+   },
+   {
+    "t": "new",
+    "ms": "Hantar maklum balas terus dari app (Lagi → Maklum balas). Tiada akaun diperlukan, dan jika tiada internet ia dihantar sendiri kemudian.",
+    "en": "Send feedback right from the app (More → Feedback). No account needed, and without internet it is sent later on its own."
+   },
+   {
+    "t": "imp",
+    "ms": "Ikon menu Lagi yang baharu.",
+    "en": "A new icon for the More menu."
+   }
+  ]
+ },
+ {
   "v": "1.9.2",
   "d": "2026-11-19",
   "i": [
