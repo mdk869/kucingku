@@ -10,6 +10,7 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Umur** dalam minggu, dengan bulan + hari dalam kurungan, dan **kitaran hidup** (Anak kucing, Remaja, Dewasa, Matang, Senior, Warga emas).
 - **Rekod:** berat (graf pertumbuhan; unit g/kg mengikut Setting), vaksin, ubat cacing/kutu, catatan kesihatan. Boleh edit dan padam.
 - **Jadual rawatan automatik:** tarikh seterusnya dikira daripada tarikh lahir dan rekod terakhir (lihat peraturan di bawah). Dipaparkan sebagai kotak berpenanda ✓ pada profil dan senarai "Akan datang" di Utama.
+- **Jagaan rutin (v1.9.1):** tab *Jagaan* dalam profil kucing untuk potong kuku, mandi, bersih telinga, gosok gigi, rawatan kutu, sikat bulu atau jagaan sendiri, dengan kekerapan (setiap hari hingga setiap 3 bulan). Butang *Selesai* mengemas kini tarikh terakhir; *Batal selesai* memulihkannya pada hari yang sama. Jagaan yang sampai tarikh atau lewat muncul dalam Fokus hari ini, Akan datang dan Jadual, dan disenaraikan dalam PDF vet. Disimpan dalam `c.care` (ikut backup).
 - **Timbang cepat:** catat berat semua kucing sekali gus.
 - **Jadual:** halaman yang mengumpulkan semua rawatan, timbang dan temujanji dalam 30 hari akan datang (Lewat, Hari ini, 7 hari, 8 hingga 30 hari).
 - **Lawatan vet dan temujanji:** tarikh, masa, sebab, catatan, klinik dan kos (RM). Tarikh akan datang menjadi temujanji dan muncul dalam Akan datang dan Jadual.
@@ -31,7 +32,7 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Laporan masalah:** ralat yang tidak dijangka memaparkan panel *Ada masalah dalam app* dengan butang Laporkan, yang membuka borang maklum balas dengan versi app, jenis telefon dan mesej ralat diisi automatik (tiada data kucing). Ralat skrip luar (fon, analytics, sambungan pelayar) diabaikan.
 - **Bahasa English:** semua skrin, borang, mesej dan PDF diterjemah; data tidak berubah apabila bahasa ditukar.
 
-Versi semasa: **1.9.0** (lihat Setting → Tentang dalam app).
+Versi semasa: **1.9.1** (lihat Setting → Tentang dalam app).
 
 ## Teknologi
 

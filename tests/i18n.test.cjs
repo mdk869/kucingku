@@ -6,7 +6,7 @@ const addDays = (iso, n) => new Date(Date.parse(iso + 'T00:00:00Z') + n * 864e5)
 const data = today => ({
   version: 2, bk: 0,
   cats: [
-    { id: 'a', name: 'Oreo', sex: 'Jantan', dob: addDays(today, -45), dobx: 'Anggaran', breed: 'Domestic Shorthair', pattern: 'Black and white', chip: '123', note: 'Friendly' },
+    { id: 'a', name: 'Oreo', sex: 'Jantan', dob: addDays(today, -45), dobx: 'Anggaran', breed: 'Domestic Shorthair', pattern: 'Black and white', chip: '123', note: 'Friendly', care: [{ id: 'k1', k: 'kuku', iv: 14, last: addDays(today, -14) }, { id: 'k2', k: 'lain', name: 'Eye wipe', iv: 7, last: addDays(today, -2) }, { id: 'k3', k: 'mandi', iv: 60, last: today, dn: today, pl: addDays(today, -70) }] },
     { id: 'b', name: 'Mochi', sex: 'Betina', dob: addDays(today, -600), breed: 'Tidak pasti', ms: { md: addDays(today, -300) } },
     { id: 'c', name: 'Luna', sex: 'Betina', dob: addDays(today, -45) },
     { id: 'd', name: 'Kiki', sex: 'Belum pasti' },
@@ -74,11 +74,11 @@ test('every screen, form, confirmation and PDF report has no Malay text left in 
   for (const v of ['home()', 'cats()', 'jdv()', 'morev()', 'vetv()']) check(v, a.json(v));
   for (const sub of ['', 'umum', 'peringatan', 'data', 'tentang']) { a.run(`ssub='${sub}'`); check('setv:' + sub, a.json('setv()')); }
   a.run("ssub=''");
-  for (const id of ['a', 'b', 'c', 'd']) for (const tab of ['berat', 'vaksin', 'cacing', 'lawatan', 'sihat']) { a.run(`cid='${id}';tab='${tab}'`); check(`catv:${id}:${tab}`, a.json('catv()')); }
+  for (const id of ['a', 'b', 'c', 'd']) for (const tab of ['berat', 'vaksin', 'cacing', 'lawatan', 'sihat', 'jagaan']) { a.run(`cid='${id}';tab='${tab}'`); check(`catv:${id}:${tab}`, a.json('catv()')); }
   const sheet = (label, code) => { a.run(`cid='a';tab='berat';try{${code}}catch(e){}`); check(label, a.elements.get('#sh').innerHTML); };
   for (const id of ['a', 'b']) { sheet('catForm:' + id, `catForm('${id}')`); }
   sheet('catForm:new', 'catForm()'); sheet('vetForm', 'vetForm()'); sheet('vetForm:edit', "vetForm('v1')"); sheet('quickW', 'quickW()');
-  sheet('addRec', 'addRec()'); sheet('recType', "recType('a')"); sheet('addAppt', 'addAppt()');
+  sheet('addRec', 'addRec()'); sheet('careForm', 'careForm()'); sheet('careForm:edit', "careForm('k2')"); sheet('recType', "recType('a')"); sheet('addAppt', 'addAppt()');
   for (const tab of ['berat', 'vaksin', 'cacing', 'lawatan', 'sihat']) sheet('recForm:' + tab, `tab='${tab}';recForm()`);
   for (const id of ['r1', 'r4', 'r3', 'r8', 'r10']) sheet('recForm:edit:' + id, `tab=S.recs.find(r=>r.id==='${id}').type;recForm('${id}')`);
   for (const code of ["delRec('r1')", "delCat('a')", "delVet('v1')", 'wipe()']) sheet('ask:' + code, code);
