@@ -15,6 +15,7 @@ const data = today => ({
     { id: 'v1', name: 'PetCare Hospital', tel: '03-1234 5678', addr: 'Main Street 1', hours: '9am to 8pm', doc: 'Dr Sam', main: true, h24: true },
     { id: 'v2', name: 'Sunrise Animals', tel: '', addr: 'https://maps.example.com/x', hours: '', doc: '', note: '' },
   ],
+  stock: [{ id: 's1', k: 'pasir', brand: 'Brand X', var: 'tofu', qty: '10 L', est: 21, buys: [{ id: 'b1', date: addDays(today, -40), qty: '10 L', cost: 30 }, { id: 'b2', date: addDays(today, -19), brand: 'Brand X', cost: 32 }] }, { id: 's2', k: 'lain', name: 'Treats', brand: '', var: '', qty: '', est: 30, buys: [{ id: 'b3', date: addDays(today, -3) }] }],
   recs: [
     { id: 'r1', cat: 'a', type: 'berat', date: today, val: 650 }, { id: 'r2', cat: 'a', type: 'berat', date: addDays(today, -1), val: 600 },
     { id: 'r3', cat: 'a', type: 'cacing', date: addDays(today, -3), name: 'Drontal', clinic: 'v2' },
@@ -71,14 +72,14 @@ test('every screen, form, confirmation and PDF report has no Malay text left in 
   const a = world();
   const found = [];
   const check = (label, html) => { for (const x of leftovers(a, html)) found.push(`${label}: ${x}`); };
-  for (const v of ['home()', 'cats()', 'jdv()', 'morev()', 'vetv()']) check(v, a.json(v));
+  for (const v of ['home()', 'cats()', 'jdv()', 'morev()', 'vetv()', 'stokv()', 'expv()']) check(v, a.json(v));
   for (const sub of ['', 'umum', 'peringatan', 'data', 'tentang']) { a.run(`ssub='${sub}'`); check('setv:' + sub, a.json('setv()')); }
   a.run("ssub=''");
   for (const id of ['a', 'b', 'c', 'd']) for (const tab of ['berat', 'vaksin', 'cacing', 'lawatan', 'sihat', 'jagaan']) { a.run(`cid='${id}';tab='${tab}'`); check(`catv:${id}:${tab}`, a.json('catv()')); }
   const sheet = (label, code) => { a.run(`cid='a';tab='berat';try{${code}}catch(e){}`); check(label, a.elements.get('#sh').innerHTML); };
   for (const id of ['a', 'b']) { sheet('catForm:' + id, `catForm('${id}')`); }
   sheet('catForm:new', 'catForm()'); sheet('vetForm', 'vetForm()'); sheet('vetForm:edit', "vetForm('v1')"); sheet('quickW', 'quickW()');
-  sheet('addRec', 'addRec()'); sheet('careForm', 'careForm()'); sheet('careForm:edit', "careForm('k2')"); sheet('recType', "recType('a')"); sheet('addAppt', 'addAppt()');
+  sheet('addRec', 'addRec()'); sheet('careForm', 'careForm()'); sheet('stokForm', 'stokForm()'); sheet('stokForm:edit', "stokForm('s1')"); sheet('buyForm', "buyForm('s1')"); sheet('careForm:edit', "careForm('k2')"); sheet('recType', "recType('a')"); sheet('addAppt', 'addAppt()');
   for (const tab of ['berat', 'vaksin', 'cacing', 'lawatan', 'sihat']) sheet('recForm:' + tab, `tab='${tab}';recForm()`);
   for (const id of ['r1', 'r4', 'r3', 'r8', 'r10']) sheet('recForm:edit:' + id, `tab=S.recs.find(r=>r.id==='${id}').type;recForm('${id}')`);
   for (const code of ["delRec('r1')", "delCat('a')", "delVet('v1')", 'wipe()']) sheet('ask:' + code, code);

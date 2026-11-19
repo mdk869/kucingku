@@ -1,5 +1,21 @@
 [
  {
+  "v": "1.9.4",
+  "d": "2026-11-19",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Stok makanan dan pasir (Lagi → Stok): rekod jenama dan jumlah, tekan Dah beli setiap kali beli, dan app anggar bila stok akan habis. Utama tunjuk amaran bila hampir habis.",
+    "en": "Food and litter stock (More → Stock): record the brand and amount, tap Bought each time you buy, and the app estimates when it will run out. Home warns you when it is running low."
+   },
+   {
+    "t": "imp",
+    "ms": "Kos pembelian stok masuk ke Perbelanjaan.",
+    "en": "Stock purchase costs are added to Expenses."
+   }
+  ]
+ },
+ {
   "v": "1.9.3",
   "d": "2026-11-19",
   "i": [
