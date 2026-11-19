@@ -111,7 +111,7 @@ test('service worker waits for the Kemas kini button, except on first install or
 
 test('update popup lists the new version and offers Kemas kini sekarang and Nanti; Nanti leaves a bar', () => {
   const a = app();
-  a.run(`CL=${JSON.stringify([{ v: '9.9.9', d: '2026-12-01', i: [{ t: 'new', ms: 'Fungsi ujian', en: 'Test feature' }] }, ...CLJ])};updW={postMessage(m){globalThis.sent=m}};updV=CL[0];updShow()`);
+  a.run(`CL=${JSON.stringify([{ v: '9.9.9', d: '2026-12-01', i: [{ t: 'new', ms: 'Fungsi ujian', en: 'Test feature' }] }, ...CLJ])};updW={postMessage(m){globalThis.sent=m}};updV=[CL[0]];updShow()`);
   const sh = a.elements.get('#sh').innerHTML;
   for (const t of ['Versi baharu tersedia', 'v9.9.9', 'Fungsi ujian', 'Kemas kini sekarang', 'Nanti', 'Data kucing anda tidak berubah']) assert.ok(sh.includes(t), t);
   a.run('updLaterF()');
