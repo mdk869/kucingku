@@ -1,5 +1,26 @@
 [
  {
+  "v": "1.9.2",
+  "d": "2026-11-19",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Ringkasan kesihatan di Utama dan dalam profil kucing: amaran bila berat turun berturut-turut atau berubah banyak dalam sebulan, belum ditimbang, vaksin atau ubat cacing lewat, dan jagaan rutin lewat.",
+    "en": "A health summary on Home and in each cat's profile: alerts when weight keeps dropping or changes a lot in a month, a weigh-in is overdue, vaccines or deworming are late, or routine care is overdue."
+   },
+   {
+    "t": "imp",
+    "ms": "Profil kucing kini tunjuk status berat, vaksin, ubat cacing dan jagaan rutin sekali pandang.",
+    "en": "A cat's profile now shows weight, vaccine, deworming and routine care status at a glance."
+   },
+   {
+    "t": "fix",
+    "ms": "Kad Seterusnya dalam PDF vet kini sejajar dengan kad lain.",
+    "en": "The Next card in the vet PDF now lines up with the other cards."
+   }
+  ]
+ },
+ {
   "v": "1.9.1",
   "d": "2026-11-19",
   "i": [

@@ -12,6 +12,7 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Jadual rawatan automatik:** tarikh seterusnya dikira daripada tarikh lahir dan rekod terakhir (lihat peraturan di bawah). Dipaparkan sebagai kotak berpenanda ✓ pada profil dan senarai "Akan datang" di Utama.
 - **Jagaan rutin (v1.9.1):** tab *Jagaan* dalam profil kucing untuk potong kuku, mandi, bersih telinga, gosok gigi, rawatan kutu, sikat bulu atau jagaan sendiri, dengan kekerapan (setiap hari hingga setiap 3 bulan). Butang *Selesai* mengemas kini tarikh terakhir; *Batal selesai* memulihkannya pada hari yang sama. Jagaan yang sampai tarikh atau lewat muncul dalam Fokus hari ini, Akan datang dan Jadual, dan disenaraikan dalam PDF vet. Disimpan dalam `c.care` (ikut backup).
 - **Kemas kini app (v1.9.1):** versi baharu dimuat turun di latar tetapi **tidak dipasang sendiri**. Popup *Versi baharu tersedia* menyenaraikan perubahan (Baharu / Lebih baik / Dibaiki) dengan butang *Kemas kini sekarang* dan *Nanti*; Nanti meninggalkan bar kecil di atas menu bawah, dan popup keluar semula pada pembukaan seterusnya. Selepas kemas kini, *Kucingku dah dikemas kini* dipaparkan sekali. Senarai penuh: Setting → Tentang → *Senarai perubahan*. App menyemak versi baharu bila dibuka dan bila kembali ke app.
+- **Ringkasan kesihatan (v1.9.2):** peraturan tetap, tanpa AI (`hAlerts` dalam `app.js`). Amaran merah: berat turun 3 kali berturut-turut, turun lebih 10% dalam 30 hari, atau naik lebih 15% dalam 30 hari (kucing dewasa sahaja); hanya jika timbangan terakhir dalam 60 hari. Amaran kuning: belum timbang (lewat 2/3/7 hari ikut kekerapan harian/mingguan/bulanan), vaksin core atau ubat cacing lewat, jagaan rutin lewat. Kad di Utama (hanya bila ada amaran) dan dalam profil kucing (4 kotak status, amaran, Telefon vet, Timbang sekarang).
 - **Timbang cepat:** catat berat semua kucing sekali gus.
 - **Jadual:** halaman yang mengumpulkan semua rawatan, timbang dan temujanji dalam 30 hari akan datang (Lewat, Hari ini, 7 hari, 8 hingga 30 hari).
 - **Lawatan vet dan temujanji:** tarikh, masa, sebab, catatan, klinik dan kos (RM). Tarikh akan datang menjadi temujanji dan muncul dalam Akan datang dan Jadual.
@@ -33,7 +34,7 @@ Aplikasi web untuk merekod kucing peliharaan: profil, berat, vaksin, ubat cacing
 - **Laporan masalah:** ralat yang tidak dijangka memaparkan panel *Ada masalah dalam app* dengan butang Laporkan, yang membuka borang maklum balas dengan versi app, jenis telefon dan mesej ralat diisi automatik (tiada data kucing). Ralat skrip luar (fon, analytics, sambungan pelayar) diabaikan.
 - **Bahasa English:** semua skrin, borang, mesej dan PDF diterjemah; data tidak berubah apabila bahasa ditukar.
 
-Versi semasa: **1.9.1** (lihat Setting → Tentang dalam app).
+Versi semasa: **1.9.2** (lihat Setting → Tentang dalam app).
 
 ## Teknologi
 

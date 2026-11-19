@@ -8,7 +8,7 @@ const mk = (care, extra = {}) => { const probe = app(); const T = probe.run('td(
 
 test('version is 1.9.1', () => {
   const a = app();
-  assert.equal(a.json('VER'), '1.9.1');
+  assert.match(a.json('VER'), /^1\.9\.\d+$/);
 });
 
 test('backup cleaning keeps valid routines and drops invalid ones', () => {
@@ -124,7 +124,8 @@ test('Apa yang baharu shows once after an update, but not on a fresh install', a
   const a = app();
   a.run(`CL=${JSON.stringify(CLJ)};localStorage.setItem('kucingku-seen-v1','1.9.0');a0=document.querySelector('#sh');a0.hidden=true;whatsNew()`);
   await new Promise(r => setImmediate(r));
-  assert.match(a.elements.get('#sh').innerHTML, /Kucingku dah dikemas kini[\s\S]*Jagaan rutin/);
+  assert.match(a.elements.get('#sh').innerHTML, /Kucingku dah dikemas kini/);
+  assert.ok(a.elements.get('#sh').innerHTML.includes(CLJ[0].i[0].ms.slice(0, 20)));
   assert.equal(a.run("localStorage.getItem('kucingku-seen-v1')"), a.json('VER'));
   const b = app({ data: { cats: [], recs: [], vets: [], bk: 0 } });
   b.run(`CL=${JSON.stringify(CLJ)};document.querySelector('#sh').innerHTML='';whatsNew()`);

@@ -1,6 +1,6 @@
 // Service worker Kucingku: app boleh dibuka tanpa internet.
 // Tukar CACHE pada setiap keluaran supaya telefon memuat turun versi baharu.
-const CACHE = 'kucingku-1.9.1';
+const CACHE = 'kucingku-1.9.2';
 const SHELL = [
   './',
   'index.html',
