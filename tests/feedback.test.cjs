@@ -61,7 +61,7 @@ test('Vercel Web Analytics loads from the same origin and the CSP allows only sa
   const header = JSON.parse(fs.readFileSync(path.join(root, 'vercel.json'), 'utf8')).headers[0].headers.find(x => x.key === 'Content-Security-Policy').value;
   const meta = html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)[1];
   for (const csp of [header, meta]) {
-    assert.match(csp, /connect-src 'self' https:\/\/docs\.google\.com;/);
+    assert.match(csp, /connect-src 'self' https:\/\/docs\.google\.com https:\/\/\*\.googleusercontent\.com;/);
     assert.doesNotMatch(csp.split('script-src ')[1].split(';')[0], /unsafe-inline|unsafe-eval|vercel-insights|va\.vercel/);
   }
 });
