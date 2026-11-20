@@ -114,3 +114,31 @@ test('#perubahan shows the changelog view with 7 recent versions and filter coun
   assert.equal(d.chips[0].attrs['aria-pressed'], 'true');
   assert.equal(d.els['[data-clmore]'].hidden, CL.length <= 7);
 });
+
+test('website feedback uses its own form UI, never the raw Google Form link', () => {
+  for (const f of ['tentang.html', 'privasi.html']) {
+    const h = read(f);
+    assert.doesNotMatch(h, /docs\.google\.com\/forms/, f + ': no raw form link');
+    assert.match(h, /data-fb/, f);
+    assert.match(h, /<script src="web\.js" defer><\/script>/, f);
+    assert.match(h, /connect-src 'self' https:\/\/docs\.google\.com;/, f + ': CSP allows sending');
+  }
+  assert.match(read('tentang.html'), /atau dalam app: Lagi → Maklum balas\./);
+});
+
+test('website feedback sends to the same Google Form and fields as the app', () => {
+  const js = read('web.js');
+  const app = source.match(/const FB=\{form:'([^']+)',jen:'([^']+)',rasa:'([^']+)',msg:'([^']+)',ver:'([^']+)'\}/);
+  assert.ok(app);
+  assert.ok(js.includes(app[1].replace(/viewform$/, 'formResponse')), 'same form');
+  for (const k of [2, 3, 4, 5]) assert.ok(js.includes(`'${app[k]}'`), app[k]);
+  const appT = [...source.match(/FBT=\[(.*?)\],FBR=/)[1].matchAll(/\['\w+','([^']+)'/g)].map(m => m[1]);
+  const appR = [...source.match(/FBR=\[(.*?)\];/)[1].matchAll(/\['[^']+','([^']+)'\]/g)].map(m => m[1]);
+  const webT = [...js.match(/var FBT = \[(.*?)\];/)[1].matchAll(/\['([^']+)', '/g)].map(m => m[1]);
+  const webR = [...js.match(/var FBR = \[(.*?)\];/)[1].matchAll(/\['[^']+', '([^']+)'\]/g)].map(m => m[1]);
+  assert.deepEqual(webT, appT, 'Jenis options match the Google Form');
+  assert.deepEqual(webR, appR, 'Rasa options match the Google Form');
+  assert.match(js, /mode: 'no-cors'/);
+  assert.match(js, /FBGAP = 30000/);
+  assert.match(js, /Tiada data kucing dihantar/);
+});

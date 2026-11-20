@@ -160,12 +160,120 @@
     if (e.target.closest && e.target.closest('[data-clmore]')) { clOld = !clOld; renderCl(); }
   });
   route();
-  try {
+  if (laman) try {
     fetch('changelog.json', { cache: 'no-cache' })
       .then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); })
       .then(function (d) { if (!Array.isArray(d) || !d.length || !d.every(okEntry)) throw new Error('data'); CL = d; fill(); })
       .catch(function () { clErr = true; renderCl(); });
   } catch (e) { clErr = true; }
+
+  // ---- Maklum balas (sama seperti dalam app: rasa, jenis, mesej, info) ----
+  // Dihantar terus ke Google Form yang sama dengan app (fetch no-cors), jadi jawapan masuk ke Sheet yang sama.
+  // Nilai Jenis dan Rasa mesti sama tepat dengan pilihan dalam Google Form (dan app.js FBT/FBR).
+  var FB = { post: 'https://docs.google.com/forms/d/e/1FAIpQLSfK5e5iSrBBUDWH5bMCLIxYPe6dWAKIaNkdOt_UXYqnKObJyw/formResponse', jen: 'entry.987852967', rasa: 'entry.1382123140', msg: 'entry.1914040619', ver: 'entry.1022943400' };
+  var FBT = [['Cadangan', 'M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.7.7 1 1.5 1 2.5h6c0-1 .3-1.8 1-2.5A6 6 0 0 0 12 3z'], ['Masalah', 'M8 8V6a4 4 0 0 1 8 0v2M6 8h12v6a6 6 0 0 1-12 0zM3 12h3M18 12h3M4 18l3-2M20 18l-3-2M12 14v6'], ['Lain-lain', 'M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-8l-5 4v-4H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2zM8 10h8M8 13h5']];
+  var FBR = [['😕', 'Kurang'], ['😐', 'Biasa'], ['🙂', 'Bagus'], ['😍', 'Suka!']];
+  var FBGAP = 30000, FBK = 'kucingku-web-fb-v1', fbBox = null, fbLast = null;
+  function fbInfo() {
+    var ua = navigator.userAgent || '', br = /SamsungBrowser/.test(ua) ? 'Samsung Internet' : /Edg\//.test(ua) ? 'Edge' : /Firefox\//.test(ua) ? 'Firefox' : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : 'Pelayar lain';
+    var dev = /iPhone|iPod/.test(ua) ? 'iPhone' : /iPad/.test(ua) ? 'iPad' : /Android/.test(ua) ? 'Android' : /Mac/.test(ua) ? 'Mac' : /Windows/.test(ua) ? 'Windows' : /Linux|CrOS/.test(ua) ? 'Linux' : 'Peranti lain';
+    return ['Website Kucingku', location.pathname.replace(/\.html$/, '') || '/', dev, br].join(' · ');
+  }
+  function fbGet() { try { return JSON.parse(localStorage.getItem(FBK) || '{}') || {}; } catch (e) { return {}; } }
+  function fbSet(o) { try { localStorage.setItem(FBK, JSON.stringify(o)); } catch (e) {} }
+  function svg(d) { var n = 'http://www.w3.org/2000/svg', s = document.createElementNS(n, 'svg'), p = document.createElementNS(n, 'path'); s.setAttribute('viewBox', '0 0 24 24'); s.setAttribute('aria-hidden', 'true'); p.setAttribute('d', d); s.appendChild(p); return s; }
+  function radio(name, value, checked, kids, cls) {
+    var l = el('label', cls), i = el('input'), sp = el('span');
+    i.type = 'radio'; i.name = name; i.value = value; i.checked = !!checked;
+    kids.forEach(function (k) { sp.appendChild(k); });
+    l.appendChild(i); l.appendChild(sp); return l;
+  }
+  function fbBuild() {
+    var d = fbGet();
+    var box = el('div', 'fbm'); box.hidden = true;
+    var card = el('div', 'fbp'); card.setAttribute('role', 'dialog'); card.setAttribute('aria-modal', 'true'); card.setAttribute('aria-labelledby', 'fbm-h');
+    var x = el('button', 'fbclose'); x.type = 'button'; x.setAttribute('aria-label', 'Tutup'); x.textContent = '×'; x.setAttribute('data-fbclose', '');
+    var form = el('form', 'fbf'); form.noValidate = true;
+    var h = el('h2', '', 'Maklum balas'); h.id = 'fbm-h';
+    form.appendChild(h);
+    form.appendChild(el('p', 'mute fbsub', 'Ceritakan apa yang boleh dibaiki atau ditambah. Setiap cadangan dibaca oleh pembangun.'));
+    form.appendChild(el('div', 'fblb', 'Setakat ini, Kucingku...'));
+    var rr = el('div', 'fbr'); rr.setAttribute('role', 'radiogroup'); rr.setAttribute('aria-label', 'Setakat ini, Kucingku');
+    FBR.forEach(function (r) { var i = el('i', '', r[0]); i.setAttribute('aria-hidden', 'true'); rr.appendChild(radio('r', r[1], d.r === r[1], [i, document.createTextNode(r[1])])); });
+    form.appendChild(rr);
+    form.appendChild(el('div', 'fblb', 'Jenis'));
+    var kk = el('div', 'fbc'); kk.setAttribute('role', 'radiogroup'); kk.setAttribute('aria-label', 'Jenis');
+    FBT.forEach(function (t, n) { kk.appendChild(radio('k', t[0], d.k ? d.k === t[0] : n === 0, [svg(t[1]), document.createTextNode(t[0])])); });
+    form.appendChild(kk);
+    var ta = el('textarea', 'fbt'); ta.name = 'm'; ta.rows = 4; ta.maxLength = 2000; ta.setAttribute('aria-label', 'Mesej'); ta.placeholder = 'Tulis di sini. Contoh: Saya nak boleh rekod ubat kutu juga.'; ta.value = d.m || '';
+    form.appendChild(ta);
+    var lx = el('label', 'fbx'), lt = el('span'), cb = el('input'), sw = el('i');
+    lt.appendChild(el('b', '', 'Sertakan info pelayar')); lt.appendChild(el('small', '', fbInfo() + '. Tiada data kucing dihantar.'));
+    cb.type = 'checkbox'; cb.name = 'inf'; cb.checked = d.inf !== false; sw.setAttribute('aria-hidden', 'true');
+    lx.appendChild(lt); lx.appendChild(cb); lx.appendChild(sw); form.appendChild(lx);
+    var msg = el('p', 'fberr'); msg.setAttribute('role', 'alert'); msg.hidden = true; form.appendChild(msg);
+    var send = el('button', 'btn fbsend', 'Hantar'); send.type = 'submit'; form.appendChild(send);
+    form.appendChild(el('p', 'mute fbnote', 'Tiada akaun diperlukan.'));
+    var done = el('div', 'fbdone'); done.hidden = true;
+    var di = el('i'); di.setAttribute('aria-hidden', 'true'); di.appendChild(svg('M12 21s-7-4.4-9.3-9A5.3 5.3 0 0 1 12 6.6 5.3 5.3 0 0 1 21.3 12C19 16.6 12 21 12 21Z'));
+    done.appendChild(di); done.appendChild(el('h2', '', 'Terima kasih!'));
+    done.appendChild(el('p', 'mute', 'Maklum balas anda dah sampai kepada pembangun. Setiap cadangan dibaca dan dipertimbangkan untuk kemas kini akan datang.'));
+    var dc = el('button', 'btn g', 'Tutup'); dc.type = 'button'; dc.setAttribute('data-fbclose', ''); done.appendChild(dc);
+    card.appendChild(x); card.appendChild(form); card.appendChild(done); box.appendChild(card);
+    document.body.appendChild(box);
+    function save() { var f = form.elements, r = form.querySelector('input[name="r"]:checked'), k = form.querySelector('input[name="k"]:checked'); var o = fbGet(); o.r = r ? r.value : ''; o.k = k ? k.value : ''; o.m = f.m.value; o.inf = f.inf.checked; fbSet(o); }
+    form.addEventListener('input', save); form.addEventListener('change', save);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); save();
+      var o = fbGet(), m = (o.m || '').trim();
+      var err = function (t) { msg.textContent = t; msg.hidden = false; };
+      msg.hidden = true;
+      if (m.length < 3) { ta.focus(); return err('Tulis sedikit lagi sebelum menghantar.'); }
+      if (Date.now() - (o.t || 0) < FBGAP) return err('Tunggu sebentar sebelum menghantar lagi.');
+      if (navigator.onLine === false || typeof fetch !== 'function') return err('Tiada internet buat masa ini. Mesej anda disimpan di sini; cuba hantar semula bila talian ada.');
+      var body = [[FB.jen, o.k || FBT[0][0]], [FB.rasa, o.r], [FB.msg, m], [FB.ver, o.inf !== false ? fbInfo() : '']]
+        .filter(function (p) { return p[1]; }).map(function (p) { return p[0] + '=' + encodeURIComponent(p[1]); }).join('&');
+      send.disabled = true; send.textContent = 'Menghantar...';
+      fetch(FB.post, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body })
+        .then(function () {
+          var n = fbGet(); n.t = Date.now(); n.m = ''; n.r = ''; fbSet(n);
+          ta.value = ''; Array.prototype.forEach.call(form.querySelectorAll('input[name="r"]'), function (i) { i.checked = false; });
+          form.hidden = true; done.hidden = false; dc.focus();
+        }, function () { err('Tak dapat dihantar. Semak internet dan cuba lagi.'); })
+        .then(function () { send.disabled = false; send.textContent = 'Hantar'; });
+    });
+    box.addEventListener('click', function (e) { if (e.target === box || (e.target.closest && e.target.closest('[data-fbclose]'))) fbClose(); });
+    box.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { e.preventDefault(); fbClose(); return; }
+      if (e.key !== 'Tab') return;
+      var f = Array.prototype.filter.call(card.querySelectorAll('button,input,textarea'), function (n) { return !n.disabled && n.offsetParent !== null; });
+      if (!f.length) return;
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+    });
+    box._form = form; box._done = done; box._ta = ta; box._err = msg;
+    return box;
+  }
+  function fbOpen(kind) {
+    if (!fbBox) fbBox = fbBuild();
+    fbLast = document.activeElement;
+    fbBox._form.hidden = false; fbBox._done.hidden = true; fbBox._err.hidden = true;
+    if (kind) { var k = fbBox._form.querySelector('input[name="k"][value="' + kind + '"]'); if (k) k.checked = true; }
+    fbBox.hidden = false; document.documentElement.classList.add('fbon');
+    var first = fbBox._form.querySelector('input[name="r"]:checked') || fbBox._form.querySelector('input[name="r"]');
+    setTimeout(function () { (first || fbBox._ta).focus(); }, 30);
+  }
+  function fbClose() {
+    if (!fbBox || fbBox.hidden) return;
+    fbBox.hidden = true; document.documentElement.classList.remove('fbon');
+    if (fbLast && fbLast.focus) try { fbLast.focus(); } catch (e) {}
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-fb]');
+    if (!b) return;
+    e.preventDefault(); fbOpen(b.getAttribute('data-fb') || '');
+  });
+  if (location.hash === '#maklum-balas') fbOpen('');
 
   var top = header;
   if (top) {

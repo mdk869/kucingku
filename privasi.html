@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://docs.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
 <title>Dasar Privasi · Kucingku</title>
 <meta name="description" content="Dasar Privasi Kucingku: data kucing anda disimpan dalam telefon anda sahaja dan tidak dihantar ke mana-mana.">
 <link rel="canonical" href="https://kucingku-bay.vercel.app/privasi">
@@ -39,7 +39,7 @@
   <ul>
     <li><b>Google Fonts:</b> fon dalam app dimuat turun daripada Google. Seperti mana-mana laman web, Google boleh menerima alamat IP peranti anda semasa fon dimuat turun.</li>
     <li><b>cdnjs (Cloudflare):</b> pustaka untuk Export PDF dimuat turun hanya apabila anda menekan Export PDF. PDF dijana dalam telefon anda.</li>
-    <li><b>Google Forms:</b> maklum balas dihantar ke borang Google pembangun hanya apabila anda menekan Hantar. Yang dihantar: jenis maklum balas, rasa anda tentang app, mesej yang anda tulis dan, jika anda pilih, versi app, bahasa, jenis telefon dan pelayar. Laporan masalah turut menyertakan mesej ralat. Tiada data kucing disertakan. Google memproses borang ini mengikut dasar privasi Google.</li>
+    <li><b>Google Forms:</b> maklum balas dihantar ke borang Google pembangun hanya apabila anda menekan Hantar. Yang dihantar: jenis maklum balas, rasa anda tentang app, mesej yang anda tulis dan, jika anda pilih, versi app, bahasa, jenis telefon dan pelayar (atau, dari website ini, halaman yang dibuka, jenis peranti dan pelayar). Laporan masalah turut menyertakan mesej ralat. Tiada data kucing disertakan. Google memproses borang ini mengikut dasar privasi Google.</li>
     <li><b>Dinding penyokong:</b> jika anda belanja kopi dan mengisi borang penyokong, nama (atau Tanpa nama), nama kucing dan ucapan anda dihantar ke borang Google pembangun. Ia hanya dipaparkan kepada pengguna lain jika anda benarkan dan selepas disemak oleh pembangun. Jumlah sumbangan tidak pernah dipaparkan. Senarai penyokong dibaca daripada Google Sheets.</li>
     <li><b>Peta:</b> butang Peta membuka alamat klinik yang anda masukkan dalam aplikasi peta pilihan anda.</li>
     <li><b>Hosting:</b> Kucingku dihoskan di Vercel. Seperti semua laman web, pelayan hosting menerima maklumat teknikal biasa (contohnya alamat IP) untuk menghantar fail app ke telefon anda.</li>
@@ -58,15 +58,17 @@
   <p>Jika dasar ini berubah, versi terkini akan dipaparkan di halaman ini bersama tarikh berkuat kuasa yang baharu.</p>
 
   <h2>8. Hubungi kami</h2>
-  <p>Ada soalan tentang privasi? Hantar melalui <a href="https://docs.google.com/forms/d/e/1FAIpQLSfK5e5iSrBBUDWH5bMCLIxYPe6dWAKIaNkdOt_UXYqnKObJyw/viewform" target="_blank" rel="noopener">borang maklum balas</a>.</p>
+  <p>Ada soalan tentang privasi? Hantar melalui <button type="button" class="lnk" data-fb>borang maklum balas</button>.</p>
 </main>
 
 <footer>
   <div class="wrap">
     <span>© 2026 Kucingku</span>
-    <nav aria-label="Pautan bawah"><a href="/tentang">Laman utama</a><a href="/tentang#perubahan">Apa yang baharu</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSfK5e5iSrBBUDWH5bMCLIxYPe6dWAKIaNkdOt_UXYqnKObJyw/viewform" target="_blank" rel="noopener">Maklum balas</a></nav>
+    <nav aria-label="Pautan bawah"><a href="/tentang">Laman utama</a><a href="/tentang#perubahan">Apa yang baharu</a><button type="button" class="lnk" data-fb>Maklum balas</button></nav>
   </div>
 </footer>
+<div class="toast" role="status" aria-live="polite"></div>
+<script src="web.js" defer></script>
 <script src="/_vercel/insights/script.js" defer></script>
 </body>
 </html>
