@@ -35,19 +35,21 @@
       <a href="#cara">Cara mula</a>
       <a href="#privasi">Privasi</a>
       <a href="#soalan">Soalan lazim</a>
+      <a href="#perubahan" class="nvnew">Apa yang baharu<span class="vpill" data-ver hidden></span></a>
     </nav>
     <a class="btn sm only-desk" href="#dapatkan">Dapatkan app</a>
     <a class="btn sm only-mob" href="/?utm_source=web">Buka app</a>
   </div>
 </header>
 
-<main>
+<main id="laman">
 <div class="hero">
   <div class="wrap">
     <div>
+      <a class="newpill" href="#perubahan" data-newpill hidden><span class="tg tn">Baharu</span><span data-newtext>Apa yang baharu</span><span aria-hidden="true">→</span></a>
       <div class="chips"><span class="chip">Percuma</span><span class="chip">Tiada iklan</span><span class="chip">Tanpa daftar akaun</span></div>
       <h1>Semua rekod kucing, <em>dalam satu app.</em></h1>
-      <p class="lead">Profil, berat, vaksin, ubat cacing dan lawatan vet untuk setiap kucing anda. Kucingku kira sendiri bila rawatan seterusnya, jadi anda tak perlu ingat.</p>
+      <p class="lead">Profil, berat, vaksin, ubat cacing, jagaan rutin dan stok makanan untuk setiap kucing anda. Kucingku kira sendiri bila rawatan seterusnya, dan beri amaran awal bila ada yang perlu perhatian.</p>
 
       <div class="get only-desk" id="dapatkan">
         <img class="qrb" src="icons/qr.svg" alt="Kod QR untuk buka Kucingku di telefon" width="136" height="136">
@@ -69,10 +71,10 @@
 
     <div class="phones" aria-hidden="true">
       <span class="heart h1">♥</span><span class="heart h2">♥</span><span class="heart h3">♥</span>
-      <div class="phone a"><img src="img/pratonton-utama.webp" alt="" width="360" height="613"></div>
-      <div class="phone b"><img src="img/pratonton-profil.webp" alt="" width="360" height="613"></div>
-      <div class="badge b1"><i>✓</i>Ubat cacing: selesai</div>
-      <div class="badge b2"><i>♥</i>Vaksin seterusnya: 7 hari</div>
+      <div class="phone a"><img src="img/web-utama.webp" alt="" width="360" height="720"></div>
+      <div class="phone b"><img src="img/web-tambah.webp" alt="" width="360" height="720"></div>
+      <div class="badge b1"><i class="w">!</i>Mochi: ubat cacing lewat 6 hari</div>
+      <div class="badge b2"><i>✓</i>Pasir: tahan ±9 hari lagi</div>
     </div>
   </div>
 </div>
@@ -81,18 +83,30 @@
   <span>iPhone &amp; Android</span><span>Bahasa Melayu &amp; English</span><span>Boleh dibuka tanpa internet</span><span>Data kekal dalam telefon anda</span>
 </div></div>
 
+<section class="wn" data-wn hidden aria-labelledby="wn-h">
+  <div class="wrap">
+    <div class="wnc">
+      <div class="wnh"><div><p class="kick">Apa yang baharu</p><h2 id="wn-h" data-wnh>Kemas kini terkini</h2></div><a href="#perubahan">Lihat semua perubahan →</a></div>
+      <ul class="wnl" data-wnl></ul>
+    </div>
+  </div>
+</section>
+
 <section id="ciri">
   <div class="wrap">
-    <div class="sec-h"><p class="kick">Ciri</p><h2>Semua yang anda perlu untuk jaga kucing</h2><p>Dibina oleh pemilik kucing, untuk pemilik kucing di Malaysia.</p></div>
+    <div class="sec-h"><p class="kick">Ciri</p><h2>Semua yang anda perlu untuk jaga kucing</h2><p>Dibina oleh pemilik kucing, untuk pemilik kucing di Malaysia. Terus dikemas kini.</p></div>
     <div class="feat">
-      <article class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-9.3-9A5.3 5.3 0 0 1 12 6.6 5.3 5.3 0 0 1 21.3 12C19 16.6 12 21 12 21Z"/></svg></div><h3>Profil setiap kucing</h3><p>Gambar, jantina, baka, warna dan no. microchip. Tema pink untuk betina, biru untuk jantan.</p></article>
-      <article class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 8v4l3 2"/><circle cx="12" cy="12" r="9"/></svg></div><h3>Umur &amp; fasa hidup</h3><p>Umur dikira dalam minggu dan bulan, dengan fasa semasa seperti anak kucing atau remaja, serta petua jagaan.</p></article>
-      <article class="f"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 10h18M9 15l2 2 4-4"/></svg></div><h3>Jadual vaksin &amp; ubat cacing</h3><p>Tarikh rawatan seterusnya dikira sendiri daripada tarikh lahir dan rekod terakhir.</p></article>
-      <article class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3h9"/></svg></div><h3>Fokus hari ini</h3><p>Senarai semak apa yang perlu dibuat hari ini, dan temujanji vet seterusnya dengan butang telefon.</p></article>
-      <article class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h6v6"/></svg></div><h3>Graf berat</h3><p>Timbang semua kucing sekali gus dan lihat graf pertumbuhan. Gram atau kg, ikut pilihan anda.</p></article>
-      <article class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></div><h3>PDF untuk vet</h3><p>Sejarah penuh kucing dalam satu PDF yang cantik. Tunjuk terus kepada doktor haiwan semasa lawatan.</p></article>
+      <article class="f" data-v="1.9.3" data-t="new"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div><h3>＋ Tambah dari mana-mana</h3><p>Satu butang di tengah menu: timbang, vaksin, ubat cacing, jagaan, lawatan vet, catatan kesihatan atau stok dibeli.</p></article>
+      <article class="f" data-v="1.9.2" data-t="new"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg></div><h3>Ringkasan kesihatan</h3><p>Amaran awal bila berat turun berturut-turut, belum ditimbang, atau vaksin dan ubat cacing lewat.</p></article>
+      <article class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 5h18v16H3zM16 3v4M8 3v4M3 10h18"/></svg></div><h3>Jadual vaksin &amp; ubat cacing</h3><p>Tarikh rawatan seterusnya dikira sendiri daripada tarikh lahir dan rekod terakhir.</p></article>
+      <article class="f" data-v="1.9.1" data-t="new"><div class="ic"><svg viewBox="0 0 24 24"><path d="M6 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM20 4L8.1 15.9M14.5 14.5L20 20M8.1 8.1L12 12"/></svg></div><h3>Jagaan rutin</h3><p>Potong kuku, mandi, sikat bulu, rawatan kutu. Tandakan Selesai dan app ingatkan bila tiba masanya.</p></article>
+      <article class="f" data-v="1.9.2" data-t="new"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7l8-4 8 4v10l-8 4-8-4zM4 7l8 4 8-4M12 11v10"/></svg></div><h3>Stok makanan &amp; pasir</h3><p>Rekod jenama dan tekan Dah beli. App anggar bila stok akan habis dan beri amaran awal.</p></article>
+      <article class="f" data-v="1.9.2" data-t="new"><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 12v7h16v-7M12 3v12M7 8l5-5 5 5"/></svg></div><h3>Kongsi kad &amp; hari istimewa</h3><p>Kad profil dan kad hari lahir untuk WhatsApp, Threads atau IG Story. Ingatan ulang tahun mula dibela.</p></article>
+      <article class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-9.3-9A5.3 5.3 0 0 1 12 6.6 5.3 5.3 0 0 1 21.3 12C19 16.6 12 21 12 21Z"/></svg></div><h3>Profil &amp; fasa hidup</h3><p>Umur dalam minggu dan bulan, fasa semasa seperti anak kucing atau remaja, dengan petua jagaan.</p></article>
+      <article class="f"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l5-5 4 4 8-9M14 7h6v6"/></svg></div><h3>Graf berat &amp; timbang cepat</h3><p>Timbang semua kucing sekali gus dan lihat graf pertumbuhan, dalam gram atau kg.</p></article>
+      <article class="f" data-v="1.9.0" data-t="imp"><div class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8ZM14 3v5h5M9 13h6M9 17h4"/></svg></div><h3>PDF untuk vet</h3><p>Sejarah penuh kucing dalam satu PDF kemas: kad ringkasan, timeline dan jadual. Tiada kandungan terpotong.</p></article>
     </div>
-    <p class="also">Juga: rekod perbelanjaan, simpan klinik vet, export ke kalendar telefon, dan 5 pilihan tema warna.</p>
+    <p class="also">Juga: rekod perbelanjaan, simpan klinik vet, export ke kalendar telefon, maklum balas dalam app dan 5 pilihan tema warna.</p>
   </div>
 </section>
 
@@ -100,10 +114,12 @@
   <div class="wrap">
     <div class="sec-h"><p class="kick">Contoh paparan</p><h2 id="shots-h">Comel, kemas dan mudah guna</h2></div>
     <div class="gal">
-      <figure><div class="phone"><img src="img/pratonton-utama.webp" alt="Skrin Utama Kucingku" width="360" height="613" loading="lazy"></div><figcaption>Utama<span>Fokus hari ini &amp; tindakan pantas</span></figcaption></figure>
-      <figure><div class="phone"><img src="img/pratonton-kucing.webp" alt="Senarai kucing dalam Kucingku" width="360" height="613" loading="lazy"></div><figcaption>Kucing anda<span>Berat, rekod &amp; rawatan seterusnya</span></figcaption></figure>
-      <figure><div class="phone"><img src="img/pratonton-profil.webp" alt="Profil kucing dalam Kucingku" width="360" height="613" loading="lazy"></div><figcaption>Profil<span>Umur, fasa &amp; maklumat lengkap</span></figcaption></figure>
-      <figure><div class="phone"><img src="img/pratonton-jadual.webp" alt="Jadual kesihatan kucing dalam Kucingku" width="360" height="613" loading="lazy"></div><figcaption>Jadual kesihatan<span>Tanda ✓ bila rawatan selesai</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/web-utama.webp" alt="Skrin Utama Kucingku" width="360" height="720" loading="lazy"></div><figcaption>Utama<span>Ringkasan kesihatan &amp; hari istimewa</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/web-tambah.webp" alt="Lembaran Tambah dalam Kucingku" width="360" height="720" loading="lazy"></div><figcaption>＋ Tambah<span>Semua rekod dalam satu tekan</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/web-profil.webp" alt="Profil kucing dalam Kucingku" width="360" height="720" loading="lazy"></div><figcaption>Profil<span>Umur, fasa &amp; maklumat lengkap</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/web-kad.webp" alt="Kongsi kad profil kucing" width="360" height="720" loading="lazy"></div><figcaption>Kongsi kad<span>Gambar untuk WhatsApp &amp; IG Story</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/web-stok.webp" alt="Stok makanan dan pasir dalam Kucingku" width="360" height="720" loading="lazy"></div><figcaption>Stok<span>Tahu bila perlu beli lagi</span></figcaption></figure>
+      <figure><div class="phone"><img src="img/web-jadual.webp" alt="Jadual rawatan dan jagaan kucing" width="360" height="720" loading="lazy"></div><figcaption>Jadual<span>Hari ini &amp; 7 hari akan datang</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -171,10 +187,40 @@
 </section>
 </main>
 
+<main id="perubahan-v" class="clv" hidden aria-labelledby="cl-h">
+  <div class="wrap clw">
+    <div class="clm">
+      <p class="kick">Senarai perubahan</p>
+      <h1 id="cl-h">Apa yang baharu dalam Kucingku</h1>
+      <p class="lead">Setiap kemas kini app, daripada yang terbaru. App di telefon anda dikemas kini sendiri: bila ada versi baharu, Kucingku akan tunjuk apa yang berubah.</p>
+      <div class="clf" role="group" aria-label="Tapis jenis perubahan" data-clf>
+        <button type="button" data-f="all" aria-pressed="true">Semua <span></span></button>
+        <button type="button" data-f="new" aria-pressed="false">Baharu <span></span></button>
+        <button type="button" data-f="imp" aria-pressed="false">Lebih baik <span></span></button>
+        <button type="button" data-f="fix" aria-pressed="false">Dibaiki <span></span></button>
+      </div>
+      <ol class="cll" data-cll></ol>
+      <p class="mute cle" data-cle hidden>Tiada perubahan jenis ini dalam versi yang dipaparkan.</p>
+      <button type="button" class="btn g clmore" data-clmore hidden></button>
+      <p class="mute cle" data-clerr hidden>Senarai perubahan tidak dapat dimuat. Cuba muat semula halaman ini.</p>
+    </div>
+    <aside class="cla">
+      <div class="clq">
+        <b>Belum guna Kucingku?</b>
+        <img class="qrb only-desk" src="icons/qr.svg" alt="Kod QR untuk buka Kucingku di telefon" width="150" height="150">
+        <p class="only-desk">Imbas dengan kamera telefon. Percuma, tanpa daftar akaun.</p>
+        <a class="btn sm only-desk" href="https://wa.me/?text=Kucingku%20%E2%80%93%20app%20rekod%20kucing%20percuma%3A%20https%3A%2F%2Fkucingku-bay.vercel.app%2F%3Futm_source%3Dweb" target="_blank" rel="noopener">Hantar ke WhatsApp</a>
+        <a class="btn only-mob" href="/?utm_source=web">Buka Kucingku</a>
+      </div>
+      <div class="cls"><b>Ada cadangan?</b><p>Banyak fungsi di sini datang daripada cadangan pengguna. Hantar melalui app: Lagi → Maklum balas.</p></div>
+    </aside>
+  </div>
+</main>
+
 <footer>
   <div class="wrap">
-    <span>© 2026 Kucingku · v1.8.7</span>
-    <nav aria-label="Pautan bawah"><a href="/privasi">Dasar Privasi</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSfK5e5iSrBBUDWH5bMCLIxYPe6dWAKIaNkdOt_UXYqnKObJyw/viewform" target="_blank" rel="noopener">Maklum balas</a></nav>
+    <span>© 2026 Kucingku<span data-ver-f></span></span>
+    <nav aria-label="Pautan bawah"><a href="#perubahan">Apa yang baharu</a><a href="/privasi">Dasar Privasi</a><a href="https://docs.google.com/forms/d/e/1FAIpQLSfK5e5iSrBBUDWH5bMCLIxYPe6dWAKIaNkdOt_UXYqnKObJyw/viewform" target="_blank" rel="noopener">Maklum balas</a></nav>
     <p class="disc">Panduan dalam Kucingku bersifat umum dan bukan nasihat veterinar.</p>
   </div>
 </footer>

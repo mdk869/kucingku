@@ -1,0 +1,116 @@
+const { test } = require('node:test');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const vm = require('node:vm');
+const { source } = require('./helpers.cjs');
+
+// Website: "Apa yang baharu" (/tentang#perubahan) dan ciri v1.9, dibaca daripada changelog.json.
+const root = path.join(__dirname, '..');
+const read = f => fs.readFileSync(path.join(root, f), 'utf8');
+const CL = JSON.parse(read('changelog.json'));
+
+test('website changes do not touch the app (no update popup on phones)', () => {
+  const ver = source.match(/const VER='([\d.]+)'/)[1];
+  assert.equal(CL[0].v, ver, 'changelog top entry = app version');
+  assert.match(read('sw.js'), new RegExp(`const CACHE = 'kucingku-${ver.replace(/\./g, '\\.')}'`));
+  assert.match(read('sw.js'), /request\.mode === 'navigate' && \/\^\\\/\(tentang\|privasi\)\(\\\.html\)\?\\\/\?\$\/\.test/, 'sw.js website bypass unchanged: changelog lives at /tentang#perubahan');
+  assert.deepEqual(JSON.parse(read('vercel.json')).rewrites.map(r => r.source), ['/tentang', '/privasi']);
+});
+
+test('changelog view, latest box and version labels exist in /tentang', () => {
+  const h = read('tentang.html');
+  assert.match(h, /<main id="laman">/);
+  assert.match(h, /<main id="perubahan-v" class="clv" hidden/);
+  assert.match(h, /<a href="#perubahan" class="nvnew">Apa yang baharu<span class="vpill" data-ver hidden><\/span><\/a>/);
+  assert.match(h, /data-newpill hidden/);
+  assert.match(h, /<section class="wn" data-wn hidden/);
+  for (const f of ['all', 'new', 'imp', 'fix']) assert.match(h, new RegExp(`data-f="${f}"`));
+  assert.doesNotMatch(h, /v1\.8\.7/, 'no hard-coded old version');
+  assert.match(h, /<a href="#perubahan">Apa yang baharu<\/a><a href="\/privasi">/);
+  assert.match(read('privasi.html'), /href="\/tentang#perubahan"/);
+});
+
+test('every feature card with a version points to a real changelog entry', () => {
+  const h = read('tentang.html');
+  const cards = [...h.matchAll(/<article class="f" data-v="([\d.]+)" data-t="(new|imp)">/g)];
+  assert.ok(cards.length >= 6);
+  for (const [, v] of cards) assert.ok(CL.some(e => e.v === v), v);
+  assert.equal((h.match(/<article class="f"/g) || []).length, 9);
+});
+
+test('new screenshots exist and are used; app install screenshots are left alone', () => {
+  const h = read('tentang.html');
+  for (const n of ['utama', 'tambah', 'profil', 'kad', 'stok', 'jadual']) {
+    assert.ok(fs.existsSync(path.join(root, `img/web-${n}.webp`)), n);
+    assert.match(h, new RegExp(`img/web-${n}\\.webp`));
+  }
+  assert.doesNotMatch(h, /pratonton-/);
+  for (const n of ['utama', 'profil', 'kucing', 'jadual']) assert.ok(fs.existsSync(path.join(root, `img/pratonton-${n}.webp`)));
+});
+
+test('belanja kopi never appears on the website', () => {
+  for (const f of ['tentang.html', 'web.js']) assert.doesNotMatch(read(f), /kopi|penyokong|DuitNow/i, f);
+  assert.doesNotMatch(JSON.stringify(CL), /kopi|penyokong/i);
+});
+
+// Jalankan web.js dengan DOM kecil: semak isi dikira daripada changelog.json.
+function fakeDom(hash) {
+  const els = {}, all = [];
+  const mk = (sel, attrs = {}) => {
+    const e = { sel, hidden: true, textContent: '', children: [], attrs: { ...attrs }, classList: { list: new Set(), add(c) { this.list.add(c); }, remove(c) { this.list.delete(c); }, toggle() {} },
+      appendChild(c) { this.children.push(c); return c; }, getAttribute(k) { return this.attrs[k] ?? null; }, setAttribute(k, v) { this.attrs[k] = v; },
+      querySelector(s) { return s === '.nb' ? this.children.find(c => /nb/.test(c.className)) || null : s === 'span' ? this.span : null; }, remove() {} };
+    all.push(e); return e;
+  };
+  ['[data-ver]', '[data-ver-f]', '[data-newpill]', '[data-newtext]', '[data-wn]', '[data-wnl]', '[data-wnh]', '[data-cll]', '[data-clmore]', '[data-cle]', '[data-clerr]'].forEach(s => { els[s] = mk(s); });
+  const cards = [mk('.f', { 'data-v': '1.9.3', 'data-t': 'new' }), mk('.f', { 'data-v': '1.9.0', 'data-t': 'imp' }), mk('.f', { 'data-v': '1.0.0', 'data-t': 'new' })];
+  const chips = ['all', 'new', 'imp', 'fix'].map(f => { const b = mk('btn', { 'data-f': f }); b.span = mk('span'); return b; });
+  const laman = mk('#laman'); laman.hidden = false; const clv = mk('#perubahan-v');
+  const document = {
+    title: 'Kucingku', documentElement: { classList: { add() {} } },
+    getElementById: id => (id === 'laman' ? laman : id === 'perubahan-v' ? clv : null),
+    querySelector: s => els[s] || null,
+    querySelectorAll: s => (s === '.f[data-v]' ? cards : s === '[data-clf] button' ? chips : els[s] ? [els[s]] : []),
+    createElement: tag => { const e = mk(tag); e.className = ''; return e; },
+    addEventListener() {}, body: { appendChild() {} }
+  };
+  let fetched;
+  const win = {
+    document, location: { hash, pathname: '/tentang', search: '' }, history: { pushState() {}, replaceState() {} },
+    navigator: { userAgent: 'Mozilla/5.0 (Windows NT 10.0)' }, screen: { width: 1920, height: 1080 }, matchMedia: () => ({ matches: false }),
+    addEventListener() {}, scrollTo() {}, scrollY: 0, innerHeight: 900, setTimeout, clearTimeout,
+    fetch: u => { fetched = u; return Promise.resolve({ ok: true, json: () => Promise.resolve(CL) }); },
+    Date: class extends Date { static now() { return Date.parse('2026-11-25T10:00:00+08:00'); } }
+  };
+  win.window = win;
+  return { win, els, cards, chips, laman, clv, get fetched() { return fetched; } };
+}
+const run = async hash => { const d = fakeDom(hash); vm.runInNewContext(read('web.js'), d.win); await new Promise(r => setImmediate(r)); await new Promise(r => setImmediate(r)); return d; };
+
+test('web.js fills version, latest box and 30-day badges from changelog.json', async () => {
+  const d = await run('');
+  assert.equal(d.fetched, 'changelog.json');
+  assert.equal(d.els['[data-ver]'].textContent, 'v' + CL[0].v);
+  assert.equal(d.els['[data-ver-f]'].textContent, ' · v' + CL[0].v);
+  assert.equal(d.els['[data-newpill]'].hidden, false);
+  assert.equal(d.els['[data-newtext]'].textContent, 'Apa yang baharu dalam v' + CL[0].v);
+  assert.equal(d.els['[data-wn]'].hidden, false);
+  assert.equal(d.els['[data-wnl]'].children.length, Math.min(3, CL[0].i.length));
+  const badge = c => (c.children.find(x => /nb/.test(x.className)) || {}).textContent;
+  assert.equal(badge(d.cards[0]), 'Baharu');
+  assert.equal(badge(d.cards[1]), 'Reka baharu');
+  assert.equal(badge(d.cards[2]), undefined, 'old version gets no badge');
+  assert.equal(d.laman.hidden, false);
+});
+
+test('#perubahan shows the changelog view with 7 recent versions and filter counts', async () => {
+  const d = await run('#perubahan');
+  assert.equal(d.laman.hidden, true);
+  assert.equal(d.clv.hidden, false);
+  assert.equal(d.els['[data-cll]'].children.length, Math.min(7, CL.length));
+  const total = CL.reduce((n, e) => n + e.i.length, 0);
+  assert.equal(String(d.chips[0].span.textContent), String(total));
+  assert.equal(d.chips[0].attrs['aria-pressed'], 'true');
+  assert.equal(d.els['[data-clmore]'].hidden, CL.length <= 7);
+});
