@@ -5,13 +5,18 @@
   "i": [
    {
     "t": "imp",
-    "ms": "Pemandulan boleh direkod dengan tarikh sebenar, termasuk tarikh lama. Tekan kotak Pemandulan dalam Jadual kesihatan, atau isi dalam Edit profil.",
-    "en": "Neutering / spaying can now be recorded with the real date, including dates long ago. Tap the Neutering tile in the Health schedule, or fill it in under Edit profile."
+    "ms": "Pemandulan boleh direkod dengan tarikh sebenar, termasuk tarikh lama. Tekan kotak Pemandulan dalam Jadual kesihatan, atau isi semasa Tambah kucing dan Edit profil.",
+    "en": "Neutering / spaying can now be recorded with the real date, including dates long ago. Tap the Neutering tile in the Health schedule, or fill it in when adding a cat or editing a profile."
    },
    {
     "t": "imp",
     "ms": "Tarikh pemandulan boleh ditukar atau dipadam, dan dipaparkan dalam profil kucing.",
     "en": "The neutering date can be changed or deleted, and shows on the cat's profile."
+   },
+   {
+    "t": "fix",
+    "ms": "Umur kucing dewasa kini dipaparkan dalam tahun dan bulan, bukan minggu.",
+    "en": "Adult cats' age now shows in years and months instead of weeks."
    }
   ]
  },

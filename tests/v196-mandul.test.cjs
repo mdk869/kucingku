@@ -82,3 +82,37 @@ test('English translates the neutering sheet', () => {
   assert.equal(t('Tarikh pemandulan (pilihan)'), 'Neutering / spaying date (optional)');
   assert.equal(t('Padam rekod pemandulan ini?'), 'Delete this neutering record?');
 });
+
+test('adult cats show their age in years and months; kittens keep weeks for the vaccine schedule', () => {
+  const a = app();
+  const T = a.run('td()');
+  const back = (y, m, d = 0) => a.run(`(()=>{const x=new Date('${T}T00:00');x.setFullYear(x.getFullYear()-${y});x.setMonth(x.getMonth()-${m});x.setDate(x.getDate()-${d});return iso(x)})()`);
+  assert.equal(a.run(`age('${back(6, 6)}')`), '6 tahun 6 bulan');
+  assert.equal(a.run(`age('${back(2, 0)}')`), '2 tahun');
+  assert.equal(a.run(`age('${back(1, 3, 5)}')`), '1 tahun 3 bulan');
+  assert.match(a.run(`age('${back(0, 2, 3)}')`), /^\d+ minggu \(2 bulan 3 hari\)$/);
+  assert.match(a.run(`age('${back(0, 11, 20)}')`), /^\d+ minggu \(11 bulan \d+ hari\)$/);
+  const en = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
+  assert.equal(en.json('trs("±6 tahun 6 bulan")'), '±6 years 6 months');
+  assert.equal(en.json('trs("1 tahun")'), '1 year');
+});
+
+test('the Tambah kucing form has the optional neutering date with the same rules', () => {
+  const a = app({ data: { cats: [], recs: [], vets: [], bk: 0 } });
+  try { a.run('catForm()'); } catch (e) { } // liveAge perlukan DOM sebenar
+  const h = sh(a);
+  assert.match(h, /Tambah kucing/);
+  assert.match(h, new RegExp(`name="md" type="date" max="${a.run('td()')}" value=""`));
+  assert.match(h, /Tak ingat tarikh tepat\?/);
+  const b = app({ data: cats() });
+  try { b.run("catForm('a')"); } catch (e) { }
+  assert.match(sh(b), /name="md" type="date" max="[\d-]+" min="2020-03-01"/, 'cannot pick a date before birth');
+  b.run(`FormData=function(){return {[Symbol.iterator]:function*(){yield*Object.entries({name:'Comel',sex:'Betina',dob:'2022-01-01',dobx:'Tepat',adopt:'',md:'2021-12-01',brs:'',brx:'',pattern:'',chip:'',note:''})}}}`);
+  b.run(`saveCat({preventDefault(){},target:{}},'')`);
+  assert.equal(b.json('S.cats.length'), 1, 'a new cat neutered before its birth date is refused');
+  assert.equal(b.json('messages').at(-1), 'Tarikh pemandulan mesti selepas tarikh lahir');
+  b.run(`FormData=function(){return {[Symbol.iterator]:function*(){yield*Object.entries({name:'Comel',sex:'Betina',dob:'2022-01-01',dobx:'Tepat',adopt:'',md:'2022-07-01',brs:'',brx:'',pattern:'',chip:'',note:''})}}}`);
+  b.run(`saveCat({preventDefault(){},target:{}},'')`);
+  assert.equal(b.json('S.cats.length'), 2);
+  assert.equal(b.json('S.cats[1].ms.md'), '2022-07-01');
+});
