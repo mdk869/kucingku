@@ -22,6 +22,11 @@
     "t": "imp",
     "ms": "Senarai Stok dikumpul kepada Makanan dan Pasir & lain-lain. Peringatan lembut bila kitten genap setahun dan masih makan makanan kitten.",
     "en": "The Stock list is grouped into Food and Litter & others. A gentle reminder when a kitten turns one and still eats kitten food."
+   },
+   {
+    "t": "fix",
+    "ms": "Butang ＋ → Dah beli stok: senarai stok kini dipaparkan dengan betul, bersama baki hari setiap stok.",
+    "en": "＋ button → Bought stock: the stock list now shows properly, with the days left for each item."
    }
   ]
  },
