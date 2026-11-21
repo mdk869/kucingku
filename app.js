@@ -285,7 +285,8 @@ sheet(`<h2>Tambah</h2>${S.cats.length>1?`<div class="lb">Untuk kucing</div><div 
 function tmGo(k){const id=tmCat();closeSh();
 if(k==='kucing')return catForm();
 if(k==='stok'){const l=S.stock||[];if(!l.length){go('stok');return stokForm()}if(l.length===1)return buyForm(l[0].id);
-return sheet(`<h2>Dah beli apa?</h2>${l.map(x=>`<button class="row" data-action="buyForm" data-id="${x.id}"><svg viewBox="0 0 24 24" aria-hidden="true">${I.stok}</svg><span><b>${esc(skN(x))}</b>${x.brand?`<span class="mute">${esc(x.brand)}</span>`:''}</span><span class="chev">›</span></button>`).join('')}`)}
+const L2=l.slice().sort((a,b)=>{const x=stInfo(a).left,y=stInfo(b).left;return (x===null?1e9:x)-(y===null?1e9:y)});
+return sheet(`<h2>Dah beli apa?</h2><div class="tmp">${L2.map(x=>`<button data-action="buyForm" data-id="${x.id}"><i class="ci" aria-hidden="true"><svg viewBox="0 0 24 24">${SI[x.k]}</svg></i><span><b>${esc(skN(x))}</b>${stSub(x)?`<span class="mute">${stSub(x)}</span>`:''}</span>${stPill(stInfo(x))}</button>`).join('')}</div>`)}
 if(!id||!cat(id))return;TMC=id;
 if(k==='jagaan'){openCat(id,'jagaan');if(!(cat(id).care||[]).length)careForm();return}
 if(TMA.some(([x])=>x===k)){openCat(id,k);recForm()}}

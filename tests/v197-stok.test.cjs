@@ -152,3 +152,15 @@ test('English translates the new stock texts', () => {
   assert.equal(t('Pasir & lain-lain'), 'Litter & others');
   assert.equal(t('Beli lain kali ini sahaja'), 'Just a different one this time');
 });
+
+test('＋ Tambah → Dah beli stok lists items like the Stock page: icon, name, details and days left, soonest first', () => {
+  const a = withStock(a0 => [{ id: 's1', k: 'kering', name: 'Kibble kitten', brand: 'B', var: 'kitten', est: 14, buys: [{ id: 'b1', date: ago(a0, 10) }] }, { id: 's3', k: 'pasir', brand: 'P', est: 21, buys: [{ id: 'b2', date: ago(a0, 19) }] }]);
+  a.run("tmGo('stok')");
+  const h = sh(a);
+  assert.match(h, /Dah beli apa\?/);
+  assert.match(h, /class="tmp"/);
+  assert.match(h, /<i class="ci" aria-hidden="true"><svg viewBox="0 0 24 24">/, 'the icon sits in the sized .ci box');
+  assert.match(h, /<b>Kibble kitten<\/b><span class="mute">Makanan kering · B · kitten<\/span>/);
+  assert.ok(h.indexOf('data-id="s3"') < h.indexOf('data-id="s1"'), 'the one running out first is on top');
+  assert.match(h, /±2 hari/);
+});
