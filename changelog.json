@@ -5,8 +5,13 @@
   "i": [
    {
     "t": "new",
-    "ms": "Sesi vet: rekod satu lawatan vet dalam satu borang, untuk beberapa kucing sekali gus. Vaksin (dengan jenama pelekat dan no. batch), ubat cacing, berat, kos dan gambar kad vet. Tarikh temujanji dari kad vet jadi peringatan.",
-    "en": "Vet visit: record one vet visit in a single form, for several cats at once. Vaccine (with sticker brand and batch no.), deworming, weight, cost and a photo of the vet card. The appointment date from the vet card becomes the reminder."
+    "ms": "Sesi vet: rekod satu lawatan vet dalam satu borang, untuk beberapa kucing sekali gus. Vaksin (dengan jenama pelekat dan no. batch), ubat cacing, berat dan kos. Tarikh temujanji dari kad vet jadi peringatan.",
+    "en": "Vet visit: record one vet visit in a single form, for several cats at once. Vaccine (with sticker brand and batch no.), deworming, weight and cost. The appointment date from the vet card becomes the reminder."
+   },
+   {
+    "t": "imp",
+    "ms": "Kad Temujanji seterusnya di Utama kini tunjuk semua kucing yang ada temujanji pada tarikh, masa dan klinik yang sama, dan simpan ke kalendar sebagai satu acara.",
+    "en": "The Next appointment card on Home now shows every cat booked at the same date, time and clinic, and saves them to the calendar as one event."
    },
    {
     "t": "new",

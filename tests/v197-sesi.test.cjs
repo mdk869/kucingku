@@ -5,7 +5,7 @@ const { app } = require('./helpers.cjs');
 // v1.9.5: Sesi vet. Satu borang untuk satu lawatan, beberapa kucing, disalin dari kad vet.
 
 const sh = a => a.elements.get('#sh').innerHTML;
-const IMG = 'data:image/jpeg;base64,' + 'A'.repeat(4000);
+const IMG = 'data:image/jpeg;base64,' + 'A'.repeat(4000); // data lama pratonton yang masih ada gambar
 const mk = () => {
   const a0 = app();
   const D = n => a0.run(`addD(td(),${n})`);
@@ -32,7 +32,6 @@ test('＋ Tambah has a Sesi vet button, and the form starts with the chosen cat 
 
 test('saving a visit makes the usual records for every cat, splits the cost once, and adds the next appointment', () => {
   const { a, D } = mk();
-  a.run(`SVP=${JSON.stringify(IMG)}`);
   a.submit('saveSv', full(D));
   const R = a.json('S.recs.filter(r=>r.sv)');
   const by = (c, t) => R.filter(r => r.cat === c && r.type === t);
@@ -58,10 +57,7 @@ test('saving a visit makes the usual records for every cat, splits the cost once
   assert.equal(appt[0].time, '10:30');
   assert.equal(appt[0].name, 'Temujanji vaksin');
   assert.equal(new Set(R.map(r => r.sv)).size, 1);
-  const imgs = a.json('Object.keys(S.imgs)');
-  assert.equal(imgs.length, 1, 'the card photo is stored once');
-  assert.equal(visits[0].img, imgs[0]);
-  assert.equal(v.img, imgs[0]);
+  assert.equal(a.run('S.imgs===undefined'), true, 'no vet card photos are stored');
   assert.equal(a.json('messages').at(-1), 'Sesi vet disimpan untuk 3 kucing');
 });
 
@@ -102,25 +98,11 @@ test('the visit form checks its fields', () => {
   assert.equal(a.json("S.recs.find(r=>r.sv&&r.type==='vaksin').name"), 'F5');
 });
 
-test('the card photo shows on the records, opens large, and can be deleted; it goes when its records go', () => {
-  const { a, D } = mk();
-  a.run(`SVP=${JSON.stringify(IMG)}`);
-  a.submit('saveSv', full(D, { cats: ['m1'] }));
-  const id = a.json('Object.keys(S.imgs)[0]');
-  a.run("openCat('m1','vaksin')");
-  const h = a.json('catv()');
-  assert.match(h, new RegExp(`class="svt" data-action="imgView" data-id="${id}"`));
-  assert.match(h, /Felocell 3 · batch A123B/);
-  assert.match(h, /Seterusnya dari vet:<\/span>/);
-  a.run(`imgView('${id}')`);
-  assert.match(sh(a), /class="svim"/);
-  a.run(`imgDel('${id}');_ask()`);
-  assert.equal(a.run('S.imgs===undefined'), true);
-  assert.equal(a.json('S.recs.filter(r=>r.img).length'), 0);
-  a.run(`SVP=${JSON.stringify(IMG)}`);
-  a.submit('saveSv', full(D, { cats: ['m2'], dw: '', dt: '', nx: '' }));
-  a.run("S.recs.filter(r=>r.img).map(r=>r.id).forEach(i=>{delRec(i);_ask()})");
-  assert.equal(a.run('S.imgs===undefined'), true, 'no orphan photos left');
+test('the visit form has no photo field', () => {
+  const { a } = mk();
+  a.run("svForm('m1')");
+  assert.doesNotMatch(sh(a), /type="file"/);
+  assert.doesNotMatch(sh(a), /Gambar kad vet/);
 });
 
 test('backups keep the vet-card fields and drop broken ones', () => {
@@ -133,9 +115,10 @@ test('backups keep the vet-card fields and drop broken ones', () => {
   assert.equal(x.nx, '2099-01-01');
   assert.equal(x.sv, 's1');
   assert.equal(y.nx, undefined, 'a next date before the vaccine is dropped');
-  assert.equal(y.img, undefined, 'a missing photo reference is dropped');
   assert.equal(z.done, 1);
-  assert.deepEqual(Object.keys(out.imgs), ['i1'], 'unused photos are dropped');
+  assert.equal(out.imgs, undefined, 'old preview photos are dropped');
+  assert.equal(x.img, undefined);
+  assert.equal(z.img, undefined);
 });
 
 test('the single Vaksin form also takes brand, batch and the next date from the vet', () => {
@@ -161,4 +144,28 @@ test('English translates the vet visit texts', () => {
   assert.equal(t('Mochi dos ke-2 · Michan dos ke-2'), 'Mochi dose 2 · Michan dose 2');
   assert.equal(t('Temujanji seterusnya (dari kad vet)'), 'Next appointment (from the vet card)');
   assert.equal(t('Dari kad vet'), 'From the vet card');
+});
+
+test('Home shows every cat booked for the same appointment, and the calendar gets one event for them', () => {
+  const { a, D } = mk();
+  a.submit('saveSv', full(D, { cats: ['m1', 'm2'], dw: '', dt: '', cost: '' }));
+  const h = a.json('apptCard()');
+  assert.equal((h.match(/class="row" data-action="openCat"/g) || []).length, 2, 'both cats listed');
+  assert.match(h, /Mochi[\s\S]*Michan/);
+  const ids = a.json("S.recs.filter(r=>r.type==='lawatan'&&!r.done).map(r=>r.id)");
+  assert.match(h, new RegExp(`data-action="calOne" data-id="${ids.join(',')}"`));
+  a.run('globalThis.__ev=[];icsSave=(e)=>__ev.push(...e)');
+  a.run(`calOne(${JSON.stringify(ids.join(','))})`);
+  const ev = a.json('__ev');
+  assert.equal(ev.length, 1);
+  assert.equal(ev[0].title, 'Vet: Temujanji vaksin (Mochi, Michan)');
+  assert.equal(ev[0].time, '10:30');
+});
+
+test('appointments at a different time or clinic stay separate on Home', () => {
+  const { a, D } = mk();
+  a.run(`S.recs.push({id:'x1',cat:'m1',type:'lawatan',date:'${D(5)}',time:'10:00',name:'Pemeriksaan',clinic:'v1'},{id:'x2',cat:'m2',type:'lawatan',date:'${D(5)}',time:'11:00',name:'Pemeriksaan',clinic:'v1'})`);
+  const h = a.json('apptCard()');
+  assert.equal((h.match(/class="row" data-action="openCat"/g) || []).length, 1, 'only the 10:00 one');
+  assert.match(h, /data-action="calOne" data-id="x1"/);
 });
