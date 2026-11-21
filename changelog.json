@@ -14,6 +14,11 @@
     "en": "The Next appointment card on Home now shows every cat booked at the same date, time and clinic, and saves them to the calendar as one event."
    },
    {
+    "t": "imp",
+    "ms": "PDF untuk vet kini tunjuk jenama dan no. batch vaksin, serta tarikh seterusnya dari kad vet.",
+    "en": "The vet PDF now shows the vaccine brand and batch no., and the next date from the vet card."
+   },
+   {
     "t": "new",
     "ms": "Peralihan makanan 7 hari: bila tukar jenama semasa Dah beli, app tunjuk panduan campuran harian di Utama. Boleh selesai awal atau henti.",
     "en": "7-day food switch: when you change brand while recording a purchase, Home shows a daily mixing guide. You can finish early or stop."

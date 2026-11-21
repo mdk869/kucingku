@@ -169,3 +169,11 @@ test('appointments at a different time or clinic stay separate on Home', () => {
   assert.equal((h.match(/class="row" data-action="openCat"/g) || []).length, 1, 'only the 10:00 one');
   assert.match(h, /data-action="calOne" data-id="x1"/);
 });
+
+test('the vet PDF shows the vaccine brand and batch, and the vet\'s next date without ±', () => {
+  const { a, D } = mk();
+  a.submit('saveSv', full(D, { cats: ['m1'], dw: '', dt: '', cost: '' }));
+  const h = a.json("rptData(cat('m1')).secs.map(x=>x.html||'').join('')");
+  assert.match(h, /Felocell 3 · batch A123B · Klinik Bestari/);
+  assert.match(h, /\(dari kad vet\)/);
+});
