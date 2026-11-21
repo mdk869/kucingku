@@ -5,6 +5,11 @@
   "i": [
    {
     "t": "new",
+    "ms": "Sesi vet: rekod satu lawatan vet dalam satu borang, untuk beberapa kucing sekali gus. Vaksin (dengan jenama pelekat dan no. batch), ubat cacing, berat, kos dan gambar kad vet. Tarikh temujanji dari kad vet jadi peringatan.",
+    "en": "Vet visit: record one vet visit in a single form, for several cats at once. Vaccine (with sticker brand and batch no.), deworming, weight, cost and a photo of the vet card. The appointment date from the vet card becomes the reminder."
+   },
+   {
+    "t": "new",
     "ms": "Peralihan makanan 7 hari: bila tukar jenama semasa Dah beli, app tunjuk panduan campuran harian di Utama. Boleh selesai awal atau henti.",
     "en": "7-day food switch: when you change brand while recording a purchase, Home shows a daily mixing guide. You can finish early or stop."
    },
