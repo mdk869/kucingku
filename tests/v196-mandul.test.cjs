@@ -116,3 +116,13 @@ test('the Tambah kucing form has the optional neutering date with the same rules
   assert.equal(b.json('S.cats.length'), 2);
   assert.equal(b.json('S.cats[1].ms.md'), '2022-07-01');
 });
+
+test('breed groups: BM group is "Kucing kampung & kacukan", options unchanged, and English translates the group labels', () => {
+  const a = app();
+  assert.deepEqual(a.json('BR.map(g=>g[0])'), ['Kucing kampung & kacukan', 'Baka popular']);
+  assert.deepEqual(a.json('BR[0][1]'), ['Domestic Shorthair', 'Domestic Mediumhair', 'Domestic Longhair', 'Campuran (Mix breed)']);
+  const en = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
+  assert.equal(en.json('trs("Kucing kampung & kacukan")'), 'Domestic & mixed');
+  assert.equal(en.json('trs("Baka popular")'), 'Popular breeds');
+  assert.match(require('node:fs').readFileSync(require('node:path').join(__dirname, '..', 'app.js'), 'utf8'), /optgroup\[label\][^;]*'label'\]/, 'tx() translates optgroup labels');
+});

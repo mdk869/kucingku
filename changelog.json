@@ -17,6 +17,11 @@
     "t": "fix",
     "ms": "Umur kucing dewasa kini dipaparkan dalam tahun dan bulan, bukan minggu.",
     "en": "Adult cats' age now shows in years and months instead of weeks."
+   },
+   {
+    "t": "fix",
+    "ms": "Pilihan baka: kumpulan pertama kini bernama \"Kucing kampung & kacukan\", dan tajuk kumpulan baka diterjemah dengan betul dalam English.",
+    "en": "Breed choices: the first group is now called \"Domestic & mixed\", and breed group titles are translated properly in English."
    }
   ]
  },
