@@ -1,5 +1,31 @@
 [
  {
+  "v": "1.9.5",
+  "d": "2026-11-21",
+  "i": [
+   {
+    "t": "new",
+    "ms": "Peralihan makanan 7 hari: bila tukar jenama semasa Dah beli, app tunjuk panduan campuran harian di Utama. Boleh selesai awal atau henti.",
+    "en": "7-day food switch: when you change brand while recording a purchase, Home shows a daily mixing guide. You can finish early or stop."
+   },
+   {
+    "t": "imp",
+    "ms": "Stok boleh diberi nama sendiri (cth. Kibble kitten) dan ditanda untuk kucing yang makan. Profil kucing tunjuk makanannya.",
+    "en": "Stock items can have their own name (e.g. Kitten kibble) and be marked for the cats that eat them. Each cat's profile shows its food."
+   },
+   {
+    "t": "imp",
+    "ms": "Dah beli: pilih bilangan beg, dan kos lepas diisi sendiri. Tempoh tahan dikira untuk semua beg.",
+    "en": "Bought: choose the number of bags, and the last cost is filled in. How long it lasts counts all bags."
+   },
+   {
+    "t": "imp",
+    "ms": "Senarai Stok dikumpul kepada Makanan dan Pasir & lain-lain. Peringatan lembut bila kitten genap setahun dan masih makan makanan kitten.",
+    "en": "The Stock list is grouped into Food and Litter & others. A gentle reminder when a kitten turns one and still eats kitten food."
+   }
+  ]
+ },
+ {
   "v": "1.9.4",
   "d": "2026-11-21",
   "i": [
