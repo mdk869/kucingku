@@ -164,3 +164,16 @@ test('＋ Tambah → Dah beli stok lists items like the Stock page: icon, name, 
   assert.ok(h.indexOf('data-id="s3"') < h.indexOf('data-id="s1"'), 'the one running out first is on top');
   assert.match(h, /±2 hari/);
 });
+
+test('Tambah stok: first purchase has the same bag count as Dah beli', () => {
+  const { app } = require('./helpers.cjs');
+  const a = app({ data: { cats: [], recs: [], vets: [], bk: 0 } });
+  a.run("sheet=h=>{globalThis.SH=h};stokForm()");
+  const h = a.run('SH');
+  assert.match(h, /Pembelian pertama<\/div><div class="g3">/); assert.match(h, /name="n"[^>]*value="1"/); assert.match(h, /Kos ialah jumlah semua beg\./);
+  a.run("saveStok({preventDefault(){},target:{k:'kering',name:'',brand:'Royal',var:'',est:'30',n:'3',qty:'2 kg',cost:'90',date:td()}})");
+  const b = a.json('S.stock[0].buys[0]');
+  assert.equal(b.n, 3); assert.equal(b.cost, 90); assert.equal(b.qty, '2 kg');
+  a.run("saveStok({preventDefault(){},target:{k:'kering',brand:'X',est:'30',n:'12',date:td()}})");
+  assert.equal(a.json('messages.at(-1)'), 'Bilangan mesti antara 1 hingga 9');
+});
