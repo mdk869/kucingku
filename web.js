@@ -92,14 +92,15 @@
       if (wh) wh.textContent = 'v' + top.v + ' · ' + fd(top.d);
       wn.hidden = !top.i.length;
     }
-    // Lencana pada kad ciri: hanya jika versi kad itu dikeluarkan dalam 30 hari.
+    // Lencana pada kad ciri (Baharu / Lebih baik).
     $$('.f[data-v]').forEach(function (card) {
       var e = CL.filter(function (x) { return x.v === card.getAttribute('data-v'); })[0];
       var old = card.querySelector('.nb'); if (old) old.remove();
       card.classList.remove('hasnb');
-      if (!e || age(e.d) > NEWDAYS) return;
+      // Lencana hanya untuk kad versi terkini (dan hilang 30 hari selepas versi itu).
+      if (!e || e.v !== CL[0].v || age(e.d) > NEWDAYS) return;
       var imp = card.getAttribute('data-t') === 'imp';
-      var b = el('span', 'tg nb ' + (imp ? 'ti' : 'tn'), imp ? 'Reka baharu' : 'Baharu');
+      var b = el('span', 'tg nb ' + (imp ? 'ti' : 'tn'), imp ? 'Lebih baik' : 'Baharu');
       card.appendChild(b); card.classList.add('hasnb');
     });
     if (onCl()) renderCl();

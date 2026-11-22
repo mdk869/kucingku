@@ -36,12 +36,15 @@ test('every feature card with a version points to a real changelog entry', () =>
   const cards = [...h.matchAll(/<article class="f" data-v="([\d.]+)" data-t="(new|imp)">/g)];
   assert.ok(cards.length >= 6);
   for (const [, v] of cards) assert.ok(CL.some(e => e.v === v), v);
-  assert.equal((h.match(/<article class="f"/g) || []).length, 9);
+  assert.equal((h.match(/<article class="f"/g) || []).length, 12);
+  const top = CL[0].v;
+  for (const n of ['Jadual ubat', 'Sesi vet', 'Jika saya hilang']) assert.match(h, new RegExp(`<article class="f" data-v="${top.replace(/\./g, '\\.')}" data-t="new">.*?${n}`), n);
+  assert.doesNotMatch(h, /Ubat berjalan/, 'website uses the new name Jadual ubat');
 });
 
 test('new screenshots exist and are used; app install screenshots are left alone', () => {
   const h = read('tentang.html');
-  for (const n of ['utama', 'tambah', 'profil', 'kad', 'stok', 'jadual']) {
+  for (const n of ['utama', 'tambah', 'ubat', 'sesi', 'hilang', 'stok', 'profil', 'jadual']) {
     assert.ok(fs.existsSync(path.join(root, `img/web-${n}.webp`)), n);
     assert.match(h, new RegExp(`img/web-${n}\\.webp`));
   }
@@ -64,7 +67,7 @@ function fakeDom(hash) {
     all.push(e); return e;
   };
   ['[data-ver]', '[data-ver-f]', '[data-newpill]', '[data-newtext]', '[data-wn]', '[data-wnl]', '[data-wnh]', '[data-cll]', '[data-clmore]', '[data-cle]', '[data-clerr]'].forEach(s => { els[s] = mk(s); });
-  const cards = [mk('.f', { 'data-v': '1.9.3', 'data-t': 'new' }), mk('.f', { 'data-v': '1.9.0', 'data-t': 'imp' }), mk('.f', { 'data-v': '1.0.0', 'data-t': 'new' })];
+  const cards = [mk('.f', { 'data-v': CL[0].v, 'data-t': 'new' }), mk('.f', { 'data-v': CL[0].v, 'data-t': 'imp' }), mk('.f', { 'data-v': CL[1].v, 'data-t': 'new' }), mk('.f', { 'data-v': '1.0.0', 'data-t': 'new' })];
   const chips = ['all', 'new', 'imp', 'fix'].map(f => { const b = mk('btn', { 'data-f': f }); b.span = mk('span'); return b; });
   const laman = mk('#laman'); laman.hidden = false; const clv = mk('#perubahan-v');
   const document = {
@@ -81,7 +84,7 @@ function fakeDom(hash) {
     navigator: { userAgent: 'Mozilla/5.0 (Windows NT 10.0)' }, screen: { width: 1920, height: 1080 }, matchMedia: () => ({ matches: false }),
     addEventListener() {}, scrollTo() {}, scrollY: 0, innerHeight: 900, setTimeout, clearTimeout,
     fetch: u => { fetched = u; return Promise.resolve({ ok: true, json: () => Promise.resolve(CL) }); },
-    Date: class extends Date { static now() { return Date.parse('2026-11-25T10:00:00+08:00'); } }
+    Date: class extends Date { static now() { return Date.parse(CL[0].d + 'T10:00:00+08:00') + 3 * 864e5; } }
   };
   win.window = win;
   return { win, els, cards, chips, laman, clv, get fetched() { return fetched; } };
@@ -99,8 +102,9 @@ test('web.js fills version, latest box and 30-day badges from changelog.json', a
   assert.equal(d.els['[data-wnl]'].children.length, Math.min(3, CL[0].i.length));
   const badge = c => (c.children.find(x => /nb/.test(x.className)) || {}).textContent;
   assert.equal(badge(d.cards[0]), 'Baharu');
-  assert.equal(badge(d.cards[1]), 'Reka baharu');
-  assert.equal(badge(d.cards[2]), undefined, 'old version gets no badge');
+  assert.equal(badge(d.cards[1]), 'Lebih baik');
+  assert.equal(badge(d.cards[2]), undefined, 'only the latest version gets badges');
+  assert.equal(badge(d.cards[3]), undefined, 'old version gets no badge');
   assert.equal(d.laman.hidden, false);
 });
 

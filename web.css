@@ -199,7 +199,7 @@ section.tight{padding-top:20px}
 .f{position:relative}
 .f .nb{position:absolute;top:20px;right:20px}
 .f.hasnb h3{padding-right:96px}
-.gal{grid-template-columns:repeat(6,minmax(0,1fr));gap:22px}
+.gal{grid-template-columns:repeat(4,minmax(0,1fr));gap:26px}
 .gal figcaption span{font-size:14px}
 .clv{padding:56px 0 80px}
 .clw{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
@@ -230,7 +230,7 @@ section.tight{padding-top:20px}
 .cls{background:var(--soft);border-radius:22px;padding:20px;font-size:15px}
 .cls b{font:600 18px Fredoka,system-ui,sans-serif;display:block;margin-bottom:6px}
 .cls p{color:var(--mute)}
-@media (max-width:980px){.gal{grid-template-columns:repeat(3,minmax(0,1fr))}.wnl{grid-template-columns:1fr}}
+@media (max-width:980px){.gal{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}.wnl{grid-template-columns:1fr}}
 @media (max-width:640px){
   .gal{grid-template-columns:repeat(2,minmax(0,1fr))}
   .wn{padding-top:48px}.wnc{padding:22px}.wnh h2{font-size:26px}.wnh a{margin-left:0}
