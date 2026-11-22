@@ -4,9 +4,9 @@ const { app, seed, source } = require('./helpers.cjs');
 
 // v1.9.0: PDF vet baharu. Seksyen tidak dipotong separuh; jadual dipecah ikut baris dengan tajuk diulang.
 
-test('version is 1.9.0 everywhere', () => {
-  assert.match(source, /const VER='1\.9\.[0-9]'/);
-  assert.match(require('node:fs').readFileSync(__dirname + '/../sw.js', 'utf8'), /kucingku-1\.9\.[0-9]/);
+test('version is 1.9.0 or later everywhere', () => {
+  assert.match(source, /const VER='1\.(9|1\d)\.[0-9]+'/);
+  assert.match(require('node:fs').readFileSync(__dirname + '/../sw.js', 'utf8'), /kucingku-1\.(9|1\d)\.[0-9]+/);
 });
 
 test('a block that does not fit moves whole to the next page', () => {

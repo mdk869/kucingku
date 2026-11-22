@@ -14,8 +14,8 @@ test('website changes do not touch the app (no update popup on phones)', () => {
   const ver = source.match(/const VER='([\d.]+)'/)[1];
   assert.equal(CL[0].v, ver, 'changelog top entry = app version');
   assert.match(read('sw.js'), new RegExp(`const CACHE = 'kucingku-${ver.replace(/\./g, '\\.')}'`));
-  assert.match(read('sw.js'), /request\.mode === 'navigate' && \/\^\\\/\(tentang\|privasi\)\(\\\.html\)\?\\\/\?\$\/\.test/, 'sw.js website bypass unchanged: changelog lives at /tentang#perubahan');
-  assert.deepEqual(JSON.parse(read('vercel.json')).rewrites.map(r => r.source), ['/tentang', '/privasi']);
+  assert.match(read('sw.js'), /request\.mode === 'navigate' && \/\^\\\/\(tentang\|privasi\|j\)\(\\\.html\)\?\\\/\?\$\/\.test/, 'sw.js website bypass unchanged: changelog lives at /tentang#perubahan');
+  assert.deepEqual(JSON.parse(read('vercel.json')).rewrites.map(r => r.source), ['/tentang', '/privasi', '/j']);
 });
 
 test('changelog view, latest box and version labels exist in /tentang', () => {

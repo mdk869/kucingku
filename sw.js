@@ -1,6 +1,6 @@
 // Service worker Kucingku: app boleh dibuka tanpa internet.
 // Tukar CACHE pada setiap keluaran supaya telefon memuat turun versi baharu.
-const CACHE = 'kucingku-1.9.5';
+const CACHE = 'kucingku-1.10.0';
 const SHELL = [
   './',
   'index.html',
@@ -13,6 +13,7 @@ const SHELL = [
   'icons/qr.svg',
   'changelog.json',
   'img/duitnow-qr.png',
+  'qr.js',
 ];
 // Versi pertama yang meminta pengguna tekan Kemas kini (popup dalam app).
 const ASK_FROM = '1.9.1';
@@ -52,7 +53,7 @@ self.addEventListener('fetch', event => {
   if (url.origin !== self.location.origin || url.pathname.startsWith('/_vercel/')) return;
 
   // Website rasmi (/tentang, /privasi) sentiasa dari rangkaian, bukan app.
-  if (request.mode === 'navigate' && /^\/(tentang|privasi)(\.html)?\/?$/.test(url.pathname)) return;
+  if (request.mode === 'navigate' && /^\/(tentang|privasi|j)(\.html)?\/?$/.test(url.pathname)) return;
 
   // Senarai perubahan: rangkaian dahulu supaya popup tunjuk perubahan versi baharu; cache bila luar talian.
   if (url.pathname.endsWith('/changelog.json')) {

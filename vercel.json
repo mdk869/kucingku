@@ -9,6 +9,10 @@
     {
       "source": "/privasi",
       "destination": "/privasi.html"
+    },
+    {
+      "source": "/j",
+      "destination": "/j.html"
     }
   ],
   "headers": [

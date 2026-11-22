@@ -8,7 +8,7 @@ const mk = (care, extra = {}) => { const probe = app(); const T = probe.run('td(
 
 test('version is 1.9.1', () => {
   const a = app();
-  assert.match(a.json('VER'), /^1\.9\.\d+$/);
+  assert.match(a.json('VER'), /^1\.(9|1\d)\.\d+$/);
 });
 
 test('backup cleaning keeps valid routines and drops invalid ones', () => {

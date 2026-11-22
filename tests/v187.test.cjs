@@ -57,7 +57,7 @@ test('service worker serves /tentang and /privasi from the network, not the cach
 
 test('Vercel serves the website pages at clean URLs', () => {
   const v = JSON.parse(read('vercel.json'));
-  assert.deepEqual(v.rewrites, [{ source: '/tentang', destination: '/tentang.html' }, { source: '/privasi', destination: '/privasi.html' }]);
+  assert.deepEqual(v.rewrites, [{ source: '/tentang', destination: '/tentang.html' }, { source: '/privasi', destination: '/privasi.html' }, { source: '/j', destination: '/j.html' }]);
   assert.equal(v.cleanUrls, undefined, 'cleanUrls would redirect /index.html, which the service worker caches');
 });
 

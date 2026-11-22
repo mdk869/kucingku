@@ -1,389 +1,409 @@
 [
- {
-  "v": "1.9.5",
-  "d": "2026-11-21",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Sesi vet: rekod satu lawatan vet dalam satu borang, untuk beberapa kucing sekali gus. Vaksin (dengan jenama pelekat dan no. batch), ubat cacing, berat dan kos. Tarikh temujanji dari kad vet jadi peringatan.",
-    "en": "Vet visit: record one vet visit in a single form, for several cats at once. Vaccine (with sticker brand and batch no.), deworming, weight and cost. The appointment date from the vet card becomes the reminder."
-   },
-   {
-    "t": "imp",
-    "ms": "Kad Temujanji seterusnya di Utama kini tunjuk semua kucing yang ada temujanji pada tarikh, masa dan klinik yang sama, dan simpan ke kalendar sebagai satu acara.",
-    "en": "The Next appointment card on Home now shows every cat booked at the same date, time and clinic, and saves them to the calendar as one event."
-   },
-   {
-    "t": "imp",
-    "ms": "PDF untuk vet kini tunjuk jenama dan no. batch vaksin, serta tarikh seterusnya dari kad vet.",
-    "en": "The vet PDF now shows the vaccine brand and batch no., and the next date from the vet card."
-   },
-   {
-    "t": "new",
-    "ms": "Peralihan makanan 7 hari: bila tukar jenama semasa Dah beli, app tunjuk panduan campuran harian di Utama. Boleh selesai awal atau henti.",
-    "en": "7-day food switch: when you change brand while recording a purchase, Home shows a daily mixing guide. You can finish early or stop."
-   },
-   {
-    "t": "imp",
-    "ms": "Stok boleh diberi nama sendiri (cth. Kibble kitten) dan ditanda untuk kucing yang makan. Profil kucing tunjuk makanannya.",
-    "en": "Stock items can have their own name (e.g. Kitten kibble) and be marked for the cats that eat them. Each cat's profile shows its food."
-   },
-   {
-    "t": "imp",
-    "ms": "Dah beli: pilih bilangan beg, dan kos lepas diisi sendiri. Tempoh tahan dikira untuk semua beg.",
-    "en": "Bought: choose the number of bags, and the last cost is filled in. How long it lasts counts all bags."
-   },
-   {
-    "t": "imp",
-    "ms": "Senarai Stok dikumpul kepada Makanan dan Pasir & lain-lain. Peringatan lembut bila kitten genap setahun dan masih makan makanan kitten.",
-    "en": "The Stock list is grouped into Food and Litter & others. A gentle reminder when a kitten turns one and still eats kitten food."
-   },
-   {
-    "t": "fix",
-    "ms": "Butang ＋ → Dah beli stok: senarai stok kini dipaparkan dengan betul, bersama baki hari setiap stok.",
-    "en": "＋ button → Bought stock: the stock list now shows properly, with the days left for each item."
-   }
-  ]
- },
- {
-  "v": "1.9.4",
-  "d": "2026-11-21",
-  "i": [
-   {
-    "t": "imp",
-    "ms": "Pemandulan boleh direkod dengan tarikh sebenar, termasuk tarikh lama. Tekan kotak Pemandulan dalam Jadual kesihatan, atau isi semasa Tambah kucing dan Edit profil.",
-    "en": "Neutering / spaying can now be recorded with the real date, including dates long ago. Tap the Neutering tile in the Health schedule, or fill it in when adding a cat or editing a profile."
-   },
-   {
-    "t": "imp",
-    "ms": "Tarikh pemandulan boleh ditukar atau dipadam, dan dipaparkan dalam profil kucing.",
-    "en": "The neutering date can be changed or deleted, and shows on the cat's profile."
-   },
-   {
-    "t": "fix",
-    "ms": "Umur kucing dewasa kini dipaparkan dalam tahun dan bulan, bukan minggu.",
-    "en": "Adult cats' age now shows in years and months instead of weeks."
-   },
-   {
-    "t": "fix",
-    "ms": "Pilihan baka: kumpulan pertama kini bernama \"Kucing kampung & kacukan\", dan tajuk kumpulan baka diterjemah dengan betul dalam English.",
-    "en": "Breed choices: the first group is now called \"Domestic & mixed\", and breed group titles are translated properly in English."
-   }
-  ]
- },
- {
-  "v": "1.9.3",
-  "d": "2026-11-19",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Butang ＋ Tambah di tengah menu bawah: timbang, vaksin, ubat cacing, jagaan selesai, lawatan vet, catatan kesihatan dan stok dibeli, terus dari mana-mana skrin.",
-    "en": "A ＋ Add button in the middle of the bottom menu: weigh, vaccines, deworming, care done, vet visits, health notes and stock bought, right from any screen."
-   },
-   {
-    "t": "new",
-    "ms": "Hantar maklum balas terus dari app (Lagi → Maklum balas). Tiada akaun diperlukan, dan jika tiada internet ia dihantar sendiri kemudian.",
-    "en": "Send feedback right from the app (More → Feedback). No account needed, and without internet it is sent later on its own."
-   },
-   {
-    "t": "imp",
-    "ms": "Ikon menu Lagi yang baharu.",
-    "en": "A new icon for the More menu."
-   }
-  ]
- },
- {
-  "v": "1.9.2",
-  "d": "2026-11-19",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Ringkasan kesihatan di Utama dan dalam profil kucing: amaran bila berat turun berturut-turut atau berubah banyak dalam sebulan, belum ditimbang, vaksin atau ubat cacing lewat, dan jagaan rutin lewat.",
-    "en": "A health summary on Home and in each cat's profile: alerts when weight keeps dropping or changes a lot in a month, a weigh-in is overdue, vaccines or deworming are late, or routine care is overdue."
-   },
-   {
-    "t": "new",
-    "ms": "Kongsi kad kucing sebagai gambar untuk WhatsApp, Threads atau IG Story: kad profil atau kad hari lahir. Buka profil kucing → Kongsi kad.",
-    "en": "Share your cat's card as an image for WhatsApp, Threads or IG Stories: a profile card or a birthday card. Open a cat's profile → Share card."
-   },
-   {
-    "t": "new",
-    "ms": "Stok makanan dan pasir (Lagi → Stok): rekod jenama dan jumlah, tekan Dah beli setiap kali beli, dan app anggar bila stok akan habis. Utama tunjuk amaran bila hampir habis.",
-    "en": "Food and litter stock (More → Stock): record the brand and amount, tap Bought each time you buy, and the app estimates when it will run out. Home warns you when it is running low."
-   },
-   {
-    "t": "new",
-    "ms": "Hari istimewa: kad di Utama pada hari lahir kucing dan ulang tahun mula dibela, dengan kad untuk dikongsi. Isi Hari mula dibela dalam Edit profil.",
-    "en": "Special days: a card on Home on your cat's birthday and adoption anniversary, with a card to share. Add the adoption day in Edit profile."
-   },
-   {
-    "t": "imp",
-    "ms": "Profil kucing kini tunjuk status berat, vaksin, ubat cacing dan jagaan rutin sekali pandang.",
-    "en": "A cat's profile now shows weight, vaccine, deworming and routine care status at a glance."
-   },
-   {
-    "t": "imp",
-    "ms": "Kos pembelian stok masuk ke Perbelanjaan.",
-    "en": "Stock purchase costs are added to Expenses."
-   },
-   {
-    "t": "fix",
-    "ms": "Kad Seterusnya dalam PDF vet kini sejajar dengan kad lain.",
-    "en": "The Next card in the vet PDF now lines up with the other cards."
-   }
-  ]
- },
- {
-  "v": "1.9.1",
-  "d": "2026-11-19",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Jagaan rutin: potong kuku, mandi, bersih telinga, gosok gigi, rawatan kutu dan lain-lain, dengan peringatan dalam Fokus hari ini. Buka profil kucing → tab Jagaan.",
-    "en": "Routine care: nail trims, baths, ear cleaning, teeth brushing, flea treatment and more, with reminders in Today's focus. Open a cat's profile → Care tab."
-   },
-   {
-    "t": "new",
-    "ms": "Popup bila ada versi baharu, dan senarai semua perubahan dalam Setting → Tentang.",
-    "en": "A pop-up when a new version is ready, and a list of all changes in Settings → About."
-   },
-   {
-    "t": "imp",
-    "ms": "Tab dalam profil kucing kini 2 baris, semua nampak tanpa perlu leret.",
-    "en": "The tabs in a cat's profile now sit in 2 rows, all visible without swiping."
-   },
-   {
-    "t": "fix",
-    "ms": "Tab yang dipilih tidak lagi hilang dari pandangan selepas ditekan.",
-    "en": "The selected tab no longer slides out of view after you tap it."
-   }
-  ]
- },
- {
-  "v": "1.9.0",
-  "d": "2026-11-19",
-  "i": [
-   {
-    "t": "new",
-    "ms": "PDF untuk vet dengan reka bentuk baharu: kad ringkasan, timeline vaksin, graf berat dan ruang catatan doktor.",
-    "en": "Redesigned PDF for the vet: summary cards, vaccine timeline, weight chart and space for the vet's notes."
-   },
-   {
-    "t": "fix",
-    "ms": "Kandungan PDF tidak lagi terpotong separuh di antara halaman. Jadual panjang bersambung dengan tajuk diulang.",
-    "en": "PDF content is no longer cut in half between pages. Long tables continue with their headings repeated."
-   }
-  ]
- },
- {
-  "v": "1.8.7",
-  "d": "2026-11-11",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Website rasmi Kucingku untuk pelawat komputer, dan halaman Dasar Privasi.",
-    "en": "An official Kucingku website for computer visitors, and a Privacy Policy page."
-   },
-   {
-    "t": "imp",
-    "ms": "Link Kucingku yang dikongsi di WhatsApp, Threads dan Facebook kini keluar dengan gambar.",
-    "en": "Kucingku links shared on WhatsApp, Threads and Facebook now show a picture."
-   }
-  ]
- },
- {
-  "v": "1.8.6",
-  "d": "2026-11-10",
-  "i": [
-   {
-    "t": "imp",
-    "ms": "Skrin Pasang kini tunjuk contoh paparan app sebelum anda memasang.",
-    "en": "The Install screen now shows what the app looks like before you install it."
-   }
-  ]
- },
- {
-  "v": "1.8.5",
-  "d": "2026-11-10",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Backup di iPhone guna butang Kongsi: Simpan ke Fail, WhatsApp atau email.",
-    "en": "Backups on iPhone use the Share button: Save to Files, WhatsApp or email."
-   },
-   {
-    "t": "new",
-    "ms": "Panel Laporkan bila ada masalah dalam app.",
-    "en": "A Report panel when something goes wrong in the app."
-   },
-   {
-    "t": "imp",
-    "ms": "Amaran jelas bahawa data disimpan dalam telefon ini sahaja, dan peringatan backup lebih awal.",
-    "en": "A clear notice that data is stored on this phone only, and earlier backup reminders."
-   },
-   {
-    "t": "fix",
-    "ms": "Fon kini dimuat dengan betul dan gambar kucing boleh dibuang.",
-    "en": "Fonts now load properly and cat photos can be removed."
-   }
-  ]
- },
- {
-  "v": "1.8.4",
-  "d": "2026-10-15",
-  "i": [
-   {
-    "t": "imp",
-    "ms": "App boleh dibuka tanpa internet, butang Back Android berfungsi dengan betul, dan telefon diminta menyimpan data secara kekal.",
-    "en": "The app opens without internet, the Android Back button works properly, and the phone is asked to keep data permanently."
-   },
-   {
-    "t": "fix",
-    "ms": "Beberapa kesilapan dalam jadual rawatan dibaiki.",
-    "en": "Several mistakes in the care schedule were fixed."
-   }
-  ]
- },
- {
-  "v": "1.8.3",
-  "d": "2026-10-13",
-  "i": [
-   {
-    "t": "fix",
-    "ms": "Skrin Timbang cepat dirapikan.",
-    "en": "The Quick weigh-in screen was tidied up."
-   }
-  ]
- },
- {
-  "v": "1.8.2",
-  "d": "2026-10-12",
-  "i": [
-   {
-    "t": "fix",
-    "ms": "Pengguna Samsung Internet dihantar ke Chrome untuk memasang app dengan selamat.",
-    "en": "Samsung Internet users are sent to Chrome to install the app safely."
-   }
-  ]
- },
- {
-  "v": "1.8.1",
-  "d": "2026-10-12",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Pembantu pemasangan ke skrin utama dengan langkah bergambar.",
-    "en": "An install helper for the home screen, with picture steps."
-   }
-  ]
- },
- {
-  "v": "1.8.0",
-  "d": "2026-10-12",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Ringkasan perbelanjaan dalam Lagi → Perbelanjaan.",
-    "en": "An expense summary in More → Expenses."
-   },
-   {
-    "t": "new",
-    "ms": "Export kalendar (.ics) untuk temujanji dan jadual rawatan.",
-    "en": "Calendar export (.ics) for appointments and the care schedule."
-   }
-  ]
- },
- {
-  "v": "1.7.0",
-  "d": "2026-10-12",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Borang maklum balas dalam Setting → Tentang.",
-    "en": "A feedback form in Settings → About."
-   },
-   {
-    "t": "new",
-    "ms": "Statistik penggunaan tanpa nama, tanpa cookie.",
-    "en": "Anonymous usage statistics, without cookies."
-   }
-  ]
- },
- {
-  "v": "1.6.0",
-  "d": "2026-10-11",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Tema: mod Sistem, Cerah, Gelap dan lima skema warna pastel.",
-    "en": "Themes: System, Light and Dark modes, and five pastel colour schemes."
-   }
-  ]
- },
- {
-  "v": "1.5.0",
-  "d": "2026-10-11",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Kad setiap kucing dan tindakan pantas di Utama.",
-    "en": "A card for every cat and quick actions on Home."
-   }
-  ]
- },
- {
-  "v": "1.4.0",
-  "d": "2026-10-11",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Fokus hari ini dan Temujanji seterusnya di Utama.",
-    "en": "Today's focus and Next appointment on Home."
-   }
-  ]
- },
- {
-  "v": "1.3.0",
-  "d": "2026-10-11",
-  "i": [
-   {
-    "t": "imp",
-    "ms": "Setting disusun ikut kategori, dan unit berat boleh dipilih.",
-    "en": "Settings are grouped into categories, and the weight unit can be chosen."
-   }
-  ]
- },
- {
-  "v": "1.2.0",
-  "d": "2026-10-11",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Halaman Setting dan bahasa English.",
-    "en": "A Settings page and English language."
-   }
-  ]
- },
- {
-  "v": "1.1.0",
-  "d": "2026-10-11",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Maklumat vet, lawatan vet, temujanji dan kos.",
-    "en": "Vet details, vet visits, appointments and costs."
-   }
-  ]
- },
- {
-  "v": "1.0.0",
-  "d": "2026-10-10",
-  "i": [
-   {
-    "t": "new",
-    "ms": "Versi pertama: profil kucing, berat dengan graf, vaksin, ubat cacing, catatan kesihatan, jadual rawatan, backup dan PDF untuk vet.",
-    "en": "First version: cat profiles, weight with a chart, vaccines, deworming, health notes, care schedule, backup and a PDF for the vet."
-   }
-  ]
- }
+  {
+    "v": "1.10.0",
+    "d": "2026-11-22",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Ubat berjalan: rekod ubat yang vet beri, berapa kali sehari dan berapa hari. Dos hari ini muncul dalam Fokus hari ini, tekan Diberi atau Terlepas.",
+        "en": "Ongoing medicine: record medicine from the vet, how many times a day and for how many days. Today's doses appear in Today's focus; tap Given or Missed."
+      },
+      {
+        "t": "new",
+        "ms": "Kad Jika saya hilang: buat poster A4 untuk dicetak, gambar untuk Status WhatsApp, dan QR untuk diukir pada loket. Orang yang jumpa imbas QR dan terus boleh WhatsApp anda.",
+        "en": "If I get lost card: make an A4 poster to print, an image for WhatsApp Status, and a QR to engrave on a tag. Whoever finds your cat scans it and can WhatsApp you straight away."
+      },
+      {
+        "t": "new",
+        "ms": "Sesi vet: rekod satu lawatan vet dalam satu borang, untuk beberapa kucing sekali gus. Vaksin (dengan jenama pelekat dan no. batch), ubat cacing, berat dan kos. Tarikh temujanji dari kad vet jadi peringatan.",
+        "en": "Vet visit: record one vet visit in a single form, for several cats at once. Vaccine (with sticker brand and batch no.), deworming, weight and cost. The appointment date from the vet card becomes the reminder."
+      },
+      {
+        "t": "new",
+        "ms": "Peralihan makanan 7 hari: bila tukar jenama semasa Dah beli, app tunjuk panduan campuran harian di Utama. Boleh selesai awal atau henti.",
+        "en": "7-day food switch: when you change brand while recording a purchase, Home shows a daily mixing guide. You can finish early or stop."
+      },
+      {
+        "t": "imp",
+        "ms": "Kalendar (.ics) kini boleh masukkan dos ubat dan jagaan rutin, supaya telefon beri peringatan.",
+        "en": "The calendar export (.ics) can now include medicine doses and routine care, so your phone reminds you."
+      },
+      {
+        "t": "imp",
+        "ms": "Kad Temujanji seterusnya di Utama kini tunjuk semua kucing yang ada temujanji pada tarikh, masa dan klinik yang sama, dan simpan ke kalendar sebagai satu acara.",
+        "en": "The Next appointment card on Home now shows every cat booked at the same date, time and clinic, and saves them to the calendar as one event."
+      },
+      {
+        "t": "imp",
+        "ms": "PDF untuk vet kini tunjuk jenama dan no. batch vaksin, serta tarikh seterusnya dari kad vet.",
+        "en": "The vet PDF now shows the vaccine brand and batch no., and the next date from the vet card."
+      },
+      {
+        "t": "imp",
+        "ms": "Stok boleh diberi nama sendiri (cth. Kibble kitten) dan ditanda untuk kucing yang makan. Profil kucing tunjuk makanannya.",
+        "en": "Stock items can have their own name (e.g. Kitten kibble) and be marked for the cats that eat them. Each cat's profile shows its food."
+      },
+      {
+        "t": "imp",
+        "ms": "Dah beli: pilih bilangan beg, dan kos lepas diisi sendiri. Tempoh tahan dikira untuk semua beg.",
+        "en": "Bought: choose the number of bags, and the last cost is filled in. How long it lasts counts all bags."
+      },
+      {
+        "t": "imp",
+        "ms": "Senarai Stok dikumpul kepada Makanan dan Pasir & lain-lain. Peringatan lembut bila kitten genap setahun dan masih makan makanan kitten.",
+        "en": "The Stock list is grouped into Food and Litter & others. A gentle reminder when a kitten turns one and still eats kitten food."
+      },
+      {
+        "t": "imp",
+        "ms": "Teks dalam app lebih ringkas dan mudah dibaca.",
+        "en": "Shorter, easier-to-read text across the app."
+      },
+      {
+        "t": "fix",
+        "ms": "Butang ＋ → Dah beli stok: senarai stok kini dipaparkan dengan betul, bersama baki hari setiap stok.",
+        "en": "＋ button → Bought stock: the stock list now shows properly, with the days left for each item."
+      }
+    ]
+  },
+  {
+    "v": "1.9.4",
+    "d": "2026-11-21",
+    "i": [
+      {
+        "t": "imp",
+        "ms": "Pemandulan boleh direkod dengan tarikh sebenar, termasuk tarikh lama. Tekan kotak Pemandulan dalam Jadual kesihatan, atau isi semasa Tambah kucing dan Edit profil.",
+        "en": "Neutering / spaying can now be recorded with the real date, including dates long ago. Tap the Neutering tile in the Health schedule, or fill it in when adding a cat or editing a profile."
+      },
+      {
+        "t": "imp",
+        "ms": "Tarikh pemandulan boleh ditukar atau dipadam, dan dipaparkan dalam profil kucing.",
+        "en": "The neutering date can be changed or deleted, and shows on the cat's profile."
+      },
+      {
+        "t": "fix",
+        "ms": "Umur kucing dewasa kini dipaparkan dalam tahun dan bulan, bukan minggu.",
+        "en": "Adult cats' age now shows in years and months instead of weeks."
+      },
+      {
+        "t": "fix",
+        "ms": "Pilihan baka: kumpulan pertama kini bernama \"Kucing kampung & kacukan\", dan tajuk kumpulan baka diterjemah dengan betul dalam English.",
+        "en": "Breed choices: the first group is now called \"Domestic & mixed\", and breed group titles are translated properly in English."
+      }
+    ]
+  },
+  {
+    "v": "1.9.3",
+    "d": "2026-11-19",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Butang ＋ Tambah di tengah menu bawah: timbang, vaksin, ubat cacing, jagaan selesai, lawatan vet, catatan kesihatan dan stok dibeli, terus dari mana-mana skrin.",
+        "en": "A ＋ Add button in the middle of the bottom menu: weigh, vaccines, deworming, care done, vet visits, health notes and stock bought, right from any screen."
+      },
+      {
+        "t": "new",
+        "ms": "Hantar maklum balas terus dari app (Lagi → Maklum balas). Tiada akaun diperlukan, dan jika tiada internet ia dihantar sendiri kemudian.",
+        "en": "Send feedback right from the app (More → Feedback). No account needed, and without internet it is sent later on its own."
+      },
+      {
+        "t": "imp",
+        "ms": "Ikon menu Lagi yang baharu.",
+        "en": "A new icon for the More menu."
+      }
+    ]
+  },
+  {
+    "v": "1.9.2",
+    "d": "2026-11-19",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Ringkasan kesihatan di Utama dan dalam profil kucing: amaran bila berat turun berturut-turut atau berubah banyak dalam sebulan, belum ditimbang, vaksin atau ubat cacing lewat, dan jagaan rutin lewat.",
+        "en": "A health summary on Home and in each cat's profile: alerts when weight keeps dropping or changes a lot in a month, a weigh-in is overdue, vaccines or deworming are late, or routine care is overdue."
+      },
+      {
+        "t": "new",
+        "ms": "Kongsi kad kucing sebagai gambar untuk WhatsApp, Threads atau IG Story: kad profil atau kad hari lahir. Buka profil kucing → Kongsi kad.",
+        "en": "Share your cat's card as an image for WhatsApp, Threads or IG Stories: a profile card or a birthday card. Open a cat's profile → Share card."
+      },
+      {
+        "t": "new",
+        "ms": "Stok makanan dan pasir (Lagi → Stok): rekod jenama dan jumlah, tekan Dah beli setiap kali beli, dan app anggar bila stok akan habis. Utama tunjuk amaran bila hampir habis.",
+        "en": "Food and litter stock (More → Stock): record the brand and amount, tap Bought each time you buy, and the app estimates when it will run out. Home warns you when it is running low."
+      },
+      {
+        "t": "new",
+        "ms": "Hari istimewa: kad di Utama pada hari lahir kucing dan ulang tahun mula dibela, dengan kad untuk dikongsi. Isi Hari mula dibela dalam Edit profil.",
+        "en": "Special days: a card on Home on your cat's birthday and adoption anniversary, with a card to share. Add the adoption day in Edit profile."
+      },
+      {
+        "t": "imp",
+        "ms": "Profil kucing kini tunjuk status berat, vaksin, ubat cacing dan jagaan rutin sekali pandang.",
+        "en": "A cat's profile now shows weight, vaccine, deworming and routine care status at a glance."
+      },
+      {
+        "t": "imp",
+        "ms": "Kos pembelian stok masuk ke Perbelanjaan.",
+        "en": "Stock purchase costs are added to Expenses."
+      },
+      {
+        "t": "fix",
+        "ms": "Kad Seterusnya dalam PDF vet kini sejajar dengan kad lain.",
+        "en": "The Next card in the vet PDF now lines up with the other cards."
+      }
+    ]
+  },
+  {
+    "v": "1.9.1",
+    "d": "2026-11-19",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Jagaan rutin: potong kuku, mandi, bersih telinga, gosok gigi, rawatan kutu dan lain-lain, dengan peringatan dalam Fokus hari ini. Buka profil kucing → tab Jagaan.",
+        "en": "Routine care: nail trims, baths, ear cleaning, teeth brushing, flea treatment and more, with reminders in Today's focus. Open a cat's profile → Care tab."
+      },
+      {
+        "t": "new",
+        "ms": "Popup bila ada versi baharu, dan senarai semua perubahan dalam Setting → Tentang.",
+        "en": "A pop-up when a new version is ready, and a list of all changes in Settings → About."
+      },
+      {
+        "t": "imp",
+        "ms": "Tab dalam profil kucing kini 2 baris, semua nampak tanpa perlu leret.",
+        "en": "The tabs in a cat's profile now sit in 2 rows, all visible without swiping."
+      },
+      {
+        "t": "fix",
+        "ms": "Tab yang dipilih tidak lagi hilang dari pandangan selepas ditekan.",
+        "en": "The selected tab no longer slides out of view after you tap it."
+      }
+    ]
+  },
+  {
+    "v": "1.9.0",
+    "d": "2026-11-19",
+    "i": [
+      {
+        "t": "new",
+        "ms": "PDF untuk vet dengan reka bentuk baharu: kad ringkasan, timeline vaksin, graf berat dan ruang catatan doktor.",
+        "en": "Redesigned PDF for the vet: summary cards, vaccine timeline, weight chart and space for the vet's notes."
+      },
+      {
+        "t": "fix",
+        "ms": "Kandungan PDF tidak lagi terpotong separuh di antara halaman. Jadual panjang bersambung dengan tajuk diulang.",
+        "en": "PDF content is no longer cut in half between pages. Long tables continue with their headings repeated."
+      }
+    ]
+  },
+  {
+    "v": "1.8.7",
+    "d": "2026-11-11",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Website rasmi Kucingku untuk pelawat komputer, dan halaman Dasar Privasi.",
+        "en": "An official Kucingku website for computer visitors, and a Privacy Policy page."
+      },
+      {
+        "t": "imp",
+        "ms": "Link Kucingku yang dikongsi di WhatsApp, Threads dan Facebook kini keluar dengan gambar.",
+        "en": "Kucingku links shared on WhatsApp, Threads and Facebook now show a picture."
+      }
+    ]
+  },
+  {
+    "v": "1.8.6",
+    "d": "2026-11-10",
+    "i": [
+      {
+        "t": "imp",
+        "ms": "Skrin Pasang kini tunjuk contoh paparan app sebelum anda memasang.",
+        "en": "The Install screen now shows what the app looks like before you install it."
+      }
+    ]
+  },
+  {
+    "v": "1.8.5",
+    "d": "2026-11-10",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Backup di iPhone guna butang Kongsi: Simpan ke Fail, WhatsApp atau email.",
+        "en": "Backups on iPhone use the Share button: Save to Files, WhatsApp or email."
+      },
+      {
+        "t": "new",
+        "ms": "Panel Laporkan bila ada masalah dalam app.",
+        "en": "A Report panel when something goes wrong in the app."
+      },
+      {
+        "t": "imp",
+        "ms": "Amaran jelas bahawa data disimpan dalam telefon ini sahaja, dan peringatan backup lebih awal.",
+        "en": "A clear notice that data is stored on this phone only, and earlier backup reminders."
+      },
+      {
+        "t": "fix",
+        "ms": "Fon kini dimuat dengan betul dan gambar kucing boleh dibuang.",
+        "en": "Fonts now load properly and cat photos can be removed."
+      }
+    ]
+  },
+  {
+    "v": "1.8.4",
+    "d": "2026-10-15",
+    "i": [
+      {
+        "t": "imp",
+        "ms": "App boleh dibuka tanpa internet, butang Back Android berfungsi dengan betul, dan telefon diminta menyimpan data secara kekal.",
+        "en": "The app opens without internet, the Android Back button works properly, and the phone is asked to keep data permanently."
+      },
+      {
+        "t": "fix",
+        "ms": "Beberapa kesilapan dalam jadual rawatan dibaiki.",
+        "en": "Several mistakes in the care schedule were fixed."
+      }
+    ]
+  },
+  {
+    "v": "1.8.3",
+    "d": "2026-10-13",
+    "i": [
+      {
+        "t": "fix",
+        "ms": "Skrin Timbang cepat dirapikan.",
+        "en": "The Quick weigh-in screen was tidied up."
+      }
+    ]
+  },
+  {
+    "v": "1.8.2",
+    "d": "2026-10-12",
+    "i": [
+      {
+        "t": "fix",
+        "ms": "Pengguna Samsung Internet dihantar ke Chrome untuk memasang app dengan selamat.",
+        "en": "Samsung Internet users are sent to Chrome to install the app safely."
+      }
+    ]
+  },
+  {
+    "v": "1.8.1",
+    "d": "2026-10-12",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Pembantu pemasangan ke skrin utama dengan langkah bergambar.",
+        "en": "An install helper for the home screen, with picture steps."
+      }
+    ]
+  },
+  {
+    "v": "1.8.0",
+    "d": "2026-10-12",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Ringkasan perbelanjaan dalam Lagi → Perbelanjaan.",
+        "en": "An expense summary in More → Expenses."
+      },
+      {
+        "t": "new",
+        "ms": "Export kalendar (.ics) untuk temujanji dan jadual rawatan.",
+        "en": "Calendar export (.ics) for appointments and the care schedule."
+      }
+    ]
+  },
+  {
+    "v": "1.7.0",
+    "d": "2026-10-12",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Borang maklum balas dalam Setting → Tentang.",
+        "en": "A feedback form in Settings → About."
+      },
+      {
+        "t": "new",
+        "ms": "Statistik penggunaan tanpa nama, tanpa cookie.",
+        "en": "Anonymous usage statistics, without cookies."
+      }
+    ]
+  },
+  {
+    "v": "1.6.0",
+    "d": "2026-10-11",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Tema: mod Sistem, Cerah, Gelap dan lima skema warna pastel.",
+        "en": "Themes: System, Light and Dark modes, and five pastel colour schemes."
+      }
+    ]
+  },
+  {
+    "v": "1.5.0",
+    "d": "2026-10-11",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Kad setiap kucing dan tindakan pantas di Utama.",
+        "en": "A card for every cat and quick actions on Home."
+      }
+    ]
+  },
+  {
+    "v": "1.4.0",
+    "d": "2026-10-11",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Fokus hari ini dan Temujanji seterusnya di Utama.",
+        "en": "Today's focus and Next appointment on Home."
+      }
+    ]
+  },
+  {
+    "v": "1.3.0",
+    "d": "2026-10-11",
+    "i": [
+      {
+        "t": "imp",
+        "ms": "Setting disusun ikut kategori, dan unit berat boleh dipilih.",
+        "en": "Settings are grouped into categories, and the weight unit can be chosen."
+      }
+    ]
+  },
+  {
+    "v": "1.2.0",
+    "d": "2026-10-11",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Halaman Setting dan bahasa English.",
+        "en": "A Settings page and English language."
+      }
+    ]
+  },
+  {
+    "v": "1.1.0",
+    "d": "2026-10-11",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Maklumat vet, lawatan vet, temujanji dan kos.",
+        "en": "Vet details, vet visits, appointments and costs."
+      }
+    ]
+  },
+  {
+    "v": "1.0.0",
+    "d": "2026-10-10",
+    "i": [
+      {
+        "t": "new",
+        "ms": "Versi pertama: profil kucing, berat dengan graf, vaksin, ubat cacing, catatan kesihatan, jadual rawatan, backup dan PDF untuk vet.",
+        "en": "First version: cat profiles, weight with a chart, vaccines, deworming, health notes, care schedule, backup and a PDF for the vet."
+      }
+    ]
+  }
 ]
