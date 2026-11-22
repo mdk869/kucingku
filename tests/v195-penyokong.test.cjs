@@ -31,7 +31,7 @@ test('the QR sheet offers "Saya dah belanja" once configured, and the form has n
   for (const n of ['n', 'anon', 'c', 'm', 'ok']) assert.match(h, new RegExp(`name="${n}"`));
   assert.match(h, /name="m" maxlength="80" required/);
   assert.match(h, /name="ok" checked/);
-  assert.match(h, /Jumlah sumbangan tidak pernah dipaparkan/);
+  assert.match(h, /Jumlah sumbangan tidak dipaparkan/);
   assert.match(h, /Langkau/);
 });
 
