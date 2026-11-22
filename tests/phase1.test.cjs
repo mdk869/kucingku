@@ -215,7 +215,7 @@ test('calendar screen toggles options and ignores unknown keys; Home appointment
   a.run("calTog('a')");
   assert.equal(a.json('calO.a'), false);
   a.run("calTog('zzz')");
-  assert.deepEqual(a.json('calO'), { a: false, t: true });
+  assert.deepEqual(a.json('calO'), { a: false, t: true, u: true });
   assert.match(a.run('apptCard()'), /data-action="calOne" data-id="r6"/);
   assert.ok(!/onclick=/.test(a.run('calv()') + a.run('apptCard()')));
 });
