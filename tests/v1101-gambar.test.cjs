@@ -32,3 +32,23 @@ test('crop texts are translated', () => {
   const a = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
   assert.deepEqual(a.json('["Laraskan gambar","Guna gambar","Tukar gambar","Pilih gambar","Buang","Putar","Jadual ubat"].map(trs)'), ['Adjust photo', 'Use photo', 'Change photo', 'Choose photo', 'Remove', 'Rotate', 'Medicine schedule']);
 });
+
+test('record lists show the 5 newest with Tunjuk semua, graph keeps all', () => {
+  const recs = Array.from({ length: 12 }, (_, i) => ({ id: 'w' + i, cat: 'a', type: 'berat', date: `2026-10-${String(i + 1).padStart(2, '0')}`, val: 3000 + i * 10 }));
+  const a = app({ data: { version: 2, bk: 0, cats: [{ id: 'a', name: 'Mochi', sex: 'Jantan' }], vets: [], recs } });
+  a.run("cid='a';tab='berat';RALL=null");
+  let h = a.run('catv()');
+  assert.equal((h.match(/data-action="delRec"/g) || []).length, 5);
+  assert.match(h, /data-action="recAll">Tunjuk semua \(12\)</);
+  assert.match(h, /3\.11 kg|3110 g/, 'newest weight shown');
+  a.run("clickActions.recAll()");
+  h = a.run('catv()');
+  assert.equal((h.match(/data-action="delRec"/g) || []).length, 12);
+  assert.match(h, /Tunjuk 5 terkini/);
+  a.run("clickActions.tab({dataset:{tab:'berat'}})");
+  assert.equal((a.run('catv()').match(/data-action="delRec"/g) || []).length, 5, 'tab change collapses');
+  a.run("tab='vaksin'");
+  assert.doesNotMatch(a.run('catv()'), /recAll/, 'no button with 5 or fewer records');
+  const en = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
+  assert.deepEqual(en.json('["Tunjuk semua (12)","Tunjuk 5 terkini"].map(trs)'), ['Show all (12)', 'Show latest 5']);
+});

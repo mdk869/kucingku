@@ -10,6 +10,11 @@
       },
       {
         "t": "imp",
+        "ms": "Senarai rekod lebih kemas: tunjuk 5 rekod terkini, tekan Tunjuk semua untuk lihat semuanya. Graf berat masih guna semua rekod.",
+        "en": "Tidier record lists: the 5 latest records are shown; tap Show all to see everything. The weight chart still uses all records."
+      },
+      {
+        "t": "imp",
         "ms": "Ubat berjalan kini dinamakan Jadual ubat.",
         "en": "Ongoing medicine is now called Medicine schedule."
       }
