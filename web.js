@@ -69,6 +69,7 @@
   // paparan #perubahan dalam /tentang, supaya sw.js tidak perlu diubah (ubah sw.js = popup di telefon).
   var TG = { 'new': ['Baharu', 'tn'], imp: ['Lebih baik', 'ti'], fix: ['Dibaiki', 'tf'] };
   var MS = 'Jan Feb Mac Apr Mei Jun Jul Ogo Sep Okt Nov Dis'.split(' ');
+  var ser = function (v) { return String(v).split('.').slice(0, 2).join('.'); };
   var NEWDAYS = 30, RECENT = 7, CL = null, clErr = false, clF = 'all', clOld = false;
   var laman = document.getElementById('laman'), clv = document.getElementById('perubahan-v'), T0 = document.title;
   function $$(sel) { return Array.prototype.slice.call(document.querySelectorAll(sel)); }
@@ -97,8 +98,8 @@
       var e = CL.filter(function (x) { return x.v === card.getAttribute('data-v'); })[0];
       var old = card.querySelector('.nb'); if (old) old.remove();
       card.classList.remove('hasnb');
-      // Lencana hanya untuk kad versi terkini (dan hilang 30 hari selepas versi itu).
-      if (!e || e.v !== CL[0].v || age(e.d) > NEWDAYS) return;
+      // Lencana hanya untuk kad siri versi terkini (cth. 1.10.x), hilang 30 hari selepas versi kad itu.
+      if (!e || ser(e.v) !== ser(CL[0].v) || age(e.d) > NEWDAYS) return;
       var imp = card.getAttribute('data-t') === 'imp';
       var b = el('span', 'tg nb ' + (imp ? 'ti' : 'tn'), imp ? 'Lebih baik' : 'Baharu');
       card.appendChild(b); card.classList.add('hasnb');

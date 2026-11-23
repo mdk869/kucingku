@@ -10,6 +10,7 @@ const root = path.join(__dirname, '..');
 const read = f => fs.readFileSync(path.join(root, f), 'utf8');
 const CL = JSON.parse(read('changelog.json'));
 
+const SER = v => v.split('.').slice(0, 2).join('.');
 test('website changes do not touch the app (no update popup on phones)', () => {
   const ver = source.match(/const VER='([\d.]+)'/)[1];
   assert.equal(CL[0].v, ver, 'changelog top entry = app version');
@@ -37,7 +38,7 @@ test('every feature card with a version points to a real changelog entry', () =>
   assert.ok(cards.length >= 6);
   for (const [, v] of cards) assert.ok(CL.some(e => e.v === v), v);
   assert.equal((h.match(/<article class="f"/g) || []).length, 12);
-  const top = CL[0].v;
+  const top = CL.find(e => e.v.split('.').slice(0, 2).join('.') === CL[0].v.split('.').slice(0, 2).join('.') && e.i.some(x => x.t === 'new')).v;
   for (const n of ['Jadual ubat', 'Sesi vet', 'Jika saya hilang']) assert.match(h, new RegExp(`<article class="f" data-v="${top.replace(/\./g, '\\.')}" data-t="new">.*?${n}`), n);
   assert.doesNotMatch(h, /Ubat berjalan/, 'website uses the new name Jadual ubat');
 });
@@ -67,7 +68,7 @@ function fakeDom(hash) {
     all.push(e); return e;
   };
   ['[data-ver]', '[data-ver-f]', '[data-newpill]', '[data-newtext]', '[data-wn]', '[data-wnl]', '[data-wnh]', '[data-cll]', '[data-clmore]', '[data-cle]', '[data-clerr]'].forEach(s => { els[s] = mk(s); });
-  const cards = [mk('.f', { 'data-v': CL[0].v, 'data-t': 'new' }), mk('.f', { 'data-v': CL[0].v, 'data-t': 'imp' }), mk('.f', { 'data-v': CL[1].v, 'data-t': 'new' }), mk('.f', { 'data-v': '1.0.0', 'data-t': 'new' })];
+  const cards = [mk('.f', { 'data-v': CL[0].v, 'data-t': 'new' }), mk('.f', { 'data-v': CL[0].v, 'data-t': 'imp' }), mk('.f', { 'data-v': CL.find(e => SER(e.v) !== SER(CL[0].v)).v, 'data-t': 'new' }), mk('.f', { 'data-v': '1.0.0', 'data-t': 'new' }), mk('.f', { 'data-v': (CL.find((e, i) => i > 0 && SER(e.v) === SER(CL[0].v)) || CL[0]).v, 'data-t': 'new' })];
   const chips = ['all', 'new', 'imp', 'fix'].map(f => { const b = mk('btn', { 'data-f': f }); b.span = mk('span'); return b; });
   const laman = mk('#laman'); laman.hidden = false; const clv = mk('#perubahan-v');
   const document = {
@@ -103,7 +104,8 @@ test('web.js fills version, latest box and 30-day badges from changelog.json', a
   const badge = c => (c.children.find(x => /nb/.test(x.className)) || {}).textContent;
   assert.equal(badge(d.cards[0]), 'Baharu');
   assert.equal(badge(d.cards[1]), 'Lebih baik');
-  assert.equal(badge(d.cards[2]), undefined, 'only the latest version gets badges');
+  assert.equal(badge(d.cards[2]), undefined, 'only the latest version series gets badges');
+  assert.equal(badge(d.cards[4]), 'Baharu', 'an earlier patch of the same series (1.10.x) keeps its badge');
   assert.equal(badge(d.cards[3]), undefined, 'old version gets no badge');
   assert.equal(d.laman.hidden, false);
 });

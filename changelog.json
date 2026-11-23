@@ -1,12 +1,28 @@
 [
   {
+    "v": "1.10.1",
+    "d": "2026-11-23",
+    "i": [
+      {
+        "t": "imp",
+        "ms": "Gambar kucing boleh dilaraskan: seret dan cubit supaya muka kucing tepat dalam bulatan. Gambar disimpan kecil (400 × 400) supaya jimat storan.",
+        "en": "Cat photos can be adjusted: drag and pinch so your cat's face fits the circle. Photos are saved small (400 × 400) to save storage."
+      },
+      {
+        "t": "imp",
+        "ms": "Ubat berjalan kini dinamakan Jadual ubat.",
+        "en": "Ongoing medicine is now called Medicine schedule."
+      }
+    ]
+  },
+  {
     "v": "1.10.0",
     "d": "2026-11-22",
     "i": [
       {
         "t": "new",
-        "ms": "Ubat berjalan: rekod ubat yang vet beri, berapa kali sehari dan berapa hari. Dos hari ini muncul dalam Fokus hari ini, tekan Diberi atau Terlepas.",
-        "en": "Ongoing medicine: record medicine from the vet, how many times a day and for how many days. Today's doses appear in Today's focus; tap Given or Missed."
+        "ms": "Jadual ubat: rekod ubat yang vet beri, berapa kali sehari dan berapa hari. Dos hari ini muncul dalam Fokus hari ini, tekan Diberi atau Terlepas.",
+        "en": "Medicine schedule: record medicine from the vet, how many times a day and for how many days. Today's doses appear in Today's focus; tap Given or Missed."
       },
       {
         "t": "new",
