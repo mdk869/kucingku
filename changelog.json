@@ -39,6 +39,21 @@
         "en": "The next appointment date in a vaccine record now shows in Next appointment and the calendar, just like Vet visit."
       },
       {
+        "t": "new",
+        "ms": "Stok boleh ditanda Tak guna lagi (cth. kucing tak suka). Sejarah beli disimpan dalam Dah tak guna.",
+        "en": "Stock can be marked No longer using (e.g. cat didn't like it). Purchase history is kept under No longer used."
+      },
+      {
+        "t": "imp",
+        "ms": "Stok di Utama lebih jelas: Dah habis? dan Hampir habis dipisahkan. Masih ada? Tekan Masih ada.",
+        "en": "Clearer stock on Home: Run out? and Running low are shown apart. Still have some? Tap Still have some."
+      },
+      {
+        "t": "imp",
+        "ms": "Akan datang di Utama lebih pendek: 7 hari sahaja, dikumpul ikut tarikh. Selebihnya dalam Jadual.",
+        "en": "Shorter Upcoming on Home: the next 7 days only, grouped by date. The rest is in Schedule."
+      },
+      {
         "t": "fix",
         "ms": "Vaksin bukan utama (cth. FeLV sahaja) tidak lagi dikira sebagai dos vaksin utama.",
         "en": "Non-core vaccines (e.g. FeLV only) no longer count as a core vaccine dose."

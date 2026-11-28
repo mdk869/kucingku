@@ -31,7 +31,7 @@ test('one purchase uses the first guess; later purchases teach the app how long 
 test('Home warns about stock running low (3 days or less) and Lagi shows the count', () => {
   const { a } = mk(add => [{ id: 's1', k: 'pasir', est: 21, buys: [B(add, -19)] }, { id: 's2', k: 'kering', est: 30, buys: [B(add, -2)] }]);
   const h = a.json('home()');
-  assert.match(h, /Stok hampir habis[\s\S]*Pasir[\s\S]*Anggaran habis dalam ±2 hari[\s\S]*data-action="buyForm" data-id="s1"/);
+  assert.match(h, /Hampir habis<\/div>[\s\S]*Pasir[\s\S]*Habis dalam ±2 hari[\s\S]*data-action="buyForm" data-id="s1"/);
   assert.doesNotMatch(h, /Makanan kering/);
   assert.match(a.json('morev()'), /data-view="stok"[\s\S]*1 hampir habis/);
 });

@@ -76,8 +76,9 @@ test('a rabies shot recorded today is shown as Vaksin rabies', () => {
 
 test('"Akan datang" only lists items from tomorrow onwards', () => {
   const a = world();
-  const upcoming = html(a, 'home()').split('<h2>Akan datang</h2>')[1];
-  assert.ok(upcoming.includes('class="row"'));
+  const upcoming = html(a, 'home()').split('<b>Akan datang</b>')[1];
+  assert.ok(upcoming.includes('class="row upr"'));
+  assert.match(upcoming, /data-view="jd">Lihat semua dalam Jadual \(\d+\) ›/);
   assert.doesNotMatch(upcoming, /class="pill[^"]*">(?:Hari ini|Lewat)/);
 });
 

@@ -155,3 +155,49 @@ test('vaccine record: next date from the vet becomes an appointment, kept in ste
   const en = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
   assert.deepEqual(en.json('["9 selesai hari ini","Isi Sesi vet","Tanda selesai sahaja","Temujanji seterusnya (pilihan)"].map(trs)'), ['9 done today', 'Fill in vet visit', 'Just mark as done', 'Next appointment (optional)']);
 });
+
+test('Akan datang on Home: 7 days only, grouped by date, one row for the same task across cats', () => {
+  const today = app().run('td()'), add = n => app().run(`addD(td(),${n})`);
+  const cats = ['m', 'o', 'c'].map((id, i) => ({ id, name: ['Mochi', 'Oreo', 'Michan'][i], sex: 'Jantan', dob: '2026-07-01' }));
+  const recs = cats.flatMap(c => [{ id: 'w' + c.id, cat: c.id, type: 'berat', date: today, val: 1600 }, { id: 'd' + c.id, cat: c.id, type: 'cacing', date: today, name: 'X' }, { id: 'v' + c.id, cat: c.id, type: 'vaksin', date: today, name: 'F4' }]);
+  const a = app({ data: { version: 2, bk: 0, cats, vets: [], recs } });
+  const all = a.json('upGroup(tasks().filter(x=>x.d>0))');
+  const h = a.run('upHome(tasks())');
+  const rows = h.match(/class="row upr"/g) || [];
+  assert.ok(rows.length < a.json('tasks().filter(x=>x.d>0&&x.d<=7).length') || rows.length === 0, 'grouped rows are fewer than raw tasks');
+  assert.match(h, new RegExp(`Lihat semua dalam Jadual \\(${all.length}\\)`));
+  for (const x of all) if (x.cs.length > 1) assert.ok(x.cs.length <= 3);
+});
+
+test('stock on Home: Dah habis? (red, Masih ada snoozes 3 days) vs Hampir habis; Tak guna lagi keeps history', () => {
+  const today = app().run('td()'), add = n => app().run(`addD(td(),${n})`);
+  const stock = [{ id: 's1', k: 'pasir', est: 14, buys: [{ id: 'b1', date: add(-18) }] }, { id: 's2', k: 'kering', name: 'Kitten Kibble', brand: 'Royal Canin', est: 18, buys: [{ id: 'b2', date: add(-19) }] }, { id: 's3', k: 'kering', name: 'Mama Kibble', est: 21, buys: [{ id: 'b3', date: add(-19) }] }];
+  const a = app({ data: { version: 2, bk: 0, cats: [{ id: 'm', name: 'Mochi' }], vets: [], recs: [], stock } });
+  let h = a.run('stHome()');
+  assert.match(h, /Dah habis\?<\/div>[\s\S]*Pasir[\s\S]*Sepatutnya habis 4 hari lepas[\s\S]*Kitten Kibble[\s\S]*Sepatutnya habis semalam/);
+  assert.match(h, /Hampir habis<\/div>[\s\S]*Mama Kibble[\s\S]*Habis dalam ±2 hari/);
+  assert.match(h, /data-action="stSnz" data-id="s1"/);
+  assert.doesNotMatch(h, /data-action="stSnz" data-id="s3"/, 'no Masih ada for low stock');
+  a.run("stSnz('s1')");
+  assert.equal(a.json("S.stock[0].snz"), add(3));
+  assert.doesNotMatch(a.run('stHome()'), /Pasir/);
+  // Tak guna lagi: reason + note, hidden from Home, folded on the Stok page, history kept.
+  a.run("stOffForm('s2')");
+  assert.match(a.elements.get('#sh').innerHTML, /Kucing tak suka/);
+  a.submit('saveStOff', { r: 'suka', n: 'muntah selepas 3 hari' }, "'s2'");
+  assert.deepEqual(a.json("S.stock[1].off"), { d: today, r: 'suka', n: 'muntah selepas 3 hari' });
+  assert.equal(a.json("S.stock[1].buys.length"), 1);
+  assert.doesNotMatch(a.run('stHome()'), /Kitten Kibble/);
+  let v = a.run('stokv()');
+  assert.match(v, /Dah tak guna \(1\)/); assert.doesNotMatch(v, /stold/);
+  a.run('clickActions.stOffT()');
+  v = a.run('stokv()');
+  assert.match(v, /class="row stold"[\s\S]*Kitten Kibble[\s\S]*Royal Canin[\s\S]*Kucing tak suka[\s\S]*muntah selepas 3 hari[\s\S]*data-action="stBack" data-id="s2"/);
+  const b = app({ raw: a.storage() });
+  assert.deepEqual(b.json("S.stock[1].off"), { d: today, r: 'suka', n: 'muntah selepas 3 hari' });
+  assert.equal(b.json("S.stock[0].snz"), add(3));
+  a.run("stBack('s2')");
+  assert.equal(a.run("S.stock[1].off===undefined"), true);
+  const en = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
+  assert.deepEqual(en.json('["Sepatutnya habis 4 hari lepas","Habis dalam ±2 hari","Dah tak guna (2)","Lihat semua dalam Jadual (12)","Kucing tak suka"].map(trs)'), ['Should have run out 4 days ago', 'Runs out in ±2 days', 'No longer used (2)', 'See all in Schedule (12)', "Cat didn't like it"]);
+});
