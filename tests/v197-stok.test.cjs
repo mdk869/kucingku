@@ -47,7 +47,9 @@ test('buying a different brand starts a 7-day switch unless "just this once" is 
   const T = a.run('td()');
   a.submit('saveBuy', { brand: 'Brand B', var: 'kitten', qty: '1.5 kg', cost: '25', date: T, n: '1', tr: '1' }, "'s1'");
   assert.equal(a.json('S.stock[0].brand'), 'Brand B');
-  assert.deepEqual(a.json('S.stock[0].tr'), { f: 'Brand A', t: 'Brand B', d: T });
+  const tr = a.json('S.stock[0].tr'), h = tr.h; delete tr.h;
+  assert.deepEqual(tr, { f: 'Brand A', t: 'Brand B', d: T });
+  assert.equal(a.json(`S.stock.find(x=>x.id==='${h}').off.r`), 'jenama', 'old brand kept as history');
   assert.equal(a.json('S.stock[0].buys.at(-1).tr'), 1);
   const b = mk();
   b.submit('saveBuy', { brand: 'Brand C', var: '', qty: '', cost: '', date: T, n: '2', tr: '0' }, "'s1'");

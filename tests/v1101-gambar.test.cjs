@@ -10,7 +10,7 @@ test('profile form shows a round photo preview with Tukar gambar / Buang', () =>
   a.run("try{catForm('oreo1')}catch(e){}");
   const h = a.elements.get('#sh').innerHTML;
   assert.match(h, /class="pha" id="phav"><img/);
-  assert.match(h, /Tukar gambar<input type="file" accept="image\/\*" data-change="pic" class="vh">/);
+  assert.match(h, /Tukar gambar<input type="file" accept="image\/\*" data-change="pic" class="vhid">/);
   assert.match(h, /data-action="picDel">Buang</);
   assert.match(h, /id="phsz">\d+ KB</);
   a.run("try{catForm('mochi2')}catch(e){}");
@@ -200,4 +200,51 @@ test('stock on Home: Dah habis? (red, Masih ada snoozes 3 days) vs Hampir habis;
   assert.equal(a.run("S.stock[1].off===undefined"), true);
   const en = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
   assert.deepEqual(en.json('["Sepatutnya habis 4 hari lepas","Habis dalam ±2 hari","Dah tak guna (2)","Lihat semua dalam Jadual (12)","Kucing tak suka"].map(trs)'), ['Should have run out 4 days ago', 'Runs out in ±2 days', 'No longer used (2)', 'See all in Schedule (12)', "Cat didn't like it"]);
+});
+
+test('vet phone: mobile numbers get Telefon + WhatsApp, landlines only Telefon', () => {
+  const a = app();
+  assert.deepEqual(a.json("vTel({tel:'012-345 6789'})"), { tel: '0123456789', wa: '60123456789' });
+  assert.deepEqual(a.json("vTel({tel:'011-2345 6789'})"), { tel: '01123456789', wa: '601123456789' });
+  assert.deepEqual(a.json("vTel({tel:'+60 12-345 6789'})"), { tel: '+60123456789', wa: '60123456789' });
+  assert.equal(a.json("vTel({tel:'03-3289 1234'})").wa, '');
+  assert.equal(a.run("vTel({tel:''})"), null);
+  assert.match(a.run("vBtns({tel:'012-3456789'})"), /tel:0123456789[\s\S]*https:\/\/wa\.me\/60123456789[\s\S]*WhatsApp/);
+  assert.doesNotMatch(a.run("vBtns({tel:'03-32891234'})"), /wa\.me/);
+  const today = a.run('td()');
+  const b = app({ data: { version: 2, bk: 0, cats: [{ id: 'm', name: 'Mochi' }], vets: [{ id: 'v1', name: 'The Animal Clinic Ijok', tel: '012-345 6789', main: true }], recs: [{ id: 'ap', cat: 'm', type: 'lawatan', date: today, time: '15:00', clinic: 'v1', name: 'Vaksin' }] } });
+  assert.match(b.run('qactions()'), /data-action="vetCall" data-id="v1"[\s\S]*Hubungi vet/);
+  b.run("vetCall('v1')");
+  assert.match(b.elements.get('#sh').innerHTML, /Telefon[\s\S]*WhatsApp/);
+  assert.match(b.run('apptCard()'), /wa\.me\/60123456789\?text=Salam%2C%20saya%20nak%20tanya%20tentang%20temujanji%20Mochi/);
+  b.run("view='vet'"); assert.match(b.run('vetv()'), /wa\.me\/60123456789/);
+});
+
+test('changing brand keeps the old brand as Tak guna lagi · Tukar jenama (no double costs); stopping the switch removes it', () => {
+  const a0 = app(), ago = n => a0.run(`addD(td(),-${n})`), T = a0.run('td()');
+  const mk = () => app({ data: { version: 2, bk: 0, cats: [{ id: 'm', name: 'Mochi' }], vets: [], recs: [], stock: [{ id: 's1', k: 'kering', name: 'Kitten Kibble', brand: 'Royal Canin', est: 14, buys: [{ id: 'b1', date: ago(30), cost: 40, qty: '2 kg' }, { id: 'b2', date: ago(15), cost: 40 }] }] } });
+  const a = mk();
+  const cost0 = a.json('stCosts().length');
+  a.submit('saveBuy', { brand: 'Me-O', var: '', qty: '1.2 kg', cost: '25', date: T, n: '1', tr: '1' }, "'s1'");
+  const h = a.json("S.stock.find(x=>x.off)");
+  assert.equal(h.brand, 'Royal Canin'); assert.equal(h.name, 'Kitten Kibble'); assert.deepEqual(h.off, { d: T, r: 'jenama' });
+  assert.equal(h.buys.length, 2); assert.ok(h.buys.every(b => b.cost === undefined));
+  assert.equal(a.json('stCosts().length'), cost0 + 1, 'only the new purchase adds a cost');
+  a.run('SOFF=true'); assert.match(a.run('stokv()'), /Royal Canin[\s\S]*Tukar jenama/);
+  const b = app({ raw: a.storage() }); assert.equal(b.json("S.stock[0].tr.h"), h.id);
+  a.run("trEnd('s1',true)"); a.run('clickActions.confirm&&clickActions.confirm()');
+  assert.equal(a.json("S.stock.filter(x=>x.off).length"), 0, 'stopping the switch keeps the old brand, so no history');
+  // Editing the brand directly also records history.
+  const c = mk();
+  c.submit('saveStok', { k: 'kering', name: 'Kitten Kibble', brand: 'Whiskas', var: '', est: '14' }, "'s1'");
+  assert.equal(c.json("S.stock.find(x=>x.off).brand"), 'Royal Canin');
+});
+
+test('v1.10.1 CSS class names are new and defined once (no clash with older classes such as .vh, .upn, .uph)', () => {
+  const h = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+  for (const c of ['vhid', 'pha', 'phb', 'phl', 'phz', 'crp', 'crh', 'cri', 'crv', 'crm', 'cra', 'lmore', 'vkf', 'vkc', 'vkx', 'vki', 'avs', 'fdn', 'fdl', 'apc', 'apk', 'apa', 'sto', 'stws', 'stbb', 'stofh', 'stold', 'upkd', 'upk-all', 'upr', 'vca']) {
+    const n = (h.match(new RegExp(`(^|[}\\n])\\.${c}\\{`, 'g')) || []).length;
+    assert.equal(n, 1, `.${c} defined ${n} times`);
+  }
+  assert.match(h, /\.vh\{display:flex/, 'vet card header keeps its own .vh');
 });

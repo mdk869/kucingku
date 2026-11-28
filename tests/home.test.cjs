@@ -91,7 +91,8 @@ test('Next appointment picks the earliest upcoming visit and links the clinic', 
   assert.match(c, /5 hari lagi/);
   assert.match(c, /10:30/);
   assert.match(c, /PetCare Hospital/);
-  assert.match(c, /href="tel:03-12345678"/);
+  assert.match(c, /href="tel:0312345678"/);
+  assert.doesNotMatch(c, /wa\.me/, 'landline: call only');
   assert.match(c, /href="https:\/\/www\.google\.com\/maps\/search\/\?api=1&amp;query=PetCare%20Hospital%20Main%20Street%201"/);
   assert.match(c, /data-action="openCat" data-id="a" data-tab="lawatan"/);
 });

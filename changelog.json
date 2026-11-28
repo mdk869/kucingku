@@ -40,8 +40,8 @@
       },
       {
         "t": "new",
-        "ms": "Stok boleh ditanda Tak guna lagi (cth. kucing tak suka). Sejarah beli disimpan dalam Dah tak guna.",
-        "en": "Stock can be marked No longer using (e.g. cat didn't like it). Purchase history is kept under No longer used."
+        "ms": "Stok boleh ditanda Tak guna lagi (cth. kucing tak suka). Bila tukar jenama, jenama lama disimpan sendiri dalam Dah tak guna.",
+        "en": "Stock can be marked No longer using (e.g. cat didn't like it). When you change brand, the old brand is kept under No longer used."
       },
       {
         "t": "imp",
@@ -52,6 +52,11 @@
         "t": "imp",
         "ms": "Akan datang di Utama lebih pendek: 7 hari sahaja, dikumpul ikut tarikh. Selebihnya dalam Jadual.",
         "en": "Shorter Upcoming on Home: the next 7 days only, grouped by date. The rest is in Schedule."
+      },
+      {
+        "t": "imp",
+        "ms": "Hubungi vet: nombor telefon bimbit boleh Telefon atau WhatsApp. Talian tetap hanya Telefon.",
+        "en": "Contact vet: mobile numbers can Call or WhatsApp. Landlines can only Call."
       },
       {
         "t": "fix",
