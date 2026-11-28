@@ -38,8 +38,12 @@ test('every feature card with a version points to a real changelog entry', () =>
   assert.ok(cards.length >= 6);
   for (const [, v] of cards) assert.ok(CL.some(e => e.v === v), v);
   assert.equal((h.match(/<article class="f"/g) || []).length, 12);
-  const top = CL.find(e => e.v.split('.').slice(0, 2).join('.') === CL[0].v.split('.').slice(0, 2).join('.') && e.i.some(x => x.t === 'new')).v;
-  for (const n of ['Jadual ubat', 'Sesi vet', 'Jika saya hilang']) assert.match(h, new RegExp(`<article class="f" data-v="${top.replace(/\./g, '\\.')}" data-t="new">.*?${n}`), n);
+  // Cards still badged must belong to the current version series (e.g. 1.10.x).
+  const ser = v => v.split('.').slice(0, 2).join('.');
+  for (const n of ['Jadual ubat', 'Sesi vet', 'Jika saya hilang']) {
+    const m = h.match(new RegExp(`<article class="f" data-v="([\\d.]+)" data-t="new">(?:(?!</article>).)*?${n}`, 's'));
+    assert.ok(m, n); assert.equal(ser(m[1]), ser(CL[0].v), n);
+  }
   assert.doesNotMatch(h, /Ubat berjalan/, 'website uses the new name Jadual ubat');
 });
 
