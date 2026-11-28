@@ -13,7 +13,7 @@ const mk = () => {
   const a = app({ data });
   return { a, D };
 };
-const full = (D, x = {}) => ({ cats: ['m1', 'm2', 'm3'], date: D(0), clinic: 'v1', dv: 'on', vt: 'F3 (Tricat)', brand: 'Felocell 3', batch: 'A123B', dw: 'on', wn: 'Drontal Cat', dt: 'on', w_m1: '1.62', w_m2: '1.48', w_m3: '', nx: D(21), nt: '10:30', cost: '100', note: 'Semua sihat', ...x });
+const full = (D, x = {}) => ({ cats: ['m1', 'm2', 'm3'], date: D(0), clinic: 'v1', dv: 'on', vko: '', vk: 'c', vkn: '', brand: 'Felocell 3', batch: 'A123B', dw: 'on', wn: 'Drontal Cat', dt: 'on', w_m1: '1.62', w_m2: '1.48', w_m3: '', nx: D(21), nt: '10:30', cost: '100', note: 'Semua sihat', ...x });
 
 test('＋ Tambah has a Sesi vet button, and the form starts with the chosen cat and shows the dose by records', () => {
   const { a } = mk();
@@ -41,7 +41,7 @@ test('saving a visit makes the usual records for every cat, splits the cost once
     assert.equal(by(c, 'lawatan').length, 2, 'the visit itself and the next appointment');
   }
   const v = by('m1', 'vaksin')[0];
-  assert.equal(v.name, 'F3 (Tricat)');
+  assert.equal(v.name, 'F3', 'type comes from the sticker name');
   assert.equal(v.brand, 'Felocell 3');
   assert.equal(v.batch, 'A123B');
   assert.equal(v.nx, D(21));
@@ -51,7 +51,7 @@ test('saving a visit makes the usual records for every cat, splits the cost once
   const visits = R.filter(r => r.type === 'lawatan' && r.done === 1);
   assert.equal(visits.length, 3);
   assert.deepEqual(visits.map(r => r.cost), [33.34, 33.33, 33.33], 'RM 100 split evenly, counted once');
-  assert.match(visits[0].note, /Vaksin F3 \(Tricat\), Ubat cacing Drontal Cat, Timbang\. Semua sihat/);
+  assert.match(visits[0].note, /Vaksin F3, Ubat cacing Drontal Cat, Timbang\. Semua sihat/);
   const appt = R.filter(r => r.type === 'lawatan' && !r.done);
   assert.equal(appt[0].date, D(21));
   assert.equal(appt[0].time, '10:30');
@@ -87,14 +87,13 @@ test('the visit form checks its fields', () => {
   const msg = x => { a.submit('saveSv', full(D, x)); return a.json('messages').at(-1); };
   assert.equal(msg({ cats: [] }), 'Pilih sekurang-kurangnya seekor kucing');
   assert.equal(msg({ dv: '', dw: '', dt: '', do: '' }), 'Tanda sekurang-kurangnya satu perkara yang dibuat');
-  assert.equal(msg({ vt: 'lain', vtx: '' }), 'Masukkan nama vaksin');
   assert.equal(msg({ wn: '' }), 'Masukkan nama ubat cacing');
   assert.equal(msg({ do: 'on', on: '' }), 'Tulis rawatan lain yang diberi');
   assert.equal(msg({ w_m1: '45000' }), 'Berat Mochi mesti antara 1 g hingga 30 kg');
   assert.equal(msg({ nx: D(0) }), 'Tarikh temujanji mesti selepas tarikh sesi');
   assert.equal(msg({ date: D(3) }), 'Masukkan tarikh sesi yang sah, hari ini atau sebelumnya');
   assert.equal(a.json('S.recs.length'), 3, 'nothing saved while invalid');
-  a.submit('saveSv', full(D, { vt: 'lain', vtx: 'F5', dw: '', dt: '' }));
+  a.submit('saveSv', full(D, { brand: 'Purevax RCPCh FeLV', dw: '', dt: '' }));
   assert.equal(a.json("S.recs.find(r=>r.sv&&r.type==='vaksin').name"), 'F5');
 });
 

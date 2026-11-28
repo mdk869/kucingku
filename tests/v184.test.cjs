@@ -51,7 +51,8 @@ test('a vaccine tile prefills only the vaccine name, never the notes', () => {
   const a = app();
   a.run("recForm('','vaksin','F3 (Tricat)')");
   const html = a.elements.get('#sh').innerHTML;
-  assert.match(html, /name="name"[^>]*value="F3 \(Tricat\)"/);
+  assert.match(html, /<b>F3 · vaksin utama<\/b>/);
+  assert.match(html, /name="vkh" value="F3 \(Tricat\)"/);
   assert.match(html, /name="note" value=""/);
 });
 

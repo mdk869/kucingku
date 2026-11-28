@@ -52,3 +52,50 @@ test('record lists show the 5 newest with Tunjuk semua, graph keeps all', () => 
   const en = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
   assert.deepEqual(en.json('["Tunjuk semua (12)","Tunjuk 5 terkini"].map(trs)'), ['Show all (12)', 'Show latest 5']);
 });
+
+test('vaccine type comes from the sticker name; owners never need to know F3/F4', () => {
+  const a = app();
+  const det = s => a.json(`vxDet(${JSON.stringify(s)})`);
+  assert.equal(det('Felocell 4').n, 'F4');
+  assert.equal(det('Felocell 3').n, 'F3');
+  assert.equal(det('Purevax RCPCh').n, 'F4');
+  assert.equal(det('Purevax RCP').n, 'F3');
+  assert.equal(det('Purevax RCPCh FeLV').n, 'F5');
+  assert.equal(det('Nobivac Tricat Trio').n, 'F3');
+  assert.equal(det('Rabisin').n, 'Rabies');
+  assert.equal(det('Purevax RCP Rabies').n, 'F3 + Rabies');
+  assert.equal(det('Purevax FeLV').k, 'x');
+  assert.equal(det('Ubat entah'), null);
+  assert.equal(det(''), null);
+  // No sticker: chips decide; default is core.
+  assert.deepEqual(a.json("vkVal({brand:'',vko:'1',vk:'c',vkn:''})"), { name: 'Vaksin utama' });
+  assert.deepEqual(a.json("vkVal({brand:'',vko:'1',vk:'r',vkn:''})"), { name: 'Rabies' });
+  assert.deepEqual(a.json("vkVal({brand:'',vko:'1',vk:'x',vkn:'Bordetella'})"), { name: 'Bordetella', vk: 'x' });
+  // Owner pressed Tukar (vko=2): their choice wins over the sticker.
+  assert.deepEqual(a.json("vkVal({brand:'Felocell 4',vko:'2',vk:'r',vkn:''})"), { name: 'Rabies' });
+  // Schedule: core counts, other vaccines do not.
+  assert.equal(a.run("isCore({name:'Vaksin utama'})"), true);
+  assert.equal(a.run("isCore({name:'F4'})"), true);
+  assert.equal(a.run("isCore({name:'Bordetella',vk:'x'})"), false);
+  assert.equal(a.run("isCore({name:'FeLV'})"), false, 'old FeLV-only records no longer count as core');
+  assert.equal(a.run("isCore({name:'F3 + FeLV'})"), true);
+});
+
+test('vaccine form saves the detected type and keeps vk through backup', () => {
+  const a = app({ data: { version: 2, bk: 0, cats: [{ id: 'a', name: 'Mochi', sex: 'Jantan', dob: '2026-08-01' }], vets: [], recs: [] } });
+  a.run("cid='a'");
+  a.submit('saveRec', { date: '2026-10-10', brand: 'Felocell 4', vko: '', vk: 'c', vkn: '', vkh: '', batch: '855336', nx: '2026-11-07', note: '' }, "'','vaksin'");
+  let r = a.json("S.recs[0]");
+  assert.equal(r.name, 'F4'); assert.equal(r.brand, 'Felocell 4'); assert.equal(r.vk, undefined); assert.equal(r.vko, undefined);
+  a.submit('saveRec', { date: '2026-10-10', brand: '', vko: '1', vk: 'x', vkn: 'Bordetella', vkh: '' }, "'','vaksin'");
+  r = a.json("S.recs[1]");
+  assert.equal(r.name, 'Bordetella'); assert.equal(r.vk, 'x');
+  const b = app({ raw: a.storage() });
+  assert.equal(b.json("S.recs[1].vk"), 'x');
+  b.run("cid='a';recForm(S.recs[1].id)");
+  const h = b.elements.get('#sh').innerHTML;
+  assert.match(h, /value="x" data-change="vkUpd" checked/);
+  assert.match(h, /name="vkn" maxlength="60" placeholder="cth. FeLV" value="Bordetella"/);
+  const en = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
+  assert.deepEqual(en.json('["F4 · vaksin utama","Selsema kucing, panleukopenia + Chlamydia","Tak pasti? Pilih Vaksin utama.","F3 + Rabies · vaksin utama + rabies"].map(trs)'), ['F4 · core vaccine', 'Cat flu, panleukopenia + Chlamydia', 'Not sure? Choose Core vaccine.', 'F3 + Rabies · core vaccine + rabies']);
+});

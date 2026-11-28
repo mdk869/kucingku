@@ -1,8 +1,13 @@
 [
   {
     "v": "1.10.1",
-    "d": "2026-11-23",
+    "d": "2026-11-28",
     "i": [
+      {
+        "t": "imp",
+        "ms": "Rekod vaksin lebih mudah: tulis nama pada pelekat vaksin (cth. Felocell 4), app kenal jenisnya sendiri. Tiada pelekat? Pilih Vaksin utama.",
+        "en": "Easier vaccine records: type the name on the vaccine sticker (e.g. Felocell 4) and the app works out the type. No sticker? Choose Core vaccine."
+      },
       {
         "t": "imp",
         "ms": "Gambar kucing boleh dilaraskan: seret dan cubit supaya muka kucing tepat dalam bulatan. Gambar disimpan kecil (400 × 400) supaya jimat storan.",
@@ -17,6 +22,11 @@
         "t": "imp",
         "ms": "Ubat berjalan kini dinamakan Jadual ubat.",
         "en": "Ongoing medicine is now called Medicine schedule."
+      },
+      {
+        "t": "fix",
+        "ms": "Vaksin bukan utama (cth. FeLV sahaja) tidak lagi dikira sebagai dos vaksin utama.",
+        "en": "Non-core vaccines (e.g. FeLV only) no longer count as a core vaccine dose."
       }
     ]
   },
