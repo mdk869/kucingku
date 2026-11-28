@@ -37,7 +37,7 @@ test('due and overdue routines appear in Fokus hari ini and the 30-day schedule'
 
 test('Selesai moves the next date on, and undo restores it the same day', () => {
   const { a, add } = mk(add => [{ id: 'k1', k: 'kuku', iv: 14, last: add(-20) }]);
-  a.run("careDone('a','k1')");
+  a.run("careDone('a','k1')");a.run('FOPEN=true');
   assert.equal(a.json('S.cats[0].care[0].last'), a.json('td()'));
   assert.equal(a.json('careNext(S.cats[0].care[0])'), add(14));
   assert.match(a.json('focus()'), /Selesai/);

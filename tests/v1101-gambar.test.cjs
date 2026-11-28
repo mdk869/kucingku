@@ -88,14 +88,70 @@ test('vaccine form saves the detected type and keeps vk through backup', () => {
   let r = a.json("S.recs[0]");
   assert.equal(r.name, 'F4'); assert.equal(r.brand, 'Felocell 4'); assert.equal(r.vk, undefined); assert.equal(r.vko, undefined);
   a.submit('saveRec', { date: '2026-10-10', brand: '', vko: '1', vk: 'x', vkn: 'Bordetella', vkh: '' }, "'','vaksin'");
-  r = a.json("S.recs[1]");
-  assert.equal(r.name, 'Bordetella'); assert.equal(r.vk, 'x');
+  r = a.json("S.recs.find(x=>x.name==='Bordetella')");
+  assert.equal(r.vk, 'x');
   const b = app({ raw: a.storage() });
-  assert.equal(b.json("S.recs[1].vk"), 'x');
-  b.run("cid='a';recForm(S.recs[1].id)");
+  assert.equal(b.json("S.recs.find(x=>x.name==='Bordetella').vk"), 'x');
+  b.run("cid='a';recForm(S.recs.find(x=>x.name==='Bordetella').id)");
   const h = b.elements.get('#sh').innerHTML;
   assert.match(h, /value="x" data-change="vkUpd" checked/);
   assert.match(h, /name="vkn" maxlength="60" placeholder="cth. FeLV" value="Bordetella"/);
   const en = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
   assert.deepEqual(en.json('["F4 · vaksin utama","Selsema kucing, panleukopenia + Chlamydia","Tak pasti? Pilih Vaksin utama.","F3 + Rabies · vaksin utama + rabies"].map(trs)'), ['F4 · core vaccine', 'Cat flu, panleukopenia + Chlamydia', 'Not sure? Choose Core vaccine.', 'F3 + Rabies · core vaccine + rabies']);
+});
+
+test('Today\'s focus: one row per appointment group; tap opens Isi Sesi vet / Tanda selesai / Tukar tarikh / Batal', () => {
+  const today = app().run('td()');
+  const cats = ['m', 'o', 'c'].map((id, i) => ({ id, name: ['Mochi', 'Oreo', 'Michan'][i], sex: 'Jantan', dob: '2026-07-01' }));
+  const recs = cats.map((c, i) => ({ id: 'ap' + i, cat: c.id, type: 'lawatan', date: today, time: '15:00', clinic: 'v1', name: 'Vaksin & pemeriksaan' }));
+  const a = app({ data: { version: 2, bk: 0, cats, vets: [{ id: 'v1', name: 'The Animal Clinic Ijok', main: true }], recs } });
+  let f = a.run('focus()');
+  assert.equal((f.match(/data-action="apOpen"/g) || []).length, 1, 'three cats, one appointment row');
+  assert.match(f, /<b>Temujanji vet<\/b><span class="mute">Mochi, Oreo, Michan · 15:00/);
+  assert.match(a.run('apptCard()'), /data-action="apOpen" data-id="ap0"[^>]*>.*Selesai/);
+  a.run("apOpen('ap0')");
+  const h = a.elements.get('#sh').innerHTML;
+  for (const s of ['Isi Sesi vet', 'Tanda selesai sahaja', 'Tukar tarikh', 'Batal temujanji', 'Michan']) assert.match(h, new RegExp(s));
+  // Isi Sesi vet: cats, date and clinic filled in; saving marks the whole group done.
+  a.run('apSv()');
+  const sv = a.elements.get('#sh').innerHTML;
+  assert.match(sv, /value="m" data-change="svUpd" checked/); assert.match(sv, /value="c" data-change="svUpd" checked/);
+  assert.match(sv, /name="ap" value="ap0"/);
+  a.submit('saveSv', { cats: ['m', 'o', 'c'], date: today, clinic: 'v1', ap: 'ap0', dw: 'on', wn: 'Vermixel Cat' });
+  assert.deepEqual(a.json("S.recs.filter(r=>r.id.startsWith('ap')).map(r=>r.done)"), [1, 1, 1]);
+  assert.doesNotMatch(a.run('focus()'), /apOpen/);
+  assert.match(a.run('apptCard()'), /Tiada temujanji akan datang/);
+});
+
+test('appointment: Tanda selesai, Tukar tarikh and Batal work on the whole group', () => {
+  const today = app().run('td()');
+  const cats = [{ id: 'm', name: 'Mochi' }, { id: 'o', name: 'Oreo' }];
+  const mk = () => app({ data: { version: 2, bk: 0, cats, vets: [], recs: cats.map((c, i) => ({ id: 'ap' + i, cat: c.id, type: 'lawatan', date: today, name: 'Temujanji vet' })) } });
+  let a = mk(); a.run("apOpen('ap0');apDone()");
+  assert.deepEqual(a.json("S.recs.map(r=>r.done)"), [1, 1]);
+  a = mk(); a.run("apOpen('ap0');apDate()");
+  const nd = a.run("addD(td(),7)");
+  a.submit('saveApDate', { date: nd, time: '10:30' });
+  assert.deepEqual(a.json("S.recs.map(r=>r.date+' '+r.time)"), [nd + ' 10:30', nd + ' 10:30']);
+  a = mk(); a.run("apOpen('ap1');apDel()"); a.run('clickActions.confirm()');
+  assert.equal(a.json('S.recs.length'), 0);
+});
+
+test('vaccine record: next date from the vet becomes an appointment, kept in step with edits', () => {
+  const a = app({ data: { version: 2, bk: 0, cats: [{ id: 'a', name: 'Mochi', dob: '2026-07-01' }], vets: [{ id: 'v1', name: 'Klinik' }], recs: [] } });
+  a.run("cid='a'");
+  a.submit('saveRec', { date: '2026-10-10', brand: 'Felocell 4', vko: '', vk: 'c', vkn: '', vkh: '', nx: '2026-11-07', nt: '15:00', clinic: 'v1', note: '' }, "'','vaksin'");
+  let v = a.json("S.recs.find(r=>r.type==='vaksin')"), ap = a.json("S.recs.find(r=>r.type==='lawatan')");
+  assert.equal(v.ap, ap.id); assert.equal(ap.date, '2026-11-07'); assert.equal(ap.time, '15:00'); assert.equal(ap.clinic, 'v1'); assert.equal(ap.name, 'Temujanji vaksin');
+  assert.match(a.run('apptCard()'), /Temujanji vaksin/);
+  a.run("recForm(S.recs.find(r=>r.type==='vaksin').id)");
+  assert.match(a.elements.get('#sh').innerHTML, /name="nt" type="time" value="15:00"/);
+  a.submit('saveRec', { date: '2026-10-10', brand: 'Felocell 4', vko: '', vk: 'c', vkn: '', vkh: '', nx: '2026-11-14', nt: '', clinic: 'v1', note: '' }, `'${v.id}','vaksin'`);
+  assert.equal(a.json("S.recs.filter(r=>r.type==='lawatan').length"), 1, 'edit moves, does not duplicate');
+  assert.equal(a.json("S.recs.find(r=>r.type==='lawatan').date"), '2026-11-14');
+  a.submit('saveRec', { date: '2026-10-10', brand: 'Felocell 4', vko: '', vk: 'c', vkn: '', vkh: '', nx: '', nt: '', note: '' }, `'${v.id}','vaksin'`);
+  assert.equal(a.json("S.recs.filter(r=>r.type==='lawatan').length"), 0, 'clearing the date removes the appointment');
+  const b = app({ raw: a.storage() }); assert.equal(b.json("S.recs.length"), 1);
+  const en = app({ settings: { v: 1, lang: 'en', bk: 30, unit: 'auto' } });
+  assert.deepEqual(en.json('["9 selesai hari ini","Isi Sesi vet","Tanda selesai sahaja","Temujanji seterusnya (pilihan)"].map(trs)'), ['9 done today', 'Fill in vet visit', 'Just mark as done', 'Next appointment (optional)']);
 });

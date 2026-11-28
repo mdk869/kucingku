@@ -4,6 +4,11 @@
     "d": "2026-11-28",
     "i": [
       {
+        "t": "new",
+        "ms": "Temujanji boleh ditanda selesai: tekan temujanji untuk Isi Sesi vet, Tanda selesai, Tukar tarikh atau Batal.",
+        "en": "Appointments can be marked done: tap one to Fill in vet visit, Mark as done, Change date or Cancel."
+      },
+      {
         "t": "imp",
         "ms": "Rekod vaksin lebih mudah: tulis nama pada pelekat vaksin (cth. Felocell 4), app kenal jenisnya sendiri. Tiada pelekat? Pilih Vaksin utama.",
         "en": "Easier vaccine records: type the name on the vaccine sticker (e.g. Felocell 4) and the app works out the type. No sticker? Choose Core vaccine."
@@ -22,6 +27,16 @@
         "t": "imp",
         "ms": "Ubat berjalan kini dinamakan Jadual ubat.",
         "en": "Ongoing medicine is now called Medicine schedule."
+      },
+      {
+        "t": "imp",
+        "ms": "Fokus hari ini lebih pendek: yang dah selesai dilipat jadi satu baris. Temujanji beberapa kucing pada masa yang sama jadi satu baris.",
+        "en": "Shorter Today's focus: finished items fold into one line. Appointments for several cats at the same time show as one line."
+      },
+      {
+        "t": "imp",
+        "ms": "Tarikh temujanji dalam rekod vaksin kini masuk ke Temujanji seterusnya dan kalendar, sama seperti Sesi vet.",
+        "en": "The next appointment date in a vaccine record now shows in Next appointment and the calendar, just like Vet visit."
       },
       {
         "t": "fix",

@@ -38,6 +38,9 @@ test('the dashboard and its new actions use delegated data-action attributes onl
 
 test('Today\'s focus counts what is due, what is late and what is already done', () => {
   const a = world();
+  assert.match(html(a, 'focus()'), /data-action="fOpen"><i class="cb">✓<\/i><b>1 selesai hari ini<\/b><span class="fdl">Lihat ›/, 'done items are folded by default');
+  assert.equal((html(a, 'focus()').match(/<button class="row fr[^"]*"/g) || []).length, 4);
+  a.run('FOPEN=true');
   const f = html(a, 'focus()');
   assert.match(f, /4 perkara hari ini · 1 lewat/);
   assert.match(f, /1 daripada 5 selesai/);
@@ -67,6 +70,7 @@ test('Today\'s focus reports an empty and a fully finished day', () => {
 test('a rabies shot recorded today is shown as Vaksin rabies', () => {
   const today = app().run('td()');
   const a = app({ data: { version: 2, cats: [{ id: 'a', name: 'Oreo', dob: addDays(today, -45) }], recs: [{ id: 'r1', cat: 'a', type: 'vaksin', date: today, name: 'Rabies' }], vets: [], bk: 0 } });
+  a.run('FOPEN=true');
   assert.match(a.json('focus()'), /Vaksin rabies Oreo/);
 });
 
@@ -174,6 +178,7 @@ test('recording today\'s weight moves the task from pending to done', () => {
   const a = world();
   a.run("cid='c'");
   a.submit('saveRec', { date: a.today, val: '620' }, "'','berat'");
+  a.run('FOPEN=true');
   const f = a.json('focus()');
   assert.match(f, /3 perkara hari ini/);
   assert.match(f, /2 daripada 5 selesai|2 daripada 6 selesai/);

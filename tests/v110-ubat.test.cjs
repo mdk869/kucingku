@@ -29,6 +29,7 @@ test('validation: name, times per day, valid times and 1-90 days', () => {
 test('Home: today\'s doses with Diberi / Terlepas; marking updates progress, undo clears it', () => {
   const a = app({ data: two });
   withForm(a, { name: 'Amoxicillin', dose: '0.5 ml', how: 'mulut', n: '2', t0: '08:00', t1: '20:00', st: T(a), days: '7' }, ['a']);
+  a.run('FOPEN=true');
   let h = a.run('focus()');
   assert.match(h, /Ubat<\/div>/); assert.match(h, /data-action="mGive"/); assert.match(h, /Amoxicillin · 0\.5 ml/); assert.match(h, /hari 1\/7/);
   const id = a.json('S.cats[0].meds[0].id'), k = T(a) + '#0';
